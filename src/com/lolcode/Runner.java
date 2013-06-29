@@ -1,7 +1,12 @@
 package com.lolcode;
 
 
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +23,16 @@ public class Runner {
     }
 
     public void test(){
-
+        try {
+            CharStream cs = new ANTLRFileStream(filename);
+            lolcodeLexer lexer = new lolcodeLexer(cs);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            lolcodeParser parser = new lolcodeParser(tokens);
+            ParseTree tree = parser.file();
+            lolcodeVisitor visitor = new LolcodeVisitorImpl();
+            visitor.visit(tree);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 }
