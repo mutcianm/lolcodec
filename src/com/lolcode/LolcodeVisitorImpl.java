@@ -10,6 +10,7 @@ import com.lolcode.generator.LolVariable;
  * Date: 6/28/13
  * Time: 10:58 PM
  * To change this template use File | Settings | File Templates.
+ * DEDOZ DOES NOT WANT ME TO WRITE BAD WORDS
  */
 public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 
