@@ -1,5 +1,7 @@
-// Generated from /home/miha/Downloads/skype/lolcode.g4 by ANTLR 4.0
+// Generated from C:\ANTLR\lolcode\lolcode.g4 by ANTLR 4.0
+
 package com.lolcode;
+
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -15,6 +17,8 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 
 	@Override public T visitExpr(lolcodeParser.ExprContext ctx) { return visitChildren(ctx); }
 
+	@Override public T visitType(lolcodeParser.TypeContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitAssstat(lolcodeParser.AssstatContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitVisstat(lolcodeParser.VisstatContext ctx) { return visitChildren(ctx); }
@@ -29,9 +33,9 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 
 	@Override public T visitExprList(lolcodeParser.ExprListContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLoopstat(lolcodeParser.LoopstatContext ctx) { return visitChildren(ctx); }
-
 	@Override public T visitOneofexpr(lolcodeParser.OneofexprContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitLoopstat(lolcodeParser.LoopstatContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitFunexpr(lolcodeParser.FunexprContext ctx) { return visitChildren(ctx); }
 

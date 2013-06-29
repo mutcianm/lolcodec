@@ -11,6 +11,7 @@ import com.lolcode.generator.LolVariable;
  * Time: 10:58 PM
  * To change this template use File | Settings | File Templates.
  * DEDOZ DOES NOT WANT ME TO WRITE BAD WORDS
+ * TEST IDEA COMMIT
  */
 public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 

@@ -1,6 +1,7 @@
-// Generated from /home/miha/Downloads/skype/lolcode.g4 by ANTLR 4.0
+// Generated from C:\ANTLR\lolcode\lolcode.g4 by ANTLR 4.0
 
 package com.lolcode;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

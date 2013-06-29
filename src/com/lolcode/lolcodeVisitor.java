@@ -1,5 +1,7 @@
-// Generated from /home/miha/Downloads/skype/lolcode.g4 by ANTLR 4.0
+// Generated from C:\ANTLR\lolcode\lolcode.g4 by ANTLR 4.0
+
 package com.lolcode;
+
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
@@ -13,6 +15,8 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBlock(lolcodeParser.BlockContext ctx);
 
 	T visitExpr(lolcodeParser.ExprContext ctx);
+
+	T visitType(lolcodeParser.TypeContext ctx);
 
 	T visitAssstat(lolcodeParser.AssstatContext ctx);
 
@@ -28,9 +32,9 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitExprList(lolcodeParser.ExprListContext ctx);
 
-	T visitLoopstat(lolcodeParser.LoopstatContext ctx);
-
 	T visitOneofexpr(lolcodeParser.OneofexprContext ctx);
+
+	T visitLoopstat(lolcodeParser.LoopstatContext ctx);
 
 	T visitFunexpr(lolcodeParser.FunexprContext ctx);
 
