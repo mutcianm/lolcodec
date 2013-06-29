@@ -14,8 +14,21 @@ public class LolAbstractVariable implements LolVariable {
 
 
 
-    public LolAbstractVariable(String name){
+    public LolAbstractVariable(String name, String type){
         this.name = name;
+        if (type.equals("NUMBR")) {
+            varType = LolVariable.type.INT;
+
+        } else if (type.equals("YARN")) {
+            varType = LolVariable.type.STRING;
+
+        } else if (type.equals("NUMBAR")) {
+            varType = LolVariable.type.FLOAT;
+
+        } else if (type.equals("TROOF")) {
+            varType = LolVariable.type.BOOL;
+
+        }
     }
     @Override
     public String getStrType() {

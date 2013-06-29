@@ -12,11 +12,11 @@ import java.util.TreeMap;
  * To change this template use File | Settings | File Templates.
  */
 public class LolFunction {
-    public LolFunction(String name, LolVariable[] args){
+    public LolFunction(String name, ArrayList<LolVariable> args){
         body.append("define void @" + name + "(");
-        if(args.length > 0 ){
-            body.append(args[0].getStrType() + " " + args[0].getStrName());
-            addVariable(args[0]);
+        if(args.size() > 0 ){
+            body.append(args.get(0).getStrType() + " " + args.get(0).getStrName());
+            addVariable(args.get(0));
         }
         for(LolVariable v : args){
             body.append(", " + v.getStrType() + " " + v.getStrName());
@@ -73,6 +73,15 @@ public class LolFunction {
             return true;
         }
         return false;
+    }
+
+    public LolVariable getVarByName(String name){
+        for (LolVariable v : symbols.keySet()){
+            if(v.getStrName().equals(name)){
+                return v;
+            }
+        }
+        return null;
     }
 
     private StringBuffer body;
