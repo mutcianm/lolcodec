@@ -58,7 +58,14 @@ public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 
     @Override public T visitBothofexpr(lolcodeParser.BothofexprContext ctx) { return visitChildren(ctx); }
 
-    @Override public T visitAddexpr(lolcodeParser.AddexprContext ctx) { return visitChildren(ctx); }
+    @Override public T visitAddexpr(lolcodeParser.AddexprContext ctx) {
+        LolVariable tmp = new LolAbstractVariable(String.valueOf(currentFunction.symbols.size()+1));
+        currentFunction.addVariable(tmp);
+        LolVariable lhs = (LolVariable)visit(ctx.expr(1));
+        LolVariable rhs = (LolVariable)visit(ctx.expr(3));
+        currentFunction.addAddInst(tmp, lhs, rhs);
+        return (T)tmp;
+    }
 
     @Override public T visitStat(lolcodeParser.StatContext ctx) { return visitChildren(ctx); }
 
