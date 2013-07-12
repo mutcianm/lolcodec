@@ -5,31 +5,30 @@ package com.lolcode.generator;
  * User: miha
  * Date: 6/29/13
  * Time: 12:09 AM
- * To change this template use File | Settings | File Templates.
  */
-public class LolAbstractVariable implements LolVariable {
+public class LolAbstractValue implements LolValue {
     private type varType;
     private String name;
     private Object value;
 
 
-
-    public LolAbstractVariable(String name, String type){
+    public LolAbstractValue(String name, String type) {
         this.name = name;
         if (type.equals("NUMBR")) {
-            varType = LolVariable.type.INT;
+            varType = LolValue.type.INT;
 
         } else if (type.equals("YARN")) {
-            varType = LolVariable.type.STRING;
+            varType = LolValue.type.STRING;
 
         } else if (type.equals("NUMBAR")) {
-            varType = LolVariable.type.FLOAT;
+            varType = LolValue.type.FLOAT;
 
         } else if (type.equals("TROOF")) {
-            varType = LolVariable.type.BOOL;
+            varType = LolValue.type.BOOL;
 
         }
     }
+
     @Override
     public String getStrType() {
         switch (varType) {
@@ -61,16 +60,16 @@ public class LolAbstractVariable implements LolVariable {
     }
 
     @Override
-    public boolean equals(Object other){
-        if(!super.equals(other)) return false;
+    public boolean equals(Object other) {
+        if (!super.equals(other)) return false;
         if (this == other) return true;
         if (other == null) return false;
-        LolVariable _other = (LolVariable)other;
+        LolValue _other = (LolValue) other;
         return this.getStrName().equals(_other.getStrName());
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return name.hashCode();
     }
 }

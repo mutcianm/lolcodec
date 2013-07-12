@@ -2,45 +2,48 @@ package com.lolcode.generator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
  * User: miha
  * Date: 6/28/13
  * Time: 11:50 PM
- * To change this template use File | Settings | File Templates.
  */
 public class LolFunction {
-    public LolFunction(String name, ArrayList<LolVariable> args){
-        body.append("define void @" + name + "(");
-        if(args.size() > 0 ){
-            body.append(args.get(0).getStrType() + " " + args.get(0).getStrName());
+    public LolFunction(String name, ArrayList<LolValue> args) {
+        body.append("define void @").append(name).append("(");
+        if (args.size() > 0) {
+            body.append(args.get(0).getStrType()).append(" ").append(args.get(0).getStrName());
             addVariable(args.get(0));
         }
-        for(LolVariable v : args){
-            body.append(", " + v.getStrType() + " " + v.getStrName());
+        for (LolValue v : args) {
+            body.append(", ").append(v.getStrType()).append(" ").append(v.getStrName());
             addVariable(v);
         }
         body.append(") {");
     }
-    public void addAddInst(LolVariable lhs, LolVariable rhsa, LolVariable rhsb){
+
+    public void addAddInst(LolValue lhs, LolValue rhsa, LolValue rhsb) {
         addOpCode(symbols.get(lhs) + " = add nsw i32 " + symbols.get(rhsa) + ", " + symbols.get(rhsb));
     }
-    public void addSubInst(LolVariable lhs, LolVariable rhsa, LolVariable rhsb){
+
+    public void addSubInst(LolValue lhs, LolValue rhsa, LolValue rhsb) {
         addOpCode(symbols.get(lhs) + " = sub nsw i32 " + symbols.get(rhsa) + ", " + symbols.get(rhsb));
     }
-    public void addMulInst(LolVariable lhs, LolVariable rhsa, LolVariable rhsb){
+
+    public void addMulInst(LolValue lhs, LolValue rhsa, LolValue rhsb) {
         addOpCode(symbols.get(lhs) + " = mul nsw i32 " + symbols.get(rhsa) + ", " + symbols.get(rhsb));
     }
-    public void addDivInst(LolVariable lhs, LolVariable rhsa, LolVariable rhsb){
+
+    public void addDivInst(LolValue lhs, LolValue rhsa, LolValue rhsb) {
         addOpCode(symbols.get(lhs) + " = sdiv nsw i32 " + symbols.get(rhsa) + ", " + symbols.get(rhsb));
     }
-    public void addAssignInst(LolVariable lhs, LolVariable rhs){
+
+    public void addAssignInst(LolValue lhs, LolValue rhs) {
         addOpCode("store");
     }
 
-    public void addVisibleStmt(LolVariable v){
+    public void addVisibleStmt(LolValue v) {
         String format;
         int tmp;
         switch (v.getVarType()) {
@@ -48,7 +51,7 @@ public class LolFunction {
                 tmp = StringTable.getInstance().insertString("%d\n");
                 break;
             case STRING:
-                tmp = StringTable.getInstance().insertString((String)v.getValue()+"\n");
+                tmp = StringTable.getInstance().insertString(v.getValue() + "\n");
                 break;
             case FLOAT:
                 tmp = StringTable.getInstance().insertString("%f\n");
@@ -59,25 +62,26 @@ public class LolFunction {
         }
 //        addOpCode();
     }
-    public void endFunction(){
+
+    public void endFunction() {
         body.append("}\n\n");
     }
 
-    private void addOpCode(String data){
-        body.append(data+"\n");
+    private void addOpCode(String data) {
+        body.append(data).append("\n");
     }
 
-    public boolean addVariable(LolVariable var){
-        if(!symbols.containsKey(var)){
+    public boolean addVariable(LolValue var) {
+        if (!symbols.containsKey(var)) {
             symbols.put(var, "%" + var.getStrName());
             return true;
         }
         return false;
     }
 
-    public LolVariable getVarByName(String name){
-        for (LolVariable v : symbols.keySet()){
-            if(v.getStrName().equals(name)){
+    public LolValue getVarByName(String name) {
+        for (LolValue v : symbols.keySet()) {
+            if (v.getStrName().equals(name)) {
                 return v;
             }
         }
@@ -85,6 +89,6 @@ public class LolFunction {
     }
 
     private StringBuffer body;
-    private ArrayList<LolVariable> vars;
-    public HashMap<LolVariable, String> symbols;
+    private ArrayList<LolValue> vars;
+    public HashMap<LolValue, String> symbols;
 }
