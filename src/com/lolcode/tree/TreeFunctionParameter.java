@@ -6,7 +6,11 @@ package com.lolcode.tree;
  * Date: 7/11/13
  * Time: 9:45 PM
  */
-public class TreeFunctionParameter implements TreeNode {
+
+/**
+ * Implements a value passed to function, it could either be of mutable or immutable type.
+ */
+public class TreeFunctionParameter extends TreeValue {
     @Override
     public void addChild(TreeNode tn) {
     }

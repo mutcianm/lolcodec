@@ -9,8 +9,14 @@ package com.lolcode.tree;
 
 /**
  * Use this class to build ast by using build[...] methods.
+ * Builder has a state @see current determining tree node it currently builds.
  */
 public class Builder {
+    public Builder() {
+        root = null;
+        current = null;
+    }
+
     public TreeNode getRoot() {
         return root;
     }

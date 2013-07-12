@@ -6,7 +6,11 @@ package com.lolcode.tree;
  * Date: 7/12/13
  * Time: 2:57 PM
  */
-public class TreeValue implements TreeNode {
+
+/**
+ * Defines lolcode value handling objects.
+ */
+public class TreeValue extends TreeExpression {
     @Override
     public void addChild(TreeNode tn) {
     }

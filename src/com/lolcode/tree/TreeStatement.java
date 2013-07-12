@@ -6,7 +6,18 @@ package com.lolcode.tree;
  * Date: 7/11/13
  * Time: 9:48 PM
  */
-public class TreeStatement implements TreeNode {
+
+/**
+ * Defines class for lolcode statements.
+ * <li>if statements</li>
+ * <li>switch statements</li>
+ * <li>for and while loops</li>
+ * <li>variable declarations</li>
+ * <li>assignments</li>
+ * <li>input\output statements</li>
+ * <li>function calls</li>
+ */
+public abstract class TreeStatement implements TreeNode {
     @Override
     public void addChild(TreeNode tn) {
     }
@@ -16,7 +27,4 @@ public class TreeStatement implements TreeNode {
         return new TreeNode[0];
     }
 
-    @Override
-    public void accept(Visitor v) {
-    }
 }
