@@ -14,6 +14,11 @@ public class TreeVarDeclStmt extends TreeStatement {
     TreeVariable var;
     TreeConstant initialValue;
 
+    public TreeVarDeclStmt() {
+        var = null;
+        initialValue = null;
+    }
+
     public TreeVariable getVar() {
         return var;
     }

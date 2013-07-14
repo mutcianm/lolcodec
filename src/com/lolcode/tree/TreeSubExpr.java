@@ -8,12 +8,17 @@ package com.lolcode.tree;
  */
 
 /**
- * Handles substracion expressions. </br><code>DIFF OF VAR1 an VAR2</code></br>
+ * Handles subtraction expressions. </br>{@code DIFF OF VAR1 an VAR2}</br>
  * Consists of two TreeExpression for lhs and rhs respectively.
  */
 public class TreeSubExpr extends TreeExpression {
-    TreeExpression lhs;
-    TreeExpression rhs;
+    private TreeExpression lhs;
+    private TreeExpression rhs;
+
+    public TreeSubExpr() {
+        lhs = null;
+        rhs = null;
+    }
 
     public TreeExpression getLhs() {
         return lhs;

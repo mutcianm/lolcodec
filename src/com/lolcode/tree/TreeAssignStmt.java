@@ -8,10 +8,18 @@ package com.lolcode.tree;
  */
 
 /**
- * Stores assign statement. For example:</br> <code>VAR1 = VAR2 + 256</code></br> where VAR1 is lhs and VAR2 + 256 is rhs.
- * lhs must be of TreeValue type only, to avoid thing like `VAR1 + VAR2 = 256`, this should be checked in semantic check pass
+ * Stores assign statement. <p>For example:<pre> {@code VAR1 = VAR2 + 256}</pre> where VAR1 is lhs and VAR2 + 256 is rhs.
+ * lhs must be of TreeValue type only, to avoid thing like `VAR1 + VAR2 = 256`, this should be checked in semantic check pass.</p>
  */
 public class TreeAssignStmt extends TreeStatement {
+    private TreeValue lhs;
+    private TreeExpression rhs;
+
+    public TreeAssignStmt() {
+        lhs = null;
+        rhs = null;
+    }
+
     public TreeValue getLhs() {
         return lhs;
     }
@@ -19,9 +27,6 @@ public class TreeAssignStmt extends TreeStatement {
     public TreeExpression getRhs() {
         return rhs;
     }
-
-    private TreeValue lhs;
-    private TreeExpression rhs;
 
     @Override
     public TreeNode[] getChildren() {

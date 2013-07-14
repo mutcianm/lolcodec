@@ -18,6 +18,7 @@ public class TreeIfStmt extends TreeStatement {
     private ArrayList<TreeStatement> falseBranch;
 
     public TreeIfStmt() {
+        condition = null;
         trueBranch = new ArrayList<>();
         falseBranch = new ArrayList<>();
     }

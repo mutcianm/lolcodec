@@ -11,8 +11,9 @@ import java.util.HashMap;
  */
 public class LolFunction {
     public LolFunction(String name, ArrayList<LolValue> args) {
+        body = new StringBuffer();
         body.append("define void @").append(name).append("(");
-        if (args.size() > 0) {
+        if (!args.isEmpty()) {
             body.append(args.get(0).getStrType()).append(" ").append(args.get(0).getStrName());
             addVariable(args.get(0));
         }

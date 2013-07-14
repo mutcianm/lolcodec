@@ -8,12 +8,13 @@ package com.lolcode.tree;
  */
 
 /**
- * Defines class for lolcode expression.
+ * Defines class for lolcode expression.<p>
  * <li>binary math expressions(SUM OF/DIFF OF/PRODUKT OF/etc. )</li>
  * <li>binary logic(BOTH OF/EITHER OF/NOT)</li>
  * <li>comparison(BIGGR OF/SMALLR OF)</li>
  * <li>min/max expressions</li>
  * <li>funexpr - no idea what it is</li>
+ * </p>
  */
 public abstract class TreeExpression implements TreeNode {
     @Override
