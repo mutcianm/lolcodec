@@ -1,13 +1,6 @@
 /*
-lolcode grammar with some extra thigs (deleted ofc) :D
-function are declared inb4 everything else
-because this is how i rule (tbh it's because i didn't have enough reasoning to do otherwise (tbch it just didn't work and i said fuck it)
-no typecast included because fuck this too, can add later....maybe.....not
-not sure about order of expr but i hope its fine
-loops are funny, as in funny becauuse of syntax, not because they don't work....i hope
-i hope nobody cares anouut "CAN HAS STDIO" shit because it actually never worked (AND NEVER WILL >:() )
-The Defenitive ANTLR 4 Reference is DA BOOK
-SERIALLY READ DAT SHIT
+    final draft for lolcode grammar
+    array specification in 1.2 can't be found http://web.archive.org/web/20120908173209/http://lolcode.com/specs/1.2#arrays
 */
 
 grammar lolcode;
@@ -16,28 +9,38 @@ grammar lolcode;
 package com.lolcode;
 }
 
-file: (functionDecl)* main;
+//functions must be declared inb4 main code
+file:   (functionDecl)* main;
 
+//main after function declarations
 main: 'HAI' ENDST stat* 'KTHXBYE' ;
 
+//var declaration, with assignment
 varDecl
     :   'I HAS A' ID ('ITZ' expr)? ENDST
     ;
 
+
+//declaring function
 functionDecl
-    :   'HOW DUZ I' ID formalParameters? ENDST block 'IF U SAY SO' ENDST
+    :   'HOW DUZ I' ID formalParameters? ENDST block retpart 'IF U SAY SO' ENDST
     ;
 
+//function params
 formalParameters
     :   'YR' formalParameter ('N YR' formalParameter)*
     ;
 
+//1.2 don't has types
 formalParameter
-    : type ID
+    :   ID
+    //: type ID
     ;
 
-type : 'YARN' | 'NUMBR' | 'NUMBAR' | 'TROOF' ;
+//useless thingy
+//type : 'YARN' | 'NUMBR' | 'NUMBAR' | 'TROOF' ;
 
+//code block
 block
     :   stat*
     ;
@@ -49,30 +52,43 @@ stat:   varDecl
     |   assstat
     |   funcall
     |   visstat
+    |   gimstat
     ;
 
+//if statement
 ifstat
     :   expr ENDST 'ORLY' ENDST 'YRLY' ENDST stat ('MEBBE' expr ENDST stat)* ('NOWAI' ENDST stat)? 'OIC' ENDST
     ;
 
+
+//case statement
 casestat
     :   expr ENDST 'WTF?' ENDST ('OMG' VALUE ENDST block ('GTFO' ENDST)?)* ('OMGWTF' ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
     ;
 
+//loop statement
 loopstat
     :   'IM IN YR' ID (('UPPIN' | 'NERFIN') 'YR' ID ('WILE'|'TIL') expr)? ENDST block ('GTFO' ENDST)? 'IM OUTTA YR' ID ENDST
     ;
 
+//assignment statement
 assstat
     :   expr 'R' expr ENDST
     ;
 
+//function call
 funcall
     :   expr //fun call somehow, not sure wtf
     ;
 
+//visible (print)
 visstat 
     :   'VISIBLE' expr ENDST
+    ;
+
+//gimme (scan) some strange things possible here
+gimstat
+    :   'GIMMEH' ID ENDST
     ;
 
 expr
@@ -90,6 +106,7 @@ expr
     |   VALUE
     ;
 
+//function call
 funexpr
     :   ID exprList? ENDST
     ;
@@ -130,8 +147,14 @@ equexpr
     :   ('BOTH SAEM' expr 'AN' expr | 'DIFFRINT' expr 'AN' expr )
     ;
 
+//expressions are without 'AN'
 exprList
-    :   expr ('AN' expr)*;
+    :  (expr)*;
+
+retpart 
+    :   'FOUND YR' expr ENDST //return EXPR
+    |   'GTFO' //return NOOB
+    ;   //if DOESN'T EXIST RETURN IT
 
 WTF : 'WTF?';
 WRK :   'WRK';
@@ -184,19 +207,20 @@ R : 'R';
 IHAS : 'I HAS A';
 MKAY : 'MKAY';
 VISIBLE : 'VISIBLE';
+GIMMEH : 'GIMMEH';
 
 ID : LETTER ( LETTER | [0-9_] )*;
 fragment
 LETTER : [a-zA-Z] ;
 
 VALUE
-    :   INT
+    :   INT 
     |   STRING
     |   FLOAT
     |   BOOL
     ;
 
-INT : ('-')?[0-9]+ ;
+INT : ('-')?[0-9]+ { setText("int"); } ;
 
 STRING : '"' [\u0000-\u0021\u0023-\uFFFE]* '"';
 

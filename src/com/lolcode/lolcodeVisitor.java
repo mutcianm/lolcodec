@@ -1,4 +1,4 @@
-// Generated from C:\ANTLR\lolcode\lolcode.g4 by ANTLR 4.0
+// Generated from C:\Users\Niner\Desktop\LOLCODE\lolcode.g4 by ANTLR 4.0
 
 package com.lolcode;
 
@@ -14,9 +14,9 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitBlock(lolcodeParser.BlockContext ctx);
 
-	T visitExpr(lolcodeParser.ExprContext ctx);
+	T visitGimstat(lolcodeParser.GimstatContext ctx);
 
-	T visitType(lolcodeParser.TypeContext ctx);
+	T visitExpr(lolcodeParser.ExprContext ctx);
 
 	T visitAssstat(lolcodeParser.AssstatContext ctx);
 
@@ -51,6 +51,8 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
 	T visitFunctionDecl(lolcodeParser.FunctionDeclContext ctx);
 
 	T visitMain(lolcodeParser.MainContext ctx);
+
+	T visitRetpart(lolcodeParser.RetpartContext ctx);
 
 	T visitFormalParameters(lolcodeParser.FormalParametersContext ctx);
 
