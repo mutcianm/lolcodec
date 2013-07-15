@@ -1,4 +1,4 @@
-// Generated from C:\ANTLR\lolcode\lolcode.g4 by ANTLR 4.0
+// Generated from C:\Users\Niner\Desktop\LOLCODE\lolcode.g4 by ANTLR 4.0
 
 package com.lolcode;
 
@@ -15,9 +15,9 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 
 	@Override public T visitBlock(lolcodeParser.BlockContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitExpr(lolcodeParser.ExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGimstat(lolcodeParser.GimstatContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitType(lolcodeParser.TypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpr(lolcodeParser.ExprContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitAssstat(lolcodeParser.AssstatContext ctx) { return visitChildren(ctx); }
 
@@ -52,6 +52,8 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	@Override public T visitFunctionDecl(lolcodeParser.FunctionDeclContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitMain(lolcodeParser.MainContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitRetpart(lolcodeParser.RetpartContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitFormalParameters(lolcodeParser.FormalParametersContext ctx) { return visitChildren(ctx); }
 
