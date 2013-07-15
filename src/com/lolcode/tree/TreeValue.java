@@ -11,7 +11,7 @@ package com.lolcode.tree;
  * Defines lolcode value handling objects.
  * TODO: Make a decision on which type the value is stored.
  */
-public class TreeValue extends TreeExpression {
+public abstract class TreeValue extends TreeExpression {
 
     protected String value; //
 
@@ -28,16 +28,8 @@ public class TreeValue extends TreeExpression {
         value = val;
     }
 
-    @Override
-    public void addChild(TreeNode tn) {
-    }
-
-    @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
-
-    @Override
-    public void accept(Visitor v) {
-    }
+    //    @Override
+//    public void accept(BaseASTVisitor v) {
+//        v.visit(this);
+//    }
 }

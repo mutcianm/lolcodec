@@ -11,8 +11,10 @@ import java.util.HashMap;
  */
 
 /**
- * Implements lolcode switch statement. <p><pre>
- * {@code VAR1 WTF?
+ * Implements lolcode switch statement. <p>
+ * Implemented with a Map : Constant(label) -> array of TreeStatement
+ * <pre>{@code
+ *  VAR1 WTF?
  *      OMG 256
  *          VISIBLE "256"
  *          GTFO
@@ -47,11 +49,14 @@ public class TreeCaseStmt extends TreeStatement {
             statements.add(statement);
             body.put(label, statements);
         }
+    }
 
+    public HashMap<TreeConstant, ArrayList<TreeStatement>> getBody() {
+        return body;
     }
 
     @Override
-    public void accept(Visitor v) {
-//        v.visit(this);
+    public void accept(BaseASTVisitor v) {
+        v.visit(this);
     }
 }

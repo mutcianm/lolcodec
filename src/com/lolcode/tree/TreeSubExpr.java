@@ -11,33 +11,10 @@ package com.lolcode.tree;
  * Handles subtraction expressions. </br>{@code DIFF OF VAR1 an VAR2}</br>
  * Consists of two TreeExpression for lhs and rhs respectively.
  */
-public class TreeSubExpr extends TreeExpression {
-    private TreeExpression lhs;
-    private TreeExpression rhs;
-
-    public TreeSubExpr() {
-        lhs = null;
-        rhs = null;
-    }
-
-    public TreeExpression getLhs() {
-        return lhs;
-    }
-
-    public void setLhs(TreeExpression lhs) {
-        this.lhs = lhs;
-    }
-
-    public TreeExpression getRhs() {
-        return rhs;
-    }
-
-    public void setRhs(TreeExpression rhs) {
-        this.rhs = rhs;
-    }
+public class TreeSubExpr extends TreeBinaryExpr {
 
     @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
 //        v.visit(this);
     }
 }

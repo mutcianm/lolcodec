@@ -36,7 +36,7 @@ public class TreeFuncCallStmt extends TreeStatement {
     }
 
     @Override
-    public void accept(Visitor v) {
-//        v.visit(this);
+    public void accept(BaseASTVisitor v) {
+        v.visit(this);
     }
 }

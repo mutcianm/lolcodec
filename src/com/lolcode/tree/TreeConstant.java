@@ -12,4 +12,9 @@ package com.lolcode.tree;
  * TODO: should the value be stored as String and be processed on ir pass or converted to variant right here?
  */
 public class TreeConstant extends TreeValue {
+
+    @Override
+    public void accept(BaseASTVisitor v) {
+        v.visit(this);
+    }
 }

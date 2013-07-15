@@ -30,17 +30,16 @@ public class TreeFunction implements TreeNode {
         body.add(stmt);
     }
 
-    @Override
-    public void addChild(TreeNode tn) {
+    public ArrayList<TreeFunctionParameter> getParams() {
+        return params;
+    }
+
+    public ArrayList<TreeStatement> getBody() {
+        return body;
     }
 
     @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
-
-    @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
         v.visit(this);
     }
 }

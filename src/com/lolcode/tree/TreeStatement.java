@@ -18,13 +18,5 @@ package com.lolcode.tree;
  * <li>function calls</li>
  */
 public abstract class TreeStatement implements TreeNode {
-    @Override
-    public void addChild(TreeNode tn) {
-    }
-
-    @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
 
 }

@@ -28,11 +28,6 @@ public class TreeAssignStmt extends TreeStatement {
         return rhs;
     }
 
-    @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[]{lhs, rhs};
-    }
-
     public void setRhs(TreeExpression rhs) {
         this.rhs = rhs;
     }
@@ -42,7 +37,7 @@ public class TreeAssignStmt extends TreeStatement {
     }
 
     @Override
-    public void accept(Visitor v) {
-//        v.visit(this);
+    public void accept(BaseASTVisitor v) {
+        v.visit(this);
     }
 }

@@ -11,33 +11,10 @@ package com.lolcode.tree;
  * Handles summation expressions. </br>{@code SUM OF VAR1 an VAR2}</br>
  * Consists of two TreeExpression for lhs and rhs respectively.
  */
-public class TreeSumExpr extends TreeExpression {
-    private TreeExpression lhs;
-    private TreeExpression rhs;
-
-    public TreeSumExpr() {
-        lhs = null;
-        rhs = null;
-    }
-
-    public TreeExpression getLhs() {
-        return lhs;
-    }
-
-    public void setLhs(TreeExpression lhs) {
-        this.lhs = lhs;
-    }
-
-    public TreeExpression getRhs() {
-        return rhs;
-    }
-
-    public void setRhs(TreeExpression rhs) {
-        this.rhs = rhs;
-    }
+public class TreeSumExpr extends TreeBinaryExpr {
 
     @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
 //        v.visit(this);
     }
 }

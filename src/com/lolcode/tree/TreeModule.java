@@ -23,17 +23,24 @@ public class TreeModule implements TreeNode {
         body = new ArrayList<>();
     }
 
-    @Override
-    public void addChild(TreeNode tn) {
+    public void addFunction(TreeFunction function) {
+        functions.add(function);
+    }
+
+    public void addStatement(TreeStatement statement) {
+        body.add(statement);
+    }
+
+    public ArrayList<TreeFunction> getFunctions() {
+        return functions;
+    }
+
+    public ArrayList<TreeStatement> getBody() {
+        return body;
     }
 
     @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
-
-    @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
         v.visit(this);
     }
 }

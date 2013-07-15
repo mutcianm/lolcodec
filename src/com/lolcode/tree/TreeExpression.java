@@ -17,12 +17,5 @@ package com.lolcode.tree;
  * </p>
  */
 public abstract class TreeExpression implements TreeNode {
-    @Override
-    public void addChild(TreeNode tn) {
-    }
 
-    @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
 }

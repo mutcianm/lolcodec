@@ -11,17 +11,9 @@ package com.lolcode.tree;
  * Implements a value passed to function, it could either be of mutable or immutable type.
  */
 public class TreeFunctionParameter extends TreeValue {
-    @Override
-    public void addChild(TreeNode tn) {
-    }
 
     @Override
-    public TreeNode[] getChildren() {
-        return new TreeNode[0];
-    }
-
-    @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
         v.visit(this);
     }
 }

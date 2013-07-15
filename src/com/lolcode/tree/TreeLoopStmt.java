@@ -49,8 +49,12 @@ public class TreeLoopStmt extends TreeStatement {
         body.add(statement);
     }
 
+    public ArrayList<TreeStatement> getBody() {
+        return body;
+    }
+
     @Override
-    public void accept(Visitor v) {
-//        v.visit(this);
+    public void accept(BaseASTVisitor v) {
+        v.visit(this);
     }
 }

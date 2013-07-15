@@ -27,6 +27,10 @@ public class TreeIfStmt extends TreeStatement {
         this.condition = condition;
     }
 
+    public TreeExpression getCondition() {
+        return condition;
+    }
+
     public void addTrueStmt(TreeStatement statement) {
         trueBranch.add(statement);
     }
@@ -35,17 +39,16 @@ public class TreeIfStmt extends TreeStatement {
         falseBranch.add(statement);
     }
 
-    @Override
-    public void addChild(TreeNode tn) {
+    public ArrayList<TreeStatement> getTrueBranch() {
+        return trueBranch;
+    }
+
+    public ArrayList<TreeStatement> getFalseBranch() {
+        return falseBranch;
     }
 
     @Override
-    public TreeNode[] getChildren() {
-        return new TreeExpression[]{condition}; //FIXME: how do i handle child concatenation?
-    }
-
-    @Override
-    public void accept(Visitor v) {
+    public void accept(BaseASTVisitor v) {
         v.visit(this);
     }
 }
