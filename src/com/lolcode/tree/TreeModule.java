@@ -15,12 +15,22 @@ import java.util.ArrayList;
  */
 public class TreeModule implements TreeNode {
 
+    private String moduleName;
     private ArrayList<TreeFunction> functions;
     private ArrayList<TreeStatement> body;
 
     public TreeModule() {
+        moduleName = "";
         functions = new ArrayList<>();
         body = new ArrayList<>();
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public void addFunction(TreeFunction function) {

@@ -13,10 +13,18 @@ package com.lolcode.tree;
  */
 public abstract class TreeValue extends TreeExpression {
 
-    protected String value; //
+    protected TreeValue value; //
 
     public TreeValue() {
-        value = "";
+        value = null;
+    }
+
+    public TreeValue getValue() {
+        return value;
+    }
+
+    public void setValue(TreeValue value) {
+        this.value = value;
     }
 
     /**
@@ -25,8 +33,9 @@ public abstract class TreeValue extends TreeExpression {
      * @param val String representation of value from parse tree, if there is one.
      */
     protected void fromString(String val) {
-        value = val;
+//        value = val;
     }
+
 
     //    @Override
 //    public void accept(BaseASTVisitor v) {

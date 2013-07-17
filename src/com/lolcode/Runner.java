@@ -1,6 +1,8 @@
 package com.lolcode;
 
 
+import com.lolcode.tree.AstBuilder;
+import com.lolcode.tree.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -28,7 +30,8 @@ public class Runner {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             lolcodeParser parser = new lolcodeParser(tokens);
             ParseTree tree = parser.file(); //builds parse tree, do syntax check
-            lolcodeVisitor visitor = new LolcodeVisitorImpl();
+//            lolcodeVisitor visitor = new LolcodeVisitorImpl();
+            AstBuilder<TreeNode> visitor = new AstBuilder<>();
             visitor.visit(tree); //builds ast
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir

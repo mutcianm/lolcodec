@@ -14,12 +14,22 @@ import java.util.ArrayList;
  * and zero or more statements as function body in TreeStatement array.
  */
 public class TreeFunction implements TreeNode {
+    private String name;
     private ArrayList<TreeFunctionParameter> params;
     private ArrayList<TreeStatement> body;
 
     public TreeFunction() {
+        name = "";
         params = new ArrayList<>();
         body = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addParam(TreeFunctionParameter param) {

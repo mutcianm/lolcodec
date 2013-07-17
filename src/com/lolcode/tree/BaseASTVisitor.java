@@ -29,6 +29,8 @@ public interface BaseASTVisitor {
 
     void visit(TreeVisibleStmt visibleStmt);
 
+    void visit(TreeGimmehStmt gimmehStmt);
+
     void visit(TreeFuncCallStmt funcCallStmt);
 
     //Expressions:

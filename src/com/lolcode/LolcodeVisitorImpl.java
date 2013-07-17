@@ -25,7 +25,7 @@ public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFormalParameter(lolcodeParser.FormalParameterContext ctx) {
-        LolValue tmp = new LolAbstractValue(ctx.ID().toString(), ctx.type().toString());
+        LolValue tmp = new LolAbstractValue(ctx.ID().toString(), ctx.ID().toString());
         return (T) tmp;
     }
 

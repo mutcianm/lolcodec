@@ -10,7 +10,7 @@ package com.lolcode.tree;
 /**
  * Implements a value passed to function, it could either be of mutable or immutable type.
  */
-public class TreeFunctionParameter extends TreeValue {
+public class TreeFunctionParameter extends TreeVariable {
 
     @Override
     public void accept(BaseASTVisitor v) {
