@@ -2,7 +2,9 @@ package com.lolcode.tree;
 
 import com.lolcode.lolcodeBaseVisitor;
 import com.lolcode.lolcodeParser;
+import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +13,12 @@ import java.util.logging.Logger;
  * User: miha
  * Date: 7/16/13
  * Time: 4:43 PM
+ */
+
+/**
+ * Builds AST from parse tree. Resulting tree is stored in root.
+ *
+ * @param <T>
  */
 public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     private TreeNode root;
@@ -26,15 +34,37 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     }
 
     @Override
+    public T visitValue(@NotNull lolcodeParser.ValueContext ctx) {
+        TreeConstant constant = new TreeConstant();
+        if (ctx.BOOL() != null) {
+            constant.setType(TreeTypedValue.TYPE.BOOL);
+            constant.fromString(ctx.BOOL().toString());
+        } else if (ctx.INT() != null) {
+            constant.setType(TreeTypedValue.TYPE.INT);
+            constant.fromString(ctx.INT().toString());
+        } else if (ctx.FLOAT() != null) {
+            constant.setType(TreeTypedValue.TYPE.FLOAT);
+            constant.fromString(ctx.FLOAT().toString());
+        } else if (ctx.STRING() != null) {
+            constant.setType(TreeTypedValue.TYPE.STRING);
+            constant.fromString(ctx.STRING().toString());
+        } else {
+            log.warning("All types for constant failed to parse");
+            constant.setType(TreeTypedValue.TYPE.UNKNOWN);
+        }
+        return (T) constant;
+    }
+
+    @Override
     public T visitFormalParameter(lolcodeParser.FormalParameterContext ctx) {
         TreeFunctionParameter param = new TreeFunctionParameter();
         param.setName(ctx.ID().toString());
         return (T) param;
-//        return super.visitFormalParameter(ctx);
     }
 
     @Override
     public T visitVarDecl(lolcodeParser.VarDeclContext ctx) {
+        TreeVarDeclStmt varDeclStmt = new TreeVarDeclStmt();
         TreeVariable variable = new TreeVariable();
         variable.setName(ctx.ID().toString());
         if (ctx.expr() != null) {
@@ -42,7 +72,8 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         } else {
             log.info("Variable initializer failed to parse");
         }
-        return (T) variable;
+        varDeclStmt.setVar(variable);
+        return (T) varDeclStmt;
     }
 
     @Override
@@ -57,12 +88,31 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitExpr(lolcodeParser.ExprContext ctx) {
+        if (ctx.ID() != null) {
+            TreeVariable variable = new TreeVariable();
+            variable.setName(ctx.ID().toString());
+            return (T) variable;
+        }
         return super.visitExpr(ctx);
     }
 
     @Override
     public T visitAssstat(lolcodeParser.AssstatContext ctx) {
-        return super.visitAssstat(ctx);
+        TreeAssignStmt assignStmt = new TreeAssignStmt();
+        if (ctx.ID() != null) {
+            TreeVariable lhs = new TreeVariable();
+            lhs.setName(ctx.ID().toString());
+            assignStmt.setLhs(lhs);
+        } else {
+            log.severe("variable id in assignment failed to parse");
+        }
+        if (ctx.expr() != null) {
+            TreeExpression expression = (TreeExpression) visit(ctx.expr());
+            assignStmt.setRhs(expression);
+        } else {
+            log.severe("rhs part of assignment failed to parse");
+        }
+        return (T) assignStmt;
     }
 
     @Override
@@ -116,7 +166,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
             }
         }
         root = module;
-        return super.visitFile(ctx);
+        return (T) module;
     }
 
     @Override
@@ -161,7 +211,21 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitAddexpr(lolcodeParser.AddexprContext ctx) {
-        return super.visitAddexpr(ctx);
+        TreeSumExpr sumExpr = new TreeSumExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        if (list.get(0) != null) {
+            TreeExpression lhs = (TreeExpression) visit(list.get(0));
+            sumExpr.setLhs(lhs);
+        } else {
+            log.severe("lhs of sumExpr failed to parse");
+        }
+        if (list.get(1) != null) {
+            TreeExpression rhs = (TreeExpression) visit(list.get(1));
+            sumExpr.setRhs(rhs);
+        } else {
+            log.severe("rhs of SumExpr failed to parse");
+        }
+        return (T) sumExpr;
     }
 
     @Override
@@ -199,6 +263,11 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     }
 
     @Override
+    public T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx) {
+        return super.visitDivexpr(ctx);
+    }
+
+    @Override
     public T visitRetpart(lolcodeParser.RetpartContext ctx) {
         return super.visitRetpart(ctx);
     }
@@ -207,6 +276,11 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     public T visitFormalParameters(lolcodeParser.FormalParametersContext ctx) {
 
         return super.visitFormalParameters(ctx);
+    }
+
+    @Override
+    public T visitSubexpr(@NotNull lolcodeParser.SubexprContext ctx) {
+        return super.visitSubexpr(ctx);
     }
 
     @Override

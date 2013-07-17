@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  * DEDOZ DOES NOT WANT ME TO WRITE BAD WORDS
  * TEST IDEA COMMIT
+ *
+ * @deprecated
  */
 public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 
@@ -41,36 +43,36 @@ public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitExpr(lolcodeParser.ExprContext ctx) {
-        if (ctx.VALUE() != null) {
-            try {
-                int val = new Integer(ctx.VALUE().toString());
-            } catch (NumberFormatException e) {
-                try {
-                    float val = new Float(ctx.VALUE().toString());
-                } catch (NumberFormatException ex) {
-                    boolean val;
-                    String s = ctx.VALUE().toString();
-                    if (s.equals("WIN")) {
-                        val = true;
-
-                    } else if (s.equals("FAIL")) {
-                        val = false;
-
-                    } else {
-                        String value = ctx.VALUE().toString();
-                    }
-                }
-            }
-        }
+//        if (ctx.VALUE() != null) {
+//            try {
+//                int val = new Integer(ctx.VALUE().toString());
+//            } catch (NumberFormatException e) {
+//                try {
+//                    float val = new Float(ctx.VALUE().toString());
+//                } catch (NumberFormatException ex) {
+//                    boolean val;
+//                    String s = ctx.VALUE().toString();
+//                    if (s.equals("WIN")) {
+//                        val = true;
+//
+//                    } else if (s.equals("FAIL")) {
+//                        val = false;
+//
+//                    } else {
+//                        String value = ctx.VALUE().toString();
+//                    }
+//                }
+//            }
+//        }
         return visitChildren(ctx);
     }
 
     @Override
     public T visitAssstat(lolcodeParser.AssstatContext ctx) {
-        LolValue lhs = currentFunction.getVarByName(ctx.expr(0).ID().toString());
-        currentFunction.addVariable(lhs);
-        LolValue rhs = (LolValue) visit(ctx.expr(1));
-        assert (currentFunction.symbols.containsKey(rhs));
+//        LolValue lhs = currentFunction.getVarByName(ctx.expr(0).ID().toString());
+//        currentFunction.addVariable(lhs);
+//        LolValue rhs = (LolValue) visit(ctx.expr(1));
+//        assert (currentFunction.symbols.containsKey(rhs));
 
         return visitChildren(ctx);
     }

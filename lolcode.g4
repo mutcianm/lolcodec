@@ -23,7 +23,7 @@ varDecl
 
 //declaring function
 functionDecl
-    :   'HOW DUZ I' ID formalParameters? ENDST block retpart 'IF U SAY SO' ENDST
+    :   'HOW DUZ I' ID formalParameters? ENDST block retpart ENDST 'IF U SAY SO' ENDST
     ;
 
 //function params
@@ -63,7 +63,7 @@ ifstat
 
 //case statement
 casestat
-    :   expr ENDST 'WTF?' ENDST ('OMG' VALUE ENDST block ('GTFO' ENDST)?)* ('OMGWTF' ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
+    :   expr ENDST 'WTF?' ENDST ('OMG' value ENDST block ('GTFO' ENDST)?)* ('OMGWTF' ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
     ;
 
 //loop statement
@@ -72,8 +72,9 @@ loopstat
     ;
 
 //assignment statement
+//lhs cannot be expression ie. (SUM OF VAR1 AN VAR2 R 256) or (MOD OF 128 AN 4 R VAR1\<ENDST\>)
 assstat
-    :   expr 'R' expr ENDST
+    :   ID 'R' expr ENDST
     ;
 
 //function call
@@ -95,15 +96,17 @@ expr
     :   funexpr
     |   notexpr
     |   multexpr
+    |   divexpr
     |   modexpr
     |   addexpr
+    |   subexpr
     |   minmaxexpr
     |   bothofexpr
     |   eitherexpr
     |   oneofexpr
     |   equexpr
     |   ID
-    |   VALUE
+    |   value
     ;
 
 //function call
@@ -116,7 +119,11 @@ notexpr
     ;
 
 multexpr
-    :   ('PRODUKT OF' expr 'AN' expr | 'QUOSHUNT OF' expr 'AN' expr)
+    :   'PRODUKT OF' expr 'AN' expr
+    ;
+
+divexpr
+    :   'QUOSHUNT OF' expr 'AN' expr
     ;
 
 modexpr
@@ -124,7 +131,11 @@ modexpr
     ;
 
 addexpr
-    :   ('SUM OF' expr 'AN' expr | 'DIFF OF' expr 'AN' expr )
+    :   'SUM OF' expr 'AN' expr
+    ;
+
+subexpr
+    : 'DIFF OF' expr 'AN' expr
     ;
 
 minmaxexpr
@@ -213,7 +224,7 @@ ID : LETTER ( LETTER | [0-9_] )*;
 fragment
 LETTER : [a-zA-Z] ;
 
-VALUE
+value
     :   INT 
     |   STRING
     |   FLOAT

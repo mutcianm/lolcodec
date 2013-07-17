@@ -9,13 +9,14 @@ package com.lolcode.tree;
 
 /**
  * Defines lolcode value handling objects.
- * TODO: Make a decision on which type the value is stored.
  */
-public abstract class TreeValue extends TreeExpression {
+public abstract class TreeValue extends TreeExpression implements TreeTypedValue {
 
     protected TreeValue value; //
+    private TYPE type;
 
     public TreeValue() {
+        type = TYPE.UNKNOWN;
         value = null;
     }
 
@@ -27,13 +28,14 @@ public abstract class TreeValue extends TreeExpression {
         this.value = value;
     }
 
-    /**
-     * Attempts to parse and store the value, regardless of internal value representation.
-     *
-     * @param val String representation of value from parse tree, if there is one.
-     */
-    protected void fromString(String val) {
-//        value = val;
+    @Override
+    public void setType(TYPE type) {
+        this.type = type;
+    }
+
+    @Override
+    public TYPE getType() {
+        return type;
     }
 
 

@@ -1,4 +1,4 @@
-// Generated from C:\Users\Niner\Desktop\LOLCODE\lolcode.g4 by ANTLR 4.0
+// Generated from lolcode.g4 by ANTLR 4.1
 
 package com.lolcode;
 
@@ -26,7 +26,7 @@ public class lolcodeParser extends Parser {
             DIFFOF = 32, SMOOSH = 33, UPPIN = 34, NERFIN = 35, IMINYR = 36, IMOUTTAYR = 37, ANYOF = 38,
             ONEOF = 39, ALLOF = 40, EITHEROF = 41, BOTHOF = 42, NOT = 43, GTFO = 44, YR = 45, NYR = 46,
             HOWDUZ = 47, IFUSAY = 48, R = 49, IHAS = 50, MKAY = 51, VISIBLE = 52, GIMMEH = 53, ID = 54,
-            VALUE = 55, INT = 56, STRING = 57, FLOAT = 58, BOOL = 59, ENDST = 60, WS = 61, SL_COMMENT = 62;
+            INT = 55, STRING = 56, FLOAT = 57, BOOL = 58, ENDST = 59, WS = 60, SL_COMMENT = 61;
     public static final String[] tokenNames = {
             "<INVALID>", "'FOUND YR'", "'WTF?'", "'WRK'", "'MAEK'", "'A'", "'AN'",
             "'BIGGR OF'", "'HAI'", "'KTHXBYE'", "'WILE'", "'TIL'", "'ORLY'", "'YRLY'",
@@ -36,23 +36,24 @@ public class lolcodeParser extends Parser {
             "'DIFF OF'", "'SMOOSH'", "'UPPIN'", "'NERFIN'", "'IM IN YR'", "'IM OUTTA YR'",
             "'ANY OF'", "'ONE OF'", "'ALL OF'", "'EITHER OF'", "'BOTH OF'", "'NOT'",
             "'GTFO'", "'YR'", "'N YR'", "'HOW DUZ I'", "'IF U SAY SO'", "'R'", "'I HAS A'",
-            "'MKAY'", "'VISIBLE'", "'GIMMEH'", "ID", "VALUE", "INT", "STRING", "FLOAT",
-            "BOOL", "ENDST", "WS", "SL_COMMENT"
+            "'MKAY'", "'VISIBLE'", "'GIMMEH'", "ID", "INT", "STRING", "FLOAT", "BOOL",
+            "ENDST", "WS", "SL_COMMENT"
     };
     public static final int
             RULE_file = 0, RULE_main = 1, RULE_varDecl = 2, RULE_functionDecl = 3,
             RULE_formalParameters = 4, RULE_formalParameter = 5, RULE_block = 6, RULE_stat = 7,
             RULE_ifstat = 8, RULE_casestat = 9, RULE_loopstat = 10, RULE_assstat = 11,
             RULE_funcall = 12, RULE_visstat = 13, RULE_gimstat = 14, RULE_expr = 15,
-            RULE_funexpr = 16, RULE_notexpr = 17, RULE_multexpr = 18, RULE_modexpr = 19,
-            RULE_addexpr = 20, RULE_minmaxexpr = 21, RULE_bothofexpr = 22, RULE_eitherexpr = 23,
-            RULE_oneofexpr = 24, RULE_equexpr = 25, RULE_exprList = 26, RULE_retpart = 27;
+            RULE_funexpr = 16, RULE_notexpr = 17, RULE_multexpr = 18, RULE_divexpr = 19,
+            RULE_modexpr = 20, RULE_addexpr = 21, RULE_subexpr = 22, RULE_minmaxexpr = 23,
+            RULE_bothofexpr = 24, RULE_eitherexpr = 25, RULE_oneofexpr = 26, RULE_equexpr = 27,
+            RULE_exprList = 28, RULE_retpart = 29, RULE_value = 30;
     public static final String[] ruleNames = {
             "file", "main", "varDecl", "functionDecl", "formalParameters", "formalParameter",
             "block", "stat", "ifstat", "casestat", "loopstat", "assstat", "funcall",
-            "visstat", "gimstat", "expr", "funexpr", "notexpr", "multexpr", "modexpr",
-            "addexpr", "minmaxexpr", "bothofexpr", "eitherexpr", "oneofexpr", "equexpr",
-            "exprList", "retpart"
+            "visstat", "gimstat", "expr", "funexpr", "notexpr", "multexpr", "divexpr",
+            "modexpr", "addexpr", "subexpr", "minmaxexpr", "bothofexpr", "eitherexpr",
+            "oneofexpr", "equexpr", "exprList", "retpart", "value"
     };
 
     @Override
@@ -81,16 +82,16 @@ public class lolcodeParser extends Parser {
     }
 
     public static class FileContext extends ParserRuleContext {
+        public MainContext main() {
+            return getRuleContext(MainContext.class, 0);
+        }
+
         public FunctionDeclContext functionDecl(int i) {
             return getRuleContext(FunctionDeclContext.class, i);
         }
 
         public List<FunctionDeclContext> functionDecl() {
             return getRuleContexts(FunctionDeclContext.class);
-        }
-
-        public MainContext main() {
-            return getRuleContext(MainContext.class, 0);
         }
 
         public FileContext(ParserRuleContext parent, int invokingState) {
@@ -116,21 +117,21 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(59);
+                setState(65);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 while (_la == HOWDUZ) {
                     {
                         {
-                            setState(56);
+                            setState(62);
                             functionDecl();
                         }
                     }
-                    setState(61);
+                    setState(67);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
-                setState(62);
+                setState(68);
                 main();
             }
         } catch (RecognitionException re) {
@@ -148,12 +149,12 @@ public class lolcodeParser extends Parser {
             return getRuleContext(StatContext.class, i);
         }
 
-        public List<StatContext> stat() {
-            return getRuleContexts(StatContext.class);
-        }
-
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public List<StatContext> stat() {
+            return getRuleContexts(StatContext.class);
         }
 
         public MainContext(ParserRuleContext parent, int invokingState) {
@@ -179,25 +180,25 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(64);
+                setState(70);
                 match(HAI);
-                setState(65);
+                setState(71);
                 match(ENDST);
-                setState(69);
+                setState(75);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << VALUE))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
                     {
                         {
-                            setState(66);
+                            setState(72);
                             stat();
                         }
                     }
-                    setState(71);
+                    setState(77);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
-                setState(72);
+                setState(78);
                 match(KTHXBYE);
             }
         } catch (RecognitionException re) {
@@ -211,16 +212,16 @@ public class lolcodeParser extends Parser {
     }
 
     public static class VarDeclContext extends ParserRuleContext {
-        public TerminalNode ID() {
-            return getToken(lolcodeParser.ID, 0);
-        }
-
         public ExprContext expr() {
             return getRuleContext(ExprContext.class, 0);
         }
 
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public TerminalNode ID() {
+            return getToken(lolcodeParser.ID, 0);
         }
 
         public VarDeclContext(ParserRuleContext parent, int invokingState) {
@@ -246,22 +247,22 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(74);
+                setState(80);
                 match(IHAS);
-                setState(75);
+                setState(81);
                 match(ID);
-                setState(78);
+                setState(84);
                 _la = _input.LA(1);
                 if (_la == ITZ) {
                     {
-                        setState(76);
+                        setState(82);
                         match(ITZ);
-                        setState(77);
+                        setState(83);
                         expr();
                     }
                 }
 
-                setState(80);
+                setState(86);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -275,28 +276,28 @@ public class lolcodeParser extends Parser {
     }
 
     public static class FunctionDeclContext extends ParserRuleContext {
+        public RetpartContext retpart() {
+            return getRuleContext(RetpartContext.class, 0);
+        }
+
         public TerminalNode ENDST(int i) {
             return getToken(lolcodeParser.ENDST, i);
         }
 
-        public FormalParametersContext formalParameters() {
-            return getRuleContext(FormalParametersContext.class, 0);
-        }
-
-        public RetpartContext retpart() {
-            return getRuleContext(RetpartContext.class, 0);
+        public List<TerminalNode> ENDST() {
+            return getTokens(lolcodeParser.ENDST);
         }
 
         public TerminalNode ID() {
             return getToken(lolcodeParser.ID, 0);
         }
 
-        public BlockContext block() {
-            return getRuleContext(BlockContext.class, 0);
+        public FormalParametersContext formalParameters() {
+            return getRuleContext(FormalParametersContext.class, 0);
         }
 
-        public List<TerminalNode> ENDST() {
-            return getTokens(lolcodeParser.ENDST);
+        public BlockContext block() {
+            return getRuleContext(BlockContext.class, 0);
         }
 
         public FunctionDeclContext(ParserRuleContext parent, int invokingState) {
@@ -323,28 +324,30 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(82);
+                setState(88);
                 match(HOWDUZ);
-                setState(83);
+                setState(89);
                 match(ID);
-                setState(85);
+                setState(91);
                 _la = _input.LA(1);
                 if (_la == YR) {
                     {
-                        setState(84);
+                        setState(90);
                         formalParameters();
                     }
                 }
 
-                setState(87);
+                setState(93);
                 match(ENDST);
-                setState(88);
+                setState(94);
                 block();
-                setState(89);
+                setState(95);
                 retpart();
-                setState(90);
+                setState(96);
+                match(ENDST);
+                setState(97);
                 match(IFUSAY);
-                setState(91);
+                setState(98);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -358,12 +361,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class FormalParametersContext extends ParserRuleContext {
-        public FormalParameterContext formalParameter(int i) {
-            return getRuleContext(FormalParameterContext.class, i);
-        }
-
         public List<FormalParameterContext> formalParameter() {
             return getRuleContexts(FormalParameterContext.class);
+        }
+
+        public FormalParameterContext formalParameter(int i) {
+            return getRuleContext(FormalParameterContext.class, i);
         }
 
         public FormalParametersContext(ParserRuleContext parent, int invokingState) {
@@ -390,23 +393,23 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(93);
+                setState(100);
                 match(YR);
-                setState(94);
+                setState(101);
                 formalParameter();
-                setState(99);
+                setState(106);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 while (_la == NYR) {
                     {
                         {
-                            setState(95);
+                            setState(102);
                             match(NYR);
-                            setState(96);
+                            setState(103);
                             formalParameter();
                         }
                     }
-                    setState(101);
+                    setState(108);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
@@ -449,7 +452,7 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(102);
+                setState(109);
                 match(ID);
             }
         } catch (RecognitionException re) {
@@ -494,17 +497,17 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(107);
+                setState(114);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << VALUE))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
                     {
                         {
-                            setState(104);
+                            setState(111);
                             stat();
                         }
                     }
-                    setState(109);
+                    setState(116);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
@@ -520,36 +523,36 @@ public class lolcodeParser extends Parser {
     }
 
     public static class StatContext extends ParserRuleContext {
-        public FuncallContext funcall() {
-            return getRuleContext(FuncallContext.class, 0);
-        }
-
-        public CasestatContext casestat() {
-            return getRuleContext(CasestatContext.class, 0);
+        public GimstatContext gimstat() {
+            return getRuleContext(GimstatContext.class, 0);
         }
 
         public VarDeclContext varDecl() {
             return getRuleContext(VarDeclContext.class, 0);
         }
 
-        public GimstatContext gimstat() {
-            return getRuleContext(GimstatContext.class, 0);
+        public VisstatContext visstat() {
+            return getRuleContext(VisstatContext.class, 0);
+        }
+
+        public CasestatContext casestat() {
+            return getRuleContext(CasestatContext.class, 0);
+        }
+
+        public FuncallContext funcall() {
+            return getRuleContext(FuncallContext.class, 0);
+        }
+
+        public LoopstatContext loopstat() {
+            return getRuleContext(LoopstatContext.class, 0);
         }
 
         public IfstatContext ifstat() {
             return getRuleContext(IfstatContext.class, 0);
         }
 
-        public VisstatContext visstat() {
-            return getRuleContext(VisstatContext.class, 0);
-        }
-
         public AssstatContext assstat() {
             return getRuleContext(AssstatContext.class, 0);
-        }
-
-        public LoopstatContext loopstat() {
-            return getRuleContext(LoopstatContext.class, 0);
         }
 
         public StatContext(ParserRuleContext parent, int invokingState) {
@@ -572,12 +575,12 @@ public class lolcodeParser extends Parser {
         StatContext _localctx = new StatContext(_ctx, getState());
         enterRule(_localctx, 14, RULE_stat);
         try {
-            setState(118);
+            setState(125);
             switch (getInterpreter().adaptivePredict(_input, 6, _ctx)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(110);
+                    setState(117);
                     varDecl();
                 }
                 break;
@@ -585,7 +588,7 @@ public class lolcodeParser extends Parser {
                 case 2:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(111);
+                    setState(118);
                     ifstat();
                 }
                 break;
@@ -593,7 +596,7 @@ public class lolcodeParser extends Parser {
                 case 3:
                     enterOuterAlt(_localctx, 3);
                 {
-                    setState(112);
+                    setState(119);
                     casestat();
                 }
                 break;
@@ -601,7 +604,7 @@ public class lolcodeParser extends Parser {
                 case 4:
                     enterOuterAlt(_localctx, 4);
                 {
-                    setState(113);
+                    setState(120);
                     loopstat();
                 }
                 break;
@@ -609,7 +612,7 @@ public class lolcodeParser extends Parser {
                 case 5:
                     enterOuterAlt(_localctx, 5);
                 {
-                    setState(114);
+                    setState(121);
                     assstat();
                 }
                 break;
@@ -617,7 +620,7 @@ public class lolcodeParser extends Parser {
                 case 6:
                     enterOuterAlt(_localctx, 6);
                 {
-                    setState(115);
+                    setState(122);
                     funcall();
                 }
                 break;
@@ -625,7 +628,7 @@ public class lolcodeParser extends Parser {
                 case 7:
                     enterOuterAlt(_localctx, 7);
                 {
-                    setState(116);
+                    setState(123);
                     visstat();
                 }
                 break;
@@ -633,7 +636,7 @@ public class lolcodeParser extends Parser {
                 case 8:
                     enterOuterAlt(_localctx, 8);
                 {
-                    setState(117);
+                    setState(124);
                     gimstat();
                 }
                 break;
@@ -657,20 +660,20 @@ public class lolcodeParser extends Parser {
             return getToken(lolcodeParser.ENDST, i);
         }
 
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
+        public List<TerminalNode> ENDST() {
+            return getTokens(lolcodeParser.ENDST);
         }
 
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
         }
 
-        public List<StatContext> stat() {
-            return getRuleContexts(StatContext.class);
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
-        public List<TerminalNode> ENDST() {
-            return getTokens(lolcodeParser.ENDST);
+        public List<StatContext> stat() {
+            return getRuleContexts(StatContext.class);
         }
 
         public IfstatContext(ParserRuleContext parent, int invokingState) {
@@ -696,56 +699,56 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(120);
+                setState(127);
                 expr();
-                setState(121);
+                setState(128);
                 match(ENDST);
-                setState(122);
+                setState(129);
                 match(ORLY);
-                setState(123);
+                setState(130);
                 match(ENDST);
-                setState(124);
+                setState(131);
                 match(YARLY);
-                setState(125);
+                setState(132);
                 match(ENDST);
-                setState(126);
+                setState(133);
                 stat();
-                setState(134);
+                setState(141);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 while (_la == MEBBE) {
                     {
                         {
-                            setState(127);
+                            setState(134);
                             match(MEBBE);
-                            setState(128);
+                            setState(135);
                             expr();
-                            setState(129);
+                            setState(136);
                             match(ENDST);
-                            setState(130);
+                            setState(137);
                             stat();
                         }
                     }
-                    setState(136);
+                    setState(143);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
-                setState(140);
+                setState(147);
                 _la = _input.LA(1);
                 if (_la == NOWAI) {
                     {
-                        setState(137);
+                        setState(144);
                         match(NOWAI);
-                        setState(138);
+                        setState(145);
                         match(ENDST);
-                        setState(139);
+                        setState(146);
                         stat();
                     }
                 }
 
-                setState(142);
+                setState(149);
                 match(OIC);
-                setState(143);
+                setState(150);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -759,32 +762,32 @@ public class lolcodeParser extends Parser {
     }
 
     public static class CasestatContext extends ParserRuleContext {
-        public BlockContext block(int i) {
-            return getRuleContext(BlockContext.class, i);
+        public ValueContext value(int i) {
+            return getRuleContext(ValueContext.class, i);
         }
 
         public TerminalNode ENDST(int i) {
             return getToken(lolcodeParser.ENDST, i);
         }
 
-        public List<TerminalNode> VALUE() {
-            return getTokens(lolcodeParser.VALUE);
+        public List<ValueContext> value() {
+            return getRuleContexts(ValueContext.class);
         }
 
-        public List<BlockContext> block() {
-            return getRuleContexts(BlockContext.class);
+        public List<TerminalNode> ENDST() {
+            return getTokens(lolcodeParser.ENDST);
         }
 
         public ExprContext expr() {
             return getRuleContext(ExprContext.class, 0);
         }
 
-        public TerminalNode VALUE(int i) {
-            return getToken(lolcodeParser.VALUE, i);
+        public BlockContext block(int i) {
+            return getRuleContext(BlockContext.class, i);
         }
 
-        public List<TerminalNode> ENDST() {
-            return getTokens(lolcodeParser.ENDST);
+        public List<BlockContext> block() {
+            return getRuleContexts(BlockContext.class);
         }
 
         public CasestatContext(ParserRuleContext parent, int invokingState) {
@@ -810,62 +813,62 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(145);
+                setState(152);
                 expr();
-                setState(146);
+                setState(153);
                 match(ENDST);
-                setState(147);
+                setState(154);
                 match(WTF);
-                setState(148);
+                setState(155);
                 match(ENDST);
-                setState(159);
+                setState(166);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 while (_la == OMG) {
                     {
                         {
-                            setState(149);
+                            setState(156);
                             match(OMG);
-                            setState(150);
-                            match(VALUE);
-                            setState(151);
+                            setState(157);
+                            value();
+                            setState(158);
                             match(ENDST);
-                            setState(152);
+                            setState(159);
                             block();
-                            setState(155);
+                            setState(162);
                             _la = _input.LA(1);
                             if (_la == GTFO) {
                                 {
-                                    setState(153);
+                                    setState(160);
                                     match(GTFO);
-                                    setState(154);
+                                    setState(161);
                                     match(ENDST);
                                 }
                             }
 
                         }
                     }
-                    setState(161);
+                    setState(168);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
-                setState(169);
+                setState(176);
                 _la = _input.LA(1);
                 if (_la == OMGWTF) {
                     {
-                        setState(162);
+                        setState(169);
                         match(OMGWTF);
-                        setState(163);
+                        setState(170);
                         match(ENDST);
-                        setState(164);
+                        setState(171);
                         block();
-                        setState(167);
+                        setState(174);
                         _la = _input.LA(1);
                         if (_la == GTFO) {
                             {
-                                setState(165);
+                                setState(172);
                                 match(GTFO);
-                                setState(166);
+                                setState(173);
                                 match(ENDST);
                             }
                         }
@@ -873,9 +876,9 @@ public class lolcodeParser extends Parser {
                     }
                 }
 
-                setState(171);
+                setState(178);
                 match(OIC);
-                setState(172);
+                setState(179);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -893,8 +896,12 @@ public class lolcodeParser extends Parser {
             return getToken(lolcodeParser.ENDST, i);
         }
 
-        public TerminalNode ID(int i) {
-            return getToken(lolcodeParser.ID, i);
+        public ExprContext expr() {
+            return getRuleContext(ExprContext.class, 0);
+        }
+
+        public List<TerminalNode> ENDST() {
+            return getTokens(lolcodeParser.ENDST);
         }
 
         public List<TerminalNode> ID() {
@@ -905,12 +912,8 @@ public class lolcodeParser extends Parser {
             return getRuleContext(BlockContext.class, 0);
         }
 
-        public ExprContext expr() {
-            return getRuleContext(ExprContext.class, 0);
-        }
-
-        public List<TerminalNode> ENDST() {
-            return getTokens(lolcodeParser.ENDST);
+        public TerminalNode ID(int i) {
+            return getToken(lolcodeParser.ID, i);
         }
 
         public LoopstatContext(ParserRuleContext parent, int invokingState) {
@@ -936,55 +939,55 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(174);
-                match(IMINYR);
-                setState(175);
-                match(ID);
                 setState(181);
+                match(IMINYR);
+                setState(182);
+                match(ID);
+                setState(188);
                 _la = _input.LA(1);
                 if (_la == UPPIN || _la == NERFIN) {
                     {
-                        setState(176);
+                        setState(183);
                         _la = _input.LA(1);
                         if (!(_la == UPPIN || _la == NERFIN)) {
                             _errHandler.recoverInline(this);
                         }
                         consume();
-                        setState(177);
+                        setState(184);
                         match(YR);
-                        setState(178);
+                        setState(185);
                         match(ID);
-                        setState(179);
+                        setState(186);
                         _la = _input.LA(1);
                         if (!(_la == WHILE || _la == TIL)) {
                             _errHandler.recoverInline(this);
                         }
                         consume();
-                        setState(180);
+                        setState(187);
                         expr();
                     }
                 }
 
-                setState(183);
+                setState(190);
                 match(ENDST);
-                setState(184);
+                setState(191);
                 block();
-                setState(187);
+                setState(194);
                 _la = _input.LA(1);
                 if (_la == GTFO) {
                     {
-                        setState(185);
+                        setState(192);
                         match(GTFO);
-                        setState(186);
+                        setState(193);
                         match(ENDST);
                     }
                 }
 
-                setState(189);
+                setState(196);
                 match(IMOUTTAYR);
-                setState(190);
+                setState(197);
                 match(ID);
-                setState(191);
+                setState(198);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -998,16 +1001,16 @@ public class lolcodeParser extends Parser {
     }
 
     public static class AssstatContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
-        public List<ExprContext> expr() {
-            return getRuleContexts(ExprContext.class);
-        }
-
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public ExprContext expr() {
+            return getRuleContext(ExprContext.class, 0);
+        }
+
+        public TerminalNode ID() {
+            return getToken(lolcodeParser.ID, 0);
         }
 
         public AssstatContext(ParserRuleContext parent, int invokingState) {
@@ -1032,13 +1035,13 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(193);
-                expr();
-                setState(194);
+                setState(200);
+                match(ID);
+                setState(201);
                 match(R);
-                setState(195);
+                setState(202);
                 expr();
-                setState(196);
+                setState(203);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -1078,7 +1081,7 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(198);
+                setState(205);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1092,12 +1095,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class VisstatContext extends ParserRuleContext {
-        public ExprContext expr() {
-            return getRuleContext(ExprContext.class, 0);
-        }
-
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public ExprContext expr() {
+            return getRuleContext(ExprContext.class, 0);
         }
 
         public VisstatContext(ParserRuleContext parent, int invokingState) {
@@ -1122,11 +1125,11 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(200);
+                setState(207);
                 match(VISIBLE);
-                setState(201);
+                setState(208);
                 expr();
-                setState(202);
+                setState(209);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -1140,12 +1143,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class GimstatContext extends ParserRuleContext {
-        public TerminalNode ID() {
-            return getToken(lolcodeParser.ID, 0);
-        }
-
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public TerminalNode ID() {
+            return getToken(lolcodeParser.ID, 0);
         }
 
         public GimstatContext(ParserRuleContext parent, int invokingState) {
@@ -1170,11 +1173,11 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(204);
+                setState(211);
                 match(GIMMEH);
-                setState(205);
+                setState(212);
                 match(ID);
-                setState(206);
+                setState(213);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -1188,40 +1191,52 @@ public class lolcodeParser extends Parser {
     }
 
     public static class ExprContext extends ParserRuleContext {
-        public FunexprContext funexpr() {
-            return getRuleContext(FunexprContext.class, 0);
+        public SubexprContext subexpr() {
+            return getRuleContext(SubexprContext.class, 0);
         }
 
-        public MinmaxexprContext minmaxexpr() {
-            return getRuleContext(MinmaxexprContext.class, 0);
+        public AddexprContext addexpr() {
+            return getRuleContext(AddexprContext.class, 0);
         }
 
-        public ModexprContext modexpr() {
-            return getRuleContext(ModexprContext.class, 0);
-        }
-
-        public TerminalNode VALUE() {
-            return getToken(lolcodeParser.VALUE, 0);
-        }
-
-        public EitherexprContext eitherexpr() {
-            return getRuleContext(EitherexprContext.class, 0);
+        public OneofexprContext oneofexpr() {
+            return getRuleContext(OneofexprContext.class, 0);
         }
 
         public TerminalNode ID() {
             return getToken(lolcodeParser.ID, 0);
         }
 
-        public EquexprContext equexpr() {
-            return getRuleContext(EquexprContext.class, 0);
+        public FunexprContext funexpr() {
+            return getRuleContext(FunexprContext.class, 0);
+        }
+
+        public DivexprContext divexpr() {
+            return getRuleContext(DivexprContext.class, 0);
+        }
+
+        public MinmaxexprContext minmaxexpr() {
+            return getRuleContext(MinmaxexprContext.class, 0);
+        }
+
+        public ValueContext value() {
+            return getRuleContext(ValueContext.class, 0);
         }
 
         public BothofexprContext bothofexpr() {
             return getRuleContext(BothofexprContext.class, 0);
         }
 
-        public AddexprContext addexpr() {
-            return getRuleContext(AddexprContext.class, 0);
+        public ModexprContext modexpr() {
+            return getRuleContext(ModexprContext.class, 0);
+        }
+
+        public EquexprContext equexpr() {
+            return getRuleContext(EquexprContext.class, 0);
+        }
+
+        public EitherexprContext eitherexpr() {
+            return getRuleContext(EitherexprContext.class, 0);
         }
 
         public MultexprContext multexpr() {
@@ -1230,10 +1245,6 @@ public class lolcodeParser extends Parser {
 
         public NotexprContext notexpr() {
             return getRuleContext(NotexprContext.class, 0);
-        }
-
-        public OneofexprContext oneofexpr() {
-            return getRuleContext(OneofexprContext.class, 0);
         }
 
         public ExprContext(ParserRuleContext parent, int invokingState) {
@@ -1256,12 +1267,12 @@ public class lolcodeParser extends Parser {
         ExprContext _localctx = new ExprContext(_ctx, getState());
         enterRule(_localctx, 30, RULE_expr);
         try {
-            setState(220);
+            setState(229);
             switch (getInterpreter().adaptivePredict(_input, 15, _ctx)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(208);
+                    setState(215);
                     funexpr();
                 }
                 break;
@@ -1269,7 +1280,7 @@ public class lolcodeParser extends Parser {
                 case 2:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(209);
+                    setState(216);
                     notexpr();
                 }
                 break;
@@ -1277,7 +1288,7 @@ public class lolcodeParser extends Parser {
                 case 3:
                     enterOuterAlt(_localctx, 3);
                 {
-                    setState(210);
+                    setState(217);
                     multexpr();
                 }
                 break;
@@ -1285,72 +1296,88 @@ public class lolcodeParser extends Parser {
                 case 4:
                     enterOuterAlt(_localctx, 4);
                 {
-                    setState(211);
-                    modexpr();
+                    setState(218);
+                    divexpr();
                 }
                 break;
 
                 case 5:
                     enterOuterAlt(_localctx, 5);
                 {
-                    setState(212);
-                    addexpr();
+                    setState(219);
+                    modexpr();
                 }
                 break;
 
                 case 6:
                     enterOuterAlt(_localctx, 6);
                 {
-                    setState(213);
-                    minmaxexpr();
+                    setState(220);
+                    addexpr();
                 }
                 break;
 
                 case 7:
                     enterOuterAlt(_localctx, 7);
                 {
-                    setState(214);
-                    bothofexpr();
+                    setState(221);
+                    subexpr();
                 }
                 break;
 
                 case 8:
                     enterOuterAlt(_localctx, 8);
                 {
-                    setState(215);
-                    eitherexpr();
+                    setState(222);
+                    minmaxexpr();
                 }
                 break;
 
                 case 9:
                     enterOuterAlt(_localctx, 9);
                 {
-                    setState(216);
-                    oneofexpr();
+                    setState(223);
+                    bothofexpr();
                 }
                 break;
 
                 case 10:
                     enterOuterAlt(_localctx, 10);
                 {
-                    setState(217);
-                    equexpr();
+                    setState(224);
+                    eitherexpr();
                 }
                 break;
 
                 case 11:
                     enterOuterAlt(_localctx, 11);
                 {
-                    setState(218);
-                    match(ID);
+                    setState(225);
+                    oneofexpr();
                 }
                 break;
 
                 case 12:
                     enterOuterAlt(_localctx, 12);
                 {
-                    setState(219);
-                    match(VALUE);
+                    setState(226);
+                    equexpr();
+                }
+                break;
+
+                case 13:
+                    enterOuterAlt(_localctx, 13);
+                {
+                    setState(227);
+                    match(ID);
+                }
+                break;
+
+                case 14:
+                    enterOuterAlt(_localctx, 14);
+                {
+                    setState(228);
+                    value();
                 }
                 break;
             }
@@ -1365,16 +1392,16 @@ public class lolcodeParser extends Parser {
     }
 
     public static class FunexprContext extends ParserRuleContext {
-        public TerminalNode ID() {
-            return getToken(lolcodeParser.ID, 0);
+        public ExprListContext exprList() {
+            return getRuleContext(ExprListContext.class, 0);
         }
 
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
         }
 
-        public ExprListContext exprList() {
-            return getRuleContext(ExprListContext.class, 0);
+        public TerminalNode ID() {
+            return getToken(lolcodeParser.ID, 0);
         }
 
         public FunexprContext(ParserRuleContext parent, int invokingState) {
@@ -1399,17 +1426,17 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(222);
+                setState(231);
                 match(ID);
-                setState(224);
+                setState(233);
                 switch (getInterpreter().adaptivePredict(_input, 16, _ctx)) {
                     case 1: {
-                        setState(223);
+                        setState(232);
                         exprList();
                     }
                     break;
                 }
-                setState(226);
+                setState(235);
                 match(ENDST);
             }
         } catch (RecognitionException re) {
@@ -1449,9 +1476,9 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(228);
+                setState(237);
                 match(NOT);
-                setState(229);
+                setState(238);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1465,12 +1492,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class MultexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public MultexprContext(ParserRuleContext parent, int invokingState) {
@@ -1495,33 +1522,64 @@ public class lolcodeParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
+                setState(240);
+                match(PRODUKTOF);
                 setState(241);
-                switch (_input.LA(1)) {
-                    case PRODUKTOF: {
-                        setState(231);
-                        match(PRODUKTOF);
-                        setState(232);
-                        expr();
-                        setState(233);
-                        match(AN);
-                        setState(234);
-                        expr();
-                    }
-                    break;
-                    case QUOSHUNTOF: {
-                        setState(236);
-                        match(QUOSHUNTOF);
-                        setState(237);
-                        expr();
-                        setState(238);
-                        match(AN);
-                        setState(239);
-                        expr();
-                    }
-                    break;
-                    default:
-                        throw new NoViableAltException(this);
-                }
+                expr();
+                setState(242);
+                match(AN);
+                setState(243);
+                expr();
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    public static class DivexprContext extends ParserRuleContext {
+        public List<ExprContext> expr() {
+            return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
+        }
+
+        public DivexprContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_divexpr;
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof lolcodeVisitor) return ((lolcodeVisitor<? extends T>) visitor).visitDivexpr(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final DivexprContext divexpr() throws RecognitionException {
+        DivexprContext _localctx = new DivexprContext(_ctx, getState());
+        enterRule(_localctx, 38, RULE_divexpr);
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(245);
+                match(QUOSHUNTOF);
+                setState(246);
+                expr();
+                setState(247);
+                match(AN);
+                setState(248);
+                expr();
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -1534,12 +1592,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class ModexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public ModexprContext(ParserRuleContext parent, int invokingState) {
@@ -1560,17 +1618,17 @@ public class lolcodeParser extends Parser {
 
     public final ModexprContext modexpr() throws RecognitionException {
         ModexprContext _localctx = new ModexprContext(_ctx, getState());
-        enterRule(_localctx, 38, RULE_modexpr);
+        enterRule(_localctx, 40, RULE_modexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(243);
+                setState(250);
                 match(MODOF);
-                setState(244);
+                setState(251);
                 expr();
-                setState(245);
+                setState(252);
                 match(AN);
-                setState(246);
+                setState(253);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1584,12 +1642,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class AddexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public AddexprContext(ParserRuleContext parent, int invokingState) {
@@ -1610,37 +1668,68 @@ public class lolcodeParser extends Parser {
 
     public final AddexprContext addexpr() throws RecognitionException {
         AddexprContext _localctx = new AddexprContext(_ctx, getState());
-        enterRule(_localctx, 40, RULE_addexpr);
+        enterRule(_localctx, 42, RULE_addexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
+                setState(255);
+                match(SUMOF);
+                setState(256);
+                expr();
+                setState(257);
+                match(AN);
                 setState(258);
-                switch (_input.LA(1)) {
-                    case SUMOF: {
-                        setState(248);
-                        match(SUMOF);
-                        setState(249);
-                        expr();
-                        setState(250);
-                        match(AN);
-                        setState(251);
-                        expr();
-                    }
-                    break;
-                    case DIFFOF: {
-                        setState(253);
-                        match(DIFFOF);
-                        setState(254);
-                        expr();
-                        setState(255);
-                        match(AN);
-                        setState(256);
-                        expr();
-                    }
-                    break;
-                    default:
-                        throw new NoViableAltException(this);
-                }
+                expr();
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    public static class SubexprContext extends ParserRuleContext {
+        public List<ExprContext> expr() {
+            return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
+        }
+
+        public SubexprContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_subexpr;
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof lolcodeVisitor) return ((lolcodeVisitor<? extends T>) visitor).visitSubexpr(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final SubexprContext subexpr() throws RecognitionException {
+        SubexprContext _localctx = new SubexprContext(_ctx, getState());
+        enterRule(_localctx, 44, RULE_subexpr);
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(260);
+                match(DIFFOF);
+                setState(261);
+                expr();
+                setState(262);
+                match(AN);
+                setState(263);
+                expr();
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -1653,12 +1742,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class MinmaxexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public MinmaxexprContext(ParserRuleContext parent, int invokingState) {
@@ -1679,31 +1768,31 @@ public class lolcodeParser extends Parser {
 
     public final MinmaxexprContext minmaxexpr() throws RecognitionException {
         MinmaxexprContext _localctx = new MinmaxexprContext(_ctx, getState());
-        enterRule(_localctx, 42, RULE_minmaxexpr);
+        enterRule(_localctx, 46, RULE_minmaxexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(270);
+                setState(275);
                 switch (_input.LA(1)) {
                     case BIGGROF: {
-                        setState(260);
-                        match(BIGGROF);
-                        setState(261);
-                        expr();
-                        setState(262);
-                        match(AN);
-                        setState(263);
-                        expr();
-                    }
-                    break;
-                    case SMALLROF: {
                         setState(265);
-                        match(SMALLROF);
+                        match(BIGGROF);
                         setState(266);
                         expr();
                         setState(267);
                         match(AN);
                         setState(268);
+                        expr();
+                    }
+                    break;
+                    case SMALLROF: {
+                        setState(270);
+                        match(SMALLROF);
+                        setState(271);
+                        expr();
+                        setState(272);
+                        match(AN);
+                        setState(273);
                         expr();
                     }
                     break;
@@ -1722,12 +1811,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class BothofexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public BothofexprContext(ParserRuleContext parent, int invokingState) {
@@ -1748,17 +1837,17 @@ public class lolcodeParser extends Parser {
 
     public final BothofexprContext bothofexpr() throws RecognitionException {
         BothofexprContext _localctx = new BothofexprContext(_ctx, getState());
-        enterRule(_localctx, 44, RULE_bothofexpr);
+        enterRule(_localctx, 48, RULE_bothofexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(272);
+                setState(277);
                 match(BOTHOF);
-                setState(273);
+                setState(278);
                 expr();
-                setState(274);
+                setState(279);
                 match(AN);
-                setState(275);
+                setState(280);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1772,12 +1861,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class EitherexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public EitherexprContext(ParserRuleContext parent, int invokingState) {
@@ -1798,17 +1887,17 @@ public class lolcodeParser extends Parser {
 
     public final EitherexprContext eitherexpr() throws RecognitionException {
         EitherexprContext _localctx = new EitherexprContext(_ctx, getState());
-        enterRule(_localctx, 46, RULE_eitherexpr);
+        enterRule(_localctx, 50, RULE_eitherexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(277);
+                setState(282);
                 match(EITHEROF);
-                setState(278);
+                setState(283);
                 expr();
-                setState(279);
+                setState(284);
                 match(AN);
-                setState(280);
+                setState(285);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1822,12 +1911,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class OneofexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public OneofexprContext(ParserRuleContext parent, int invokingState) {
@@ -1848,17 +1937,17 @@ public class lolcodeParser extends Parser {
 
     public final OneofexprContext oneofexpr() throws RecognitionException {
         OneofexprContext _localctx = new OneofexprContext(_ctx, getState());
-        enterRule(_localctx, 48, RULE_oneofexpr);
+        enterRule(_localctx, 52, RULE_oneofexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(282);
+                setState(287);
                 match(ONEOF);
-                setState(283);
+                setState(288);
                 expr();
-                setState(284);
+                setState(289);
                 match(AN);
-                setState(285);
+                setState(290);
                 expr();
             }
         } catch (RecognitionException re) {
@@ -1872,12 +1961,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class EquexprContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public EquexprContext(ParserRuleContext parent, int invokingState) {
@@ -1898,31 +1987,31 @@ public class lolcodeParser extends Parser {
 
     public final EquexprContext equexpr() throws RecognitionException {
         EquexprContext _localctx = new EquexprContext(_ctx, getState());
-        enterRule(_localctx, 50, RULE_equexpr);
+        enterRule(_localctx, 54, RULE_equexpr);
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(297);
+                setState(302);
                 switch (_input.LA(1)) {
                     case BOTHSAEM: {
-                        setState(287);
-                        match(BOTHSAEM);
-                        setState(288);
-                        expr();
-                        setState(289);
-                        match(AN);
-                        setState(290);
-                        expr();
-                    }
-                    break;
-                    case DIFFRINT: {
                         setState(292);
-                        match(DIFFRINT);
+                        match(BOTHSAEM);
                         setState(293);
                         expr();
                         setState(294);
                         match(AN);
                         setState(295);
+                        expr();
+                    }
+                    break;
+                    case DIFFRINT: {
+                        setState(297);
+                        match(DIFFRINT);
+                        setState(298);
+                        expr();
+                        setState(299);
+                        match(AN);
+                        setState(300);
                         expr();
                     }
                     break;
@@ -1941,12 +2030,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class ExprListContext extends ParserRuleContext {
-        public ExprContext expr(int i) {
-            return getRuleContext(ExprContext.class, i);
-        }
-
         public List<ExprContext> expr() {
             return getRuleContexts(ExprContext.class);
+        }
+
+        public ExprContext expr(int i) {
+            return getRuleContext(ExprContext.class, i);
         }
 
         public ExprListContext(ParserRuleContext parent, int invokingState) {
@@ -1967,22 +2056,22 @@ public class lolcodeParser extends Parser {
 
     public final ExprListContext exprList() throws RecognitionException {
         ExprListContext _localctx = new ExprListContext(_ctx, getState());
-        enterRule(_localctx, 52, RULE_exprList);
+        enterRule(_localctx, 56, RULE_exprList);
         int _la;
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(302);
+                setState(307);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << ID) | (1L << VALUE))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
                     {
                         {
-                            setState(299);
+                            setState(304);
                             expr();
                         }
                     }
-                    setState(304);
+                    setState(309);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
                 }
@@ -1998,12 +2087,12 @@ public class lolcodeParser extends Parser {
     }
 
     public static class RetpartContext extends ParserRuleContext {
-        public ExprContext expr() {
-            return getRuleContext(ExprContext.class, 0);
-        }
-
         public TerminalNode ENDST() {
             return getToken(lolcodeParser.ENDST, 0);
+        }
+
+        public ExprContext expr() {
+            return getRuleContext(ExprContext.class, 0);
         }
 
         public RetpartContext(ParserRuleContext parent, int invokingState) {
@@ -2024,25 +2113,25 @@ public class lolcodeParser extends Parser {
 
     public final RetpartContext retpart() throws RecognitionException {
         RetpartContext _localctx = new RetpartContext(_ctx, getState());
-        enterRule(_localctx, 54, RULE_retpart);
+        enterRule(_localctx, 58, RULE_retpart);
         try {
-            setState(310);
+            setState(315);
             switch (_input.LA(1)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(305);
+                    setState(310);
                     match(1);
-                    setState(306);
+                    setState(311);
                     expr();
-                    setState(307);
+                    setState(312);
                     match(ENDST);
                 }
                 break;
                 case GTFO:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(309);
+                    setState(314);
                     match(GTFO);
                 }
                 break;
@@ -2059,114 +2148,177 @@ public class lolcodeParser extends Parser {
         return _localctx;
     }
 
+    public static class ValueContext extends ParserRuleContext {
+        public TerminalNode BOOL() {
+            return getToken(lolcodeParser.BOOL, 0);
+        }
+
+        public TerminalNode FLOAT() {
+            return getToken(lolcodeParser.FLOAT, 0);
+        }
+
+        public TerminalNode INT() {
+            return getToken(lolcodeParser.INT, 0);
+        }
+
+        public TerminalNode STRING() {
+            return getToken(lolcodeParser.STRING, 0);
+        }
+
+        public ValueContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_value;
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof lolcodeVisitor) return ((lolcodeVisitor<? extends T>) visitor).visitValue(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final ValueContext value() throws RecognitionException {
+        ValueContext _localctx = new ValueContext(_ctx, getState());
+        enterRule(_localctx, 60, RULE_value);
+        int _la;
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(317);
+                _la = _input.LA(1);
+                if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0))) {
+                    _errHandler.recoverInline(this);
+                }
+                consume();
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
     public static final String _serializedATN =
-            "\2\3@\u013b\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4" +
-                    "\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20" +
-                    "\4\21\t\21\4\22\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27" +
-                    "\4\30\t\30\4\31\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\3\2\7\2<" +
-                    "\n\2\f\2\16\2?\13\2\3\2\3\2\3\3\3\3\3\3\7\3F\n\3\f\3\16\3I\13\3\3\3\3" +
-                    "\3\3\4\3\4\3\4\3\4\5\4Q\n\4\3\4\3\4\3\5\3\5\3\5\5\5X\n\5\3\5\3\5\3\5\3" +
-                    "\5\3\5\3\5\3\6\3\6\3\6\3\6\7\6d\n\6\f\6\16\6g\13\6\3\7\3\7\3\b\7\bl\n" +
-                    "\b\f\b\16\bo\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\ty\n\t\3\n\3\n\3\n" +
-                    "\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\n\u0087\n\n\f\n\16\n\u008a\13\n" +
-                    "\3\n\3\n\3\n\5\n\u008f\n\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3" +
-                    "\13\3\13\3\13\3\13\5\13\u009e\n\13\7\13\u00a0\n\13\f\13\16\13\u00a3\13" +
-                    "\13\3\13\3\13\3\13\3\13\3\13\5\13\u00aa\n\13\5\13\u00ac\n\13\3\13\3\13" +
-                    "\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00b8\n\f\3\f\3\f\3\f\3\f\5\f\u00be" +
-                    "\n\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\17\3\17\3\17\3\17" +
-                    "\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21" +
-                    "\3\21\3\21\5\21\u00df\n\21\3\22\3\22\5\22\u00e3\n\22\3\22\3\22\3\23\3" +
-                    "\23\3\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u00f4" +
-                    "\n\24\3\25\3\25\3\25\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26" +
-                    "\3\26\3\26\5\26\u0105\n\26\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27" +
-                    "\3\27\5\27\u0111\n\27\3\30\3\30\3\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31" +
-                    "\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\33\3\33\3\33\3\33\3\33\3\33\3\33" +
-                    "\3\33\5\33\u012c\n\33\3\34\7\34\u012f\n\34\f\34\16\34\u0132\13\34\3\35" +
-                    "\3\35\3\35\3\35\3\35\5\35\u0139\n\35\3\35\2\36\2\4\6\b\n\f\16\20\22\24" +
-                    "\26\30\32\34\36 \"$&(*,.\60\62\64\668\2\4\3$%\3\f\r\u0145\2=\3\2\2\2\4" +
-                    "B\3\2\2\2\6L\3\2\2\2\bT\3\2\2\2\n_\3\2\2\2\fh\3\2\2\2\16m\3\2\2\2\20x" +
-                    "\3\2\2\2\22z\3\2\2\2\24\u0093\3\2\2\2\26\u00b0\3\2\2\2\30\u00c3\3\2\2" +
-                    "\2\32\u00c8\3\2\2\2\34\u00ca\3\2\2\2\36\u00ce\3\2\2\2 \u00de\3\2\2\2\"" +
-                    "\u00e0\3\2\2\2$\u00e6\3\2\2\2&\u00f3\3\2\2\2(\u00f5\3\2\2\2*\u0104\3\2" +
-                    "\2\2,\u0110\3\2\2\2.\u0112\3\2\2\2\60\u0117\3\2\2\2\62\u011c\3\2\2\2\64" +
-                    "\u012b\3\2\2\2\66\u0130\3\2\2\28\u0138\3\2\2\2:<\5\b\5\2;:\3\2\2\2<?\3" +
-                    "\2\2\2=;\3\2\2\2=>\3\2\2\2>@\3\2\2\2?=\3\2\2\2@A\5\4\3\2A\3\3\2\2\2BC" +
-                    "\7\n\2\2CG\7>\2\2DF\5\20\t\2ED\3\2\2\2FI\3\2\2\2GE\3\2\2\2GH\3\2\2\2H" +
-                    "J\3\2\2\2IG\3\2\2\2JK\7\13\2\2K\5\3\2\2\2LM\7\64\2\2MP\78\2\2NO\7\32\2" +
-                    "\2OQ\5 \21\2PN\3\2\2\2PQ\3\2\2\2QR\3\2\2\2RS\7>\2\2S\7\3\2\2\2TU\7\61" +
-                    "\2\2UW\78\2\2VX\5\n\6\2WV\3\2\2\2WX\3\2\2\2XY\3\2\2\2YZ\7>\2\2Z[\5\16" +
-                    "\b\2[\\\58\35\2\\]\7\62\2\2]^\7>\2\2^\t\3\2\2\2_`\7/\2\2`e\5\f\7\2ab\7" +
-                    "\60\2\2bd\5\f\7\2ca\3\2\2\2dg\3\2\2\2ec\3\2\2\2ef\3\2\2\2f\13\3\2\2\2" +
-                    "ge\3\2\2\2hi\78\2\2i\r\3\2\2\2jl\5\20\t\2kj\3\2\2\2lo\3\2\2\2mk\3\2\2" +
-                    "\2mn\3\2\2\2n\17\3\2\2\2om\3\2\2\2py\5\6\4\2qy\5\22\n\2ry\5\24\13\2sy" +
-                    "\5\26\f\2ty\5\30\r\2uy\5\32\16\2vy\5\34\17\2wy\5\36\20\2xp\3\2\2\2xq\3" +
-                    "\2\2\2xr\3\2\2\2xs\3\2\2\2xt\3\2\2\2xu\3\2\2\2xv\3\2\2\2xw\3\2\2\2y\21" +
-                    "\3\2\2\2z{\5 \21\2{|\7>\2\2|}\7\16\2\2}~\7>\2\2~\177\7\17\2\2\177\u0080" +
-                    "\7>\2\2\u0080\u0088\5\20\t\2\u0081\u0082\7\20\2\2\u0082\u0083\5 \21\2" +
-                    "\u0083\u0084\7>\2\2\u0084\u0085\5\20\t\2\u0085\u0087\3\2\2\2\u0086\u0081" +
-                    "\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0089\3\2\2\2\u0089" +
-                    "\u008e\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008c\7\21\2\2\u008c\u008d\7" +
-                    ">\2\2\u008d\u008f\5\20\t\2\u008e\u008b\3\2\2\2\u008e\u008f\3\2\2\2\u008f" +
-                    "\u0090\3\2\2\2\u0090\u0091\7\22\2\2\u0091\u0092\7>\2\2\u0092\23\3\2\2" +
-                    "\2\u0093\u0094\5 \21\2\u0094\u0095\7>\2\2\u0095\u0096\7\4\2\2\u0096\u00a1" +
-                    "\7>\2\2\u0097\u0098\7\23\2\2\u0098\u0099\79\2\2\u0099\u009a\7>\2\2\u009a" +
-                    "\u009d\5\16\b\2\u009b\u009c\7.\2\2\u009c\u009e\7>\2\2\u009d\u009b\3\2" +
-                    "\2\2\u009d\u009e\3\2\2\2\u009e\u00a0\3\2\2\2\u009f\u0097\3\2\2\2\u00a0" +
-                    "\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00ab\3\2" +
-                    "\2\2\u00a3\u00a1\3\2\2\2\u00a4\u00a5\7\24\2\2\u00a5\u00a6\7>\2\2\u00a6" +
-                    "\u00a9\5\16\b\2\u00a7\u00a8\7.\2\2\u00a8\u00aa\7>\2\2\u00a9\u00a7\3\2" +
-                    "\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00ac\3\2\2\2\u00ab\u00a4\3\2\2\2\u00ab" +
-                    "\u00ac\3\2\2\2\u00ac\u00ad\3\2\2\2\u00ad\u00ae\7\22\2\2\u00ae\u00af\7" +
-                    ">\2\2\u00af\25\3\2\2\2\u00b0\u00b1\7&\2\2\u00b1\u00b7\78\2\2\u00b2\u00b3" +
-                    "\t\2\2\2\u00b3\u00b4\7/\2\2\u00b4\u00b5\78\2\2\u00b5\u00b6\t\3\2\2\u00b6" +
-                    "\u00b8\5 \21\2\u00b7\u00b2\3\2\2\2\u00b7\u00b8\3\2\2\2\u00b8\u00b9\3\2" +
-                    "\2\2\u00b9\u00ba\7>\2\2\u00ba\u00bd\5\16\b\2\u00bb\u00bc\7.\2\2\u00bc" +
-                    "\u00be\7>\2\2\u00bd\u00bb\3\2\2\2\u00bd\u00be\3\2\2\2\u00be\u00bf\3\2" +
-                    "\2\2\u00bf\u00c0\7\'\2\2\u00c0\u00c1\78\2\2\u00c1\u00c2\7>\2\2\u00c2\27" +
-                    "\3\2\2\2\u00c3\u00c4\5 \21\2\u00c4\u00c5\7\63\2\2\u00c5\u00c6\5 \21\2" +
-                    "\u00c6\u00c7\7>\2\2\u00c7\31\3\2\2\2\u00c8\u00c9\5 \21\2\u00c9\33\3\2" +
-                    "\2\2\u00ca\u00cb\7\66\2\2\u00cb\u00cc\5 \21\2\u00cc\u00cd\7>\2\2\u00cd" +
-                    "\35\3\2\2\2\u00ce\u00cf\7\67\2\2\u00cf\u00d0\78\2\2\u00d0\u00d1\7>\2\2" +
-                    "\u00d1\37\3\2\2\2\u00d2\u00df\5\"\22\2\u00d3\u00df\5$\23\2\u00d4\u00df" +
-                    "\5&\24\2\u00d5\u00df\5(\25\2\u00d6\u00df\5*\26\2\u00d7\u00df\5,\27\2\u00d8" +
-                    "\u00df\5.\30\2\u00d9\u00df\5\60\31\2\u00da\u00df\5\62\32\2\u00db\u00df" +
-                    "\5\64\33\2\u00dc\u00df\78\2\2\u00dd\u00df\79\2\2\u00de\u00d2\3\2\2\2\u00de" +
-                    "\u00d3\3\2\2\2\u00de\u00d4\3\2\2\2\u00de\u00d5\3\2\2\2\u00de\u00d6\3\2" +
-                    "\2\2\u00de\u00d7\3\2\2\2\u00de\u00d8\3\2\2\2\u00de\u00d9\3\2\2\2\u00de" +
-                    "\u00da\3\2\2\2\u00de\u00db\3\2\2\2\u00de\u00dc\3\2\2\2\u00de\u00dd\3\2" +
-                    "\2\2\u00df!\3\2\2\2\u00e0\u00e2\78\2\2\u00e1\u00e3\5\66\34\2\u00e2\u00e1" +
-                    "\3\2\2\2\u00e2\u00e3\3\2\2\2\u00e3\u00e4\3\2\2\2\u00e4\u00e5\7>\2\2\u00e5" +
-                    "#\3\2\2\2\u00e6\u00e7\7-\2\2\u00e7\u00e8\5 \21\2\u00e8%\3\2\2\2\u00e9" +
-                    "\u00ea\7\36\2\2\u00ea\u00eb\5 \21\2\u00eb\u00ec\7\b\2\2\u00ec\u00ed\5" +
-                    " \21\2\u00ed\u00f4\3\2\2\2\u00ee\u00ef\7\37\2\2\u00ef\u00f0\5 \21\2\u00f0" +
-                    "\u00f1\7\b\2\2\u00f1\u00f2\5 \21\2\u00f2\u00f4\3\2\2\2\u00f3\u00e9\3\2" +
-                    "\2\2\u00f3\u00ee\3\2\2\2\u00f4\'\3\2\2\2\u00f5\u00f6\7 \2\2\u00f6\u00f7" +
-                    "\5 \21\2\u00f7\u00f8\7\b\2\2\u00f8\u00f9\5 \21\2\u00f9)\3\2\2\2\u00fa" +
-                    "\u00fb\7!\2\2\u00fb\u00fc\5 \21\2\u00fc\u00fd\7\b\2\2\u00fd\u00fe\5 \21" +
-                    "\2\u00fe\u0105\3\2\2\2\u00ff\u0100\7\"\2\2\u0100\u0101\5 \21\2\u0101\u0102" +
-                    "\7\b\2\2\u0102\u0103\5 \21\2\u0103\u0105\3\2\2\2\u0104\u00fa\3\2\2\2\u0104" +
-                    "\u00ff\3\2\2\2\u0105+\3\2\2\2\u0106\u0107\7\t\2\2\u0107\u0108\5 \21\2" +
-                    "\u0108\u0109\7\b\2\2\u0109\u010a\5 \21\2\u010a\u0111\3\2\2\2\u010b\u010c" +
-                    "\7\35\2\2\u010c\u010d\5 \21\2\u010d\u010e\7\b\2\2\u010e\u010f\5 \21\2" +
-                    "\u010f\u0111\3\2\2\2\u0110\u0106\3\2\2\2\u0110\u010b\3\2\2\2\u0111-\3" +
-                    "\2\2\2\u0112\u0113\7,\2\2\u0113\u0114\5 \21\2\u0114\u0115\7\b\2\2\u0115" +
-                    "\u0116\5 \21\2\u0116/\3\2\2\2\u0117\u0118\7+\2\2\u0118\u0119\5 \21\2\u0119" +
-                    "\u011a\7\b\2\2\u011a\u011b\5 \21\2\u011b\61\3\2\2\2\u011c\u011d\7)\2\2" +
-                    "\u011d\u011e\5 \21\2\u011e\u011f\7\b\2\2\u011f\u0120\5 \21\2\u0120\63" +
-                    "\3\2\2\2\u0121\u0122\7\33\2\2\u0122\u0123\5 \21\2\u0123\u0124\7\b\2\2" +
-                    "\u0124\u0125\5 \21\2\u0125\u012c\3\2\2\2\u0126\u0127\7\34\2\2\u0127\u0128" +
-                    "\5 \21\2\u0128\u0129\7\b\2\2\u0129\u012a\5 \21\2\u012a\u012c\3\2\2\2\u012b" +
-                    "\u0121\3\2\2\2\u012b\u0126\3\2\2\2\u012c\65\3\2\2\2\u012d\u012f\5 \21" +
-                    "\2\u012e\u012d\3\2\2\2\u012f\u0132\3\2\2\2\u0130\u012e\3\2\2\2\u0130\u0131" +
-                    "\3\2\2\2\u0131\67\3\2\2\2\u0132\u0130\3\2\2\2\u0133\u0134\7\3\2\2\u0134" +
-                    "\u0135\5 \21\2\u0135\u0136\7>\2\2\u0136\u0139\3\2\2\2\u0137\u0139\7.\2" +
-                    "\2\u0138\u0133\3\2\2\2\u0138\u0137\3\2\2\2\u01399\3\2\2\2\31=GPWemx\u0088" +
-                    "\u008e\u009d\u00a1\u00a9\u00ab\u00b7\u00bd\u00de\u00e2\u00f3\u0104\u0110" +
-                    "\u012b\u0130\u0138";
+            "\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3?\u0142\4\2\t\2\4" +
+                    "\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t" +
+                    "\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22" +
+                    "\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31" +
+                    "\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \3\2" +
+                    "\7\2B\n\2\f\2\16\2E\13\2\3\2\3\2\3\3\3\3\3\3\7\3L\n\3\f\3\16\3O\13\3\3" +
+                    "\3\3\3\3\4\3\4\3\4\3\4\5\4W\n\4\3\4\3\4\3\5\3\5\3\5\5\5^\n\5\3\5\3\5\3" +
+                    "\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\7\6k\n\6\f\6\16\6n\13\6\3\7\3\7\3\b" +
+                    "\7\bs\n\b\f\b\16\bv\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t\u0080\n\t" +
+                    "\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\n\u008e\n\n\f\n\16" +
+                    "\n\u0091\13\n\3\n\3\n\3\n\5\n\u0096\n\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13" +
+                    "\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u00a5\n\13\7\13\u00a7\n\13\f\13\16" +
+                    "\13\u00aa\13\13\3\13\3\13\3\13\3\13\3\13\5\13\u00b1\n\13\5\13\u00b3\n" +
+                    "\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00bf\n\f\3\f\3\f\3" +
+                    "\f\3\f\5\f\u00c5\n\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\17" +
+                    "\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21" +
+                    "\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u00e8\n\21\3\22\3\22\5\22\u00ec" +
+                    "\n\22\3\22\3\22\3\23\3\23\3\23\3\24\3\24\3\24\3\24\3\24\3\25\3\25\3\25" +
+                    "\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\27\3\27\3\27\3\27\3\27\3\30\3\30" +
+                    "\3\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\5\31" +
+                    "\u0116\n\31\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\33\3\33\3\33\3\34\3\34" +
+                    "\3\34\3\34\3\34\3\35\3\35\3\35\3\35\3\35\3\35\3\35\3\35\3\35\3\35\5\35" +
+                    "\u0131\n\35\3\36\7\36\u0134\n\36\f\36\16\36\u0137\13\36\3\37\3\37\3\37" +
+                    "\3\37\3\37\5\37\u013e\n\37\3 \3 \3 \2!\2\4\6\b\n\f\16\20\22\24\26\30\32" +
+                    "\34\36 \"$&(*,.\60\62\64\668:<>\2\5\3\2$%\3\2\f\r\3\29<\u0149\2C\3\2\2" +
+                    "\2\4H\3\2\2\2\6R\3\2\2\2\bZ\3\2\2\2\nf\3\2\2\2\fo\3\2\2\2\16t\3\2\2\2" +
+                    "\20\177\3\2\2\2\22\u0081\3\2\2\2\24\u009a\3\2\2\2\26\u00b7\3\2\2\2\30" +
+                    "\u00ca\3\2\2\2\32\u00cf\3\2\2\2\34\u00d1\3\2\2\2\36\u00d5\3\2\2\2 \u00e7" +
+                    "\3\2\2\2\"\u00e9\3\2\2\2$\u00ef\3\2\2\2&\u00f2\3\2\2\2(\u00f7\3\2\2\2" +
+                    "*\u00fc\3\2\2\2,\u0101\3\2\2\2.\u0106\3\2\2\2\60\u0115\3\2\2\2\62\u0117" +
+                    "\3\2\2\2\64\u011c\3\2\2\2\66\u0121\3\2\2\28\u0130\3\2\2\2:\u0135\3\2\2" +
+                    "\2<\u013d\3\2\2\2>\u013f\3\2\2\2@B\5\b\5\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2" +
+                    "\2CD\3\2\2\2DF\3\2\2\2EC\3\2\2\2FG\5\4\3\2G\3\3\2\2\2HI\7\n\2\2IM\7=\2" +
+                    "\2JL\5\20\t\2KJ\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NP\3\2\2\2OM\3\2" +
+                    "\2\2PQ\7\13\2\2Q\5\3\2\2\2RS\7\64\2\2SV\78\2\2TU\7\32\2\2UW\5 \21\2VT" +
+                    "\3\2\2\2VW\3\2\2\2WX\3\2\2\2XY\7=\2\2Y\7\3\2\2\2Z[\7\61\2\2[]\78\2\2\\" +
+                    "^\5\n\6\2]\\\3\2\2\2]^\3\2\2\2^_\3\2\2\2_`\7=\2\2`a\5\16\b\2ab\5<\37\2" +
+                    "bc\7=\2\2cd\7\62\2\2de\7=\2\2e\t\3\2\2\2fg\7/\2\2gl\5\f\7\2hi\7\60\2\2" +
+                    "ik\5\f\7\2jh\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2m\13\3\2\2\2nl\3\2\2" +
+                    "\2op\78\2\2p\r\3\2\2\2qs\5\20\t\2rq\3\2\2\2sv\3\2\2\2tr\3\2\2\2tu\3\2" +
+                    "\2\2u\17\3\2\2\2vt\3\2\2\2w\u0080\5\6\4\2x\u0080\5\22\n\2y\u0080\5\24" +
+                    "\13\2z\u0080\5\26\f\2{\u0080\5\30\r\2|\u0080\5\32\16\2}\u0080\5\34\17" +
+                    "\2~\u0080\5\36\20\2\177w\3\2\2\2\177x\3\2\2\2\177y\3\2\2\2\177z\3\2\2" +
+                    "\2\177{\3\2\2\2\177|\3\2\2\2\177}\3\2\2\2\177~\3\2\2\2\u0080\21\3\2\2" +
+                    "\2\u0081\u0082\5 \21\2\u0082\u0083\7=\2\2\u0083\u0084\7\16\2\2\u0084\u0085" +
+                    "\7=\2\2\u0085\u0086\7\17\2\2\u0086\u0087\7=\2\2\u0087\u008f\5\20\t\2\u0088" +
+                    "\u0089\7\20\2\2\u0089\u008a\5 \21\2\u008a\u008b\7=\2\2\u008b\u008c\5\20" +
+                    "\t\2\u008c\u008e\3\2\2\2\u008d\u0088\3\2\2\2\u008e\u0091\3\2\2\2\u008f" +
+                    "\u008d\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0095\3\2\2\2\u0091\u008f\3\2" +
+                    "\2\2\u0092\u0093\7\21\2\2\u0093\u0094\7=\2\2\u0094\u0096\5\20\t\2\u0095" +
+                    "\u0092\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u0097\3\2\2\2\u0097\u0098\7\22" +
+                    "\2\2\u0098\u0099\7=\2\2\u0099\23\3\2\2\2\u009a\u009b\5 \21\2\u009b\u009c" +
+                    "\7=\2\2\u009c\u009d\7\4\2\2\u009d\u00a8\7=\2\2\u009e\u009f\7\23\2\2\u009f" +
+                    "\u00a0\5> \2\u00a0\u00a1\7=\2\2\u00a1\u00a4\5\16\b\2\u00a2\u00a3\7.\2" +
+                    "\2\u00a3\u00a5\7=\2\2\u00a4\u00a2\3\2\2\2\u00a4\u00a5\3\2\2\2\u00a5\u00a7" +
+                    "\3\2\2\2\u00a6\u009e\3\2\2\2\u00a7\u00aa\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a8" +
+                    "\u00a9\3\2\2\2\u00a9\u00b2\3\2\2\2\u00aa\u00a8\3\2\2\2\u00ab\u00ac\7\24" +
+                    "\2\2\u00ac\u00ad\7=\2\2\u00ad\u00b0\5\16\b\2\u00ae\u00af\7.\2\2\u00af" +
+                    "\u00b1\7=\2\2\u00b0\u00ae\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1\u00b3\3\2" +
+                    "\2\2\u00b2\u00ab\3\2\2\2\u00b2\u00b3\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4" +
+                    "\u00b5\7\22\2\2\u00b5\u00b6\7=\2\2\u00b6\25\3\2\2\2\u00b7\u00b8\7&\2\2" +
+                    "\u00b8\u00be\78\2\2\u00b9\u00ba\t\2\2\2\u00ba\u00bb\7/\2\2\u00bb\u00bc" +
+                    "\78\2\2\u00bc\u00bd\t\3\2\2\u00bd\u00bf\5 \21\2\u00be\u00b9\3\2\2\2\u00be" +
+                    "\u00bf\3\2\2\2\u00bf\u00c0\3\2\2\2\u00c0\u00c1\7=\2\2\u00c1\u00c4\5\16" +
+                    "\b\2\u00c2\u00c3\7.\2\2\u00c3\u00c5\7=\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c5" +
+                    "\3\2\2\2\u00c5\u00c6\3\2\2\2\u00c6\u00c7\7\'\2\2\u00c7\u00c8\78\2\2\u00c8" +
+                    "\u00c9\7=\2\2\u00c9\27\3\2\2\2\u00ca\u00cb\78\2\2\u00cb\u00cc\7\63\2\2" +
+                    "\u00cc\u00cd\5 \21\2\u00cd\u00ce\7=\2\2\u00ce\31\3\2\2\2\u00cf\u00d0\5" +
+                    " \21\2\u00d0\33\3\2\2\2\u00d1\u00d2\7\66\2\2\u00d2\u00d3\5 \21\2\u00d3" +
+                    "\u00d4\7=\2\2\u00d4\35\3\2\2\2\u00d5\u00d6\7\67\2\2\u00d6\u00d7\78\2\2" +
+                    "\u00d7\u00d8\7=\2\2\u00d8\37\3\2\2\2\u00d9\u00e8\5\"\22\2\u00da\u00e8" +
+                    "\5$\23\2\u00db\u00e8\5&\24\2\u00dc\u00e8\5(\25\2\u00dd\u00e8\5*\26\2\u00de" +
+                    "\u00e8\5,\27\2\u00df\u00e8\5.\30\2\u00e0\u00e8\5\60\31\2\u00e1\u00e8\5" +
+                    "\62\32\2\u00e2\u00e8\5\64\33\2\u00e3\u00e8\5\66\34\2\u00e4\u00e8\58\35" +
+                    "\2\u00e5\u00e8\78\2\2\u00e6\u00e8\5> \2\u00e7\u00d9\3\2\2\2\u00e7\u00da" +
+                    "\3\2\2\2\u00e7\u00db\3\2\2\2\u00e7\u00dc\3\2\2\2\u00e7\u00dd\3\2\2\2\u00e7" +
+                    "\u00de\3\2\2\2\u00e7\u00df\3\2\2\2\u00e7\u00e0\3\2\2\2\u00e7\u00e1\3\2" +
+                    "\2\2\u00e7\u00e2\3\2\2\2\u00e7\u00e3\3\2\2\2\u00e7\u00e4\3\2\2\2\u00e7" +
+                    "\u00e5\3\2\2\2\u00e7\u00e6\3\2\2\2\u00e8!\3\2\2\2\u00e9\u00eb\78\2\2\u00ea" +
+                    "\u00ec\5:\36\2\u00eb\u00ea\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec\u00ed\3\2" +
+                    "\2\2\u00ed\u00ee\7=\2\2\u00ee#\3\2\2\2\u00ef\u00f0\7-\2\2\u00f0\u00f1" +
+                    "\5 \21\2\u00f1%\3\2\2\2\u00f2\u00f3\7\36\2\2\u00f3\u00f4\5 \21\2\u00f4" +
+                    "\u00f5\7\b\2\2\u00f5\u00f6\5 \21\2\u00f6\'\3\2\2\2\u00f7\u00f8\7\37\2" +
+                    "\2\u00f8\u00f9\5 \21\2\u00f9\u00fa\7\b\2\2\u00fa\u00fb\5 \21\2\u00fb)" +
+                    "\3\2\2\2\u00fc\u00fd\7 \2\2\u00fd\u00fe\5 \21\2\u00fe\u00ff\7\b\2\2\u00ff" +
+                    "\u0100\5 \21\2\u0100+\3\2\2\2\u0101\u0102\7!\2\2\u0102\u0103\5 \21\2\u0103" +
+                    "\u0104\7\b\2\2\u0104\u0105\5 \21\2\u0105-\3\2\2\2\u0106\u0107\7\"\2\2" +
+                    "\u0107\u0108\5 \21\2\u0108\u0109\7\b\2\2\u0109\u010a\5 \21\2\u010a/\3" +
+                    "\2\2\2\u010b\u010c\7\t\2\2\u010c\u010d\5 \21\2\u010d\u010e\7\b\2\2\u010e" +
+                    "\u010f\5 \21\2\u010f\u0116\3\2\2\2\u0110\u0111\7\35\2\2\u0111\u0112\5" +
+                    " \21\2\u0112\u0113\7\b\2\2\u0113\u0114\5 \21\2\u0114\u0116\3\2\2\2\u0115" +
+                    "\u010b\3\2\2\2\u0115\u0110\3\2\2\2\u0116\61\3\2\2\2\u0117\u0118\7,\2\2" +
+                    "\u0118\u0119\5 \21\2\u0119\u011a\7\b\2\2\u011a\u011b\5 \21\2\u011b\63" +
+                    "\3\2\2\2\u011c\u011d\7+\2\2\u011d\u011e\5 \21\2\u011e\u011f\7\b\2\2\u011f" +
+                    "\u0120\5 \21\2\u0120\65\3\2\2\2\u0121\u0122\7)\2\2\u0122\u0123\5 \21\2" +
+                    "\u0123\u0124\7\b\2\2\u0124\u0125\5 \21\2\u0125\67\3\2\2\2\u0126\u0127" +
+                    "\7\33\2\2\u0127\u0128\5 \21\2\u0128\u0129\7\b\2\2\u0129\u012a\5 \21\2" +
+                    "\u012a\u0131\3\2\2\2\u012b\u012c\7\34\2\2\u012c\u012d\5 \21\2\u012d\u012e" +
+                    "\7\b\2\2\u012e\u012f\5 \21\2\u012f\u0131\3\2\2\2\u0130\u0126\3\2\2\2\u0130" +
+                    "\u012b\3\2\2\2\u01319\3\2\2\2\u0132\u0134\5 \21\2\u0133\u0132\3\2\2\2" +
+                    "\u0134\u0137\3\2\2\2\u0135\u0133\3\2\2\2\u0135\u0136\3\2\2\2\u0136;\3" +
+                    "\2\2\2\u0137\u0135\3\2\2\2\u0138\u0139\7\3\2\2\u0139\u013a\5 \21\2\u013a" +
+                    "\u013b\7=\2\2\u013b\u013e\3\2\2\2\u013c\u013e\7.\2\2\u013d\u0138\3\2\2" +
+                    "\2\u013d\u013c\3\2\2\2\u013e=\3\2\2\2\u013f\u0140\t\4\2\2\u0140?\3\2\2" +
+                    "\2\27CMV]lt\177\u008f\u0095\u00a4\u00a8\u00b0\u00b2\u00be\u00c4\u00e7" +
+                    "\u00eb\u0115\u0130\u0135\u013d";
     public static final ATN _ATN =
             ATNSimulator.deserialize(_serializedATN.toCharArray());
 
     static {
         _decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
+        for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
+            _decisionToDFA[i] = new DFA(_ATN.getDecisionState(i), i);
+        }
     }
 }

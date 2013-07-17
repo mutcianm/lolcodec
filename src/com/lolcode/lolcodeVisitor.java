@@ -1,63 +1,263 @@
-// Generated from C:\Users\Niner\Desktop\LOLCODE\lolcode.g4 by ANTLR 4.0
+// Generated from lolcode.g4 by ANTLR 4.1
 
 package com.lolcode;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
+/**
+ * This interface defines a complete generic visitor for a parse tree produced
+ * by {@link lolcodeParser}.
+ *
+ * @param <T> The return type of the visit operation. Use {@link Void} for
+ *            operations with no return type.
+ */
 public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
-    T visitFuncall(lolcodeParser.FuncallContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#funcall}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFuncall(@NotNull lolcodeParser.FuncallContext ctx);
 
-    T visitFormalParameter(lolcodeParser.FormalParameterContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#formalParameter}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFormalParameter(@NotNull lolcodeParser.FormalParameterContext ctx);
 
-    T visitVarDecl(lolcodeParser.VarDeclContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#varDecl}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitVarDecl(@NotNull lolcodeParser.VarDeclContext ctx);
 
-    T visitBlock(lolcodeParser.BlockContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#block}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitBlock(@NotNull lolcodeParser.BlockContext ctx);
 
-    T visitGimstat(lolcodeParser.GimstatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#gimstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitGimstat(@NotNull lolcodeParser.GimstatContext ctx);
 
-    T visitExpr(lolcodeParser.ExprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#expr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitExpr(@NotNull lolcodeParser.ExprContext ctx);
 
-    T visitAssstat(lolcodeParser.AssstatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#assstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitAssstat(@NotNull lolcodeParser.AssstatContext ctx);
 
-    T visitVisstat(lolcodeParser.VisstatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#visstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitVisstat(@NotNull lolcodeParser.VisstatContext ctx);
 
-    T visitNotexpr(lolcodeParser.NotexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#notexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitNotexpr(@NotNull lolcodeParser.NotexprContext ctx);
 
-    T visitCasestat(lolcodeParser.CasestatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#casestat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx);
 
-    T visitFile(lolcodeParser.FileContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#file}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFile(@NotNull lolcodeParser.FileContext ctx);
 
-    T visitIfstat(lolcodeParser.IfstatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#value}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitValue(@NotNull lolcodeParser.ValueContext ctx);
 
-    T visitExprList(lolcodeParser.ExprListContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#ifstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitIfstat(@NotNull lolcodeParser.IfstatContext ctx);
 
-    T visitOneofexpr(lolcodeParser.OneofexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#exprList}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitExprList(@NotNull lolcodeParser.ExprListContext ctx);
 
-    T visitLoopstat(lolcodeParser.LoopstatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#oneofexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitOneofexpr(@NotNull lolcodeParser.OneofexprContext ctx);
 
-    T visitFunexpr(lolcodeParser.FunexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#loopstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitLoopstat(@NotNull lolcodeParser.LoopstatContext ctx);
 
-    T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#funexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFunexpr(@NotNull lolcodeParser.FunexprContext ctx);
 
-    T visitModexpr(lolcodeParser.ModexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#minmaxexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitMinmaxexpr(@NotNull lolcodeParser.MinmaxexprContext ctx);
 
-    T visitBothofexpr(lolcodeParser.BothofexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#modexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitModexpr(@NotNull lolcodeParser.ModexprContext ctx);
 
-    T visitAddexpr(lolcodeParser.AddexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#bothofexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitBothofexpr(@NotNull lolcodeParser.BothofexprContext ctx);
 
-    T visitStat(lolcodeParser.StatContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#addexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitAddexpr(@NotNull lolcodeParser.AddexprContext ctx);
 
-    T visitFunctionDecl(lolcodeParser.FunctionDeclContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#stat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitStat(@NotNull lolcodeParser.StatContext ctx);
 
-    T visitMain(lolcodeParser.MainContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#functionDecl}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFunctionDecl(@NotNull lolcodeParser.FunctionDeclContext ctx);
 
-    T visitRetpart(lolcodeParser.RetpartContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#main}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitMain(@NotNull lolcodeParser.MainContext ctx);
 
-    T visitFormalParameters(lolcodeParser.FormalParametersContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#divexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx);
 
-    T visitEitherexpr(lolcodeParser.EitherexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#retpart}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitRetpart(@NotNull lolcodeParser.RetpartContext ctx);
 
-    T visitEquexpr(lolcodeParser.EquexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#formalParameters}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFormalParameters(@NotNull lolcodeParser.FormalParametersContext ctx);
 
-    T visitMultexpr(lolcodeParser.MultexprContext ctx);
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#subexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitSubexpr(@NotNull lolcodeParser.SubexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#eitherexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEitherexpr(@NotNull lolcodeParser.EitherexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#equexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEquexpr(@NotNull lolcodeParser.EquexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#multexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx);
 }

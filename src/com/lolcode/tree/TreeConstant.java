@@ -13,6 +13,16 @@ package com.lolcode.tree;
  */
 public class TreeConstant extends TreeValue {
 
+    private String realValue;
+
+    public TreeConstant() {
+        realValue = "";
+    }
+
+    protected void fromString(String val) {
+        realValue = val;
+    }
+
     @Override
     public void accept(BaseASTVisitor v) {
         v.visit(this);

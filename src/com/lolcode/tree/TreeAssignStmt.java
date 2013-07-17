@@ -12,7 +12,7 @@ package com.lolcode.tree;
  * lhs must be of TreeValue type only, to avoid thing like `VAR1 + VAR2 = 256`, this should be checked in semantic check pass.</p>
  */
 public class TreeAssignStmt extends TreeStatement {
-    private TreeValue lhs;
+    private TreeVariable lhs;
     private TreeExpression rhs;
 
     public TreeAssignStmt() {
@@ -32,7 +32,7 @@ public class TreeAssignStmt extends TreeStatement {
         this.rhs = rhs;
     }
 
-    public void setLhs(TreeValue lhs) {
+    public void setLhs(TreeVariable lhs) {
         this.lhs = lhs;
     }
 

@@ -1,147 +1,357 @@
-// Generated from C:\Users\Niner\Desktop\LOLCODE\lolcode.g4 by ANTLR 4.0
+// Generated from lolcode.g4 by ANTLR 4.1
 
 package com.lolcode;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
+/**
+ * This class provides an empty implementation of {@link lolcodeVisitor},
+ * which can be extended to create a visitor which only needs to handle a subset
+ * of the available methods.
+ *
+ * @param <T> The return type of the visit operation. Use {@link Void} for
+ *            operations with no return type.
+ */
 public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements lolcodeVisitor<T> {
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFuncall(lolcodeParser.FuncallContext ctx) {
+    public T visitFuncall(@NotNull lolcodeParser.FuncallContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFormalParameter(lolcodeParser.FormalParameterContext ctx) {
+    public T visitFormalParameter(@NotNull lolcodeParser.FormalParameterContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitVarDecl(lolcodeParser.VarDeclContext ctx) {
+    public T visitVarDecl(@NotNull lolcodeParser.VarDeclContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitBlock(lolcodeParser.BlockContext ctx) {
+    public T visitBlock(@NotNull lolcodeParser.BlockContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitGimstat(lolcodeParser.GimstatContext ctx) {
+    public T visitGimstat(@NotNull lolcodeParser.GimstatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitExpr(lolcodeParser.ExprContext ctx) {
+    public T visitExpr(@NotNull lolcodeParser.ExprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitAssstat(lolcodeParser.AssstatContext ctx) {
+    public T visitAssstat(@NotNull lolcodeParser.AssstatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitVisstat(lolcodeParser.VisstatContext ctx) {
+    public T visitVisstat(@NotNull lolcodeParser.VisstatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitNotexpr(lolcodeParser.NotexprContext ctx) {
+    public T visitNotexpr(@NotNull lolcodeParser.NotexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitCasestat(lolcodeParser.CasestatContext ctx) {
+    public T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFile(lolcodeParser.FileContext ctx) {
+    public T visitFile(@NotNull lolcodeParser.FileContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitIfstat(lolcodeParser.IfstatContext ctx) {
+    public T visitValue(@NotNull lolcodeParser.ValueContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitExprList(lolcodeParser.ExprListContext ctx) {
+    public T visitIfstat(@NotNull lolcodeParser.IfstatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitOneofexpr(lolcodeParser.OneofexprContext ctx) {
+    public T visitExprList(@NotNull lolcodeParser.ExprListContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitLoopstat(lolcodeParser.LoopstatContext ctx) {
+    public T visitOneofexpr(@NotNull lolcodeParser.OneofexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFunexpr(lolcodeParser.FunexprContext ctx) {
+    public T visitLoopstat(@NotNull lolcodeParser.LoopstatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx) {
+    public T visitFunexpr(@NotNull lolcodeParser.FunexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitModexpr(lolcodeParser.ModexprContext ctx) {
+    public T visitMinmaxexpr(@NotNull lolcodeParser.MinmaxexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitBothofexpr(lolcodeParser.BothofexprContext ctx) {
+    public T visitModexpr(@NotNull lolcodeParser.ModexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitAddexpr(lolcodeParser.AddexprContext ctx) {
+    public T visitBothofexpr(@NotNull lolcodeParser.BothofexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitStat(lolcodeParser.StatContext ctx) {
+    public T visitAddexpr(@NotNull lolcodeParser.AddexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFunctionDecl(lolcodeParser.FunctionDeclContext ctx) {
+    public T visitStat(@NotNull lolcodeParser.StatContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitMain(lolcodeParser.MainContext ctx) {
+    public T visitFunctionDecl(@NotNull lolcodeParser.FunctionDeclContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitRetpart(lolcodeParser.RetpartContext ctx) {
+    public T visitMain(@NotNull lolcodeParser.MainContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitFormalParameters(lolcodeParser.FormalParametersContext ctx) {
+    public T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitEitherexpr(lolcodeParser.EitherexprContext ctx) {
+    public T visitRetpart(@NotNull lolcodeParser.RetpartContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitEquexpr(lolcodeParser.EquexprContext ctx) {
+    public T visitFormalParameters(@NotNull lolcodeParser.FormalParametersContext ctx) {
         return visitChildren(ctx);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
     @Override
-    public T visitMultexpr(lolcodeParser.MultexprContext ctx) {
+    public T visitSubexpr(@NotNull lolcodeParser.SubexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitEitherexpr(@NotNull lolcodeParser.EitherexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitEquexpr(@NotNull lolcodeParser.EquexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) {
         return visitChildren(ctx);
     }
 }
