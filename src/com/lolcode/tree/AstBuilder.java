@@ -126,9 +126,17 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         return (T) visibleStmt;
     }
 
+    // AM I DOING IT RIGHT??????
     @Override
     public T visitNotexpr(lolcodeParser.NotexprContext ctx) {
-        return super.visitNotexpr(ctx);
+        TreeNotExpr notExpr = new TreeNotExpr();
+        if (ctx.expr() == null) {
+            log.log(Level.SEVERE, "Not expression has no argument");
+        } else {
+            notExpr.setExpr((TreeExpression) visit(ctx.expr()));
+        }
+        //return super.visitNotexpr(ctx);
+        return (T) notExpr;
     }
 
     @Override
@@ -199,9 +207,25 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         return super.visitMinmaxexpr(ctx);
     }
 
+    //AM I DOING IT RIGHT???
     @Override
     public T visitModexpr(lolcodeParser.ModexprContext ctx) {
-        return super.visitModexpr(ctx);
+        TreeModExpr modExpr = new TreeModExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        if (list.get(0) != null) {
+            TreeExpression lhs = (TreeExpression) visit(list.get(0));
+            modExpr.setLhs(lhs);
+        } else {
+            log.severe("lhs of modExpr failed to parse");
+        }
+        if (list.get(1) != null) {
+            TreeExpression rhs = (TreeExpression) visit(list.get(1));
+            modExpr.setRhs(rhs);
+        } else {
+            log.severe("rhs of modExpr failed to parse");
+        }
+        return (T) modExpr;
+        //return super.visitModexpr(ctx);
     }
 
     @Override
@@ -262,9 +286,25 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         return super.visitMain(ctx);
     }
 
+    //AM I DOING IT RIGHT???
     @Override
     public T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx) {
-        return super.visitDivexpr(ctx);
+        TreeDivExpr divExpr = new TreeDivExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        if (list.get(0) != null) {
+            TreeExpression lhs = (TreeExpression) visit(list.get(0));
+            divExpr.setLhs(lhs);
+        } else {
+            log.severe("lhs of Div Expression failed to parse");
+        }
+        if (list.get(1) != null) {
+            TreeExpression rhs = (TreeExpression) visit(list.get(1));
+            divExpr.setRhs(rhs);
+        } else {
+            log.severe("rgs of Div Expression failed to parse");
+        }
+        return (T) divExpr;
+        //return super.visitDivexpr(ctx);
     }
 
     @Override
@@ -293,8 +333,24 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         return super.visitEquexpr(ctx);
     }
 
+    //AM I DOING IT RIGHT???
     @Override
     public T visitMultexpr(lolcodeParser.MultexprContext ctx) {
-        return super.visitMultexpr(ctx);
+        TreeMulExpr mulExpr = new TreeMulExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        if (list.get(0) != null) {
+            TreeExpression lhs = (TreeExpression) visit(list.get(0));
+            mulExpr.setLhs(lhs);
+        } else {
+            log.severe("lhs of Mul Expression failed to parse");
+        }
+        if (list.get(1) != null) {
+            TreeExpression rhs = (TreeExpression) visit(list.get(1));
+            mulExpr.setRhs(rhs);
+        } else {
+            log.severe("rgs of Mul Expression failed to parse");
+        }
+        return (T) mulExpr;
+        //return super.visitMultexpr(ctx);
     }
 }
