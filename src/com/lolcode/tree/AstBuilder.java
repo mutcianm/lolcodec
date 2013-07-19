@@ -203,8 +203,13 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     }
 
     @Override
-    public T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx) {
-        return super.visitMinmaxexpr(ctx);
+    public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
+        return super.visitMaxexpr(ctx);
+    }
+
+    @Override
+    public T visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx) {
+        return super.visitMinexpr(ctx);
     }
 
     //AM I DOING IT RIGHT???
@@ -331,6 +336,11 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
     @Override
     public T visitEquexpr(lolcodeParser.EquexprContext ctx) {
         return super.visitEquexpr(ctx);
+    }
+
+    @Override
+    public T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx) {
+        return super.visitNequexpr(ctx);
     }
 
     //AM I DOING IT RIGHT???

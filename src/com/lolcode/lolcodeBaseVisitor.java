@@ -120,7 +120,29 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
+    public T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
     public T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
         return visitChildren(ctx);
     }
 
@@ -208,17 +230,6 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitMinmaxexpr(@NotNull lolcodeParser.MinmaxexprContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p/>
-     * The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.
-     */
-    @Override
     public T visitModexpr(@NotNull lolcodeParser.ModexprContext ctx) {
         return visitChildren(ctx);
     }
@@ -286,6 +297,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      */
     @Override
     public T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx) {
         return visitChildren(ctx);
     }
 

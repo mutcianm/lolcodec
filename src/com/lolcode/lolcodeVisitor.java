@@ -86,12 +86,28 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitNotexpr(@NotNull lolcodeParser.NotexprContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link lolcodeParser#nequexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link lolcodeParser#casestat}.
      *
      * @param ctx the parse tree
      * @return the visitor result
      */
     T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#maxexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx);
 
     /**
      * Visit a parse tree produced by {@link lolcodeParser#file}.
@@ -150,14 +166,6 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitFunexpr(@NotNull lolcodeParser.FunexprContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link lolcodeParser#minmaxexpr}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitMinmaxexpr(@NotNull lolcodeParser.MinmaxexprContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link lolcodeParser#modexpr}.
      *
      * @param ctx the parse tree
@@ -212,6 +220,14 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#minexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx);
 
     /**
      * Visit a parse tree produced by {@link lolcodeParser#retpart}.

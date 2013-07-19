@@ -127,22 +127,22 @@ public class LolcodeVisitorImpl<T> extends lolcodeBaseVisitor<T> {
         return visitChildren(ctx);
     }
 
-    @Override
-    public T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx) {
-        // min or max, actually it is not supposed to matter when we pass left and right expression
-        // until we get them both, and then we decide what %if llvm shit we put in
-        // because minmax is done with IF clauses in VM's, right?
-
-        //get lexpr, repxr
-        if (ctx.getChild(0).getText().equals("BIGGR OF")) {
-            return visitChildren(ctx);
-        } else if (ctx.getChild(0).getText().equals("SMALLR OF")) {
-            return visitChildren(ctx);
-        } else {
-            //not supposed to get here as usual
-            return visitChildren(ctx);
-        }
-    }
+//    @Override
+//    public T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx) {
+//        // min or max, actually it is not supposed to matter when we pass left and right expression
+//        // until we get them both, and then we decide what %if llvm shit we put in
+//        // because minmax is done with IF clauses in VM's, right?
+//
+//        //get lexpr, repxr
+//        if (ctx.getChild(0).getText().equals("BIGGR OF")) {
+//            return visitChildren(ctx);
+//        } else if (ctx.getChild(0).getText().equals("SMALLR OF")) {
+//            return visitChildren(ctx);
+//        } else {
+//            //not supposed to get here as usual
+//            return visitChildren(ctx);
+//        }
+//    }
 
     @Override
     public T visitModexpr(lolcodeParser.ModexprContext ctx) {

@@ -63,12 +63,12 @@ ifstat
 
 //case statement
 casestat
-    :   expr ENDST 'WTF?' ENDST ('OMG' value ENDST block ('GTFO' ENDST)?)* ('OMGWTF' ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
+    :   expr ENDST 'WTF?' ENDST (OMG value ENDST block ('GTFO' ENDST)?)* (OMGWTF ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
     ;
 
 //loop statement
 loopstat
-    :   'IM IN YR' ID (('UPPIN' | 'NERFIN') 'YR' ID ('WILE'|'TIL') expr)? ENDST block ('GTFO' ENDST)? 'IM OUTTA YR' ID ENDST
+    :   'IM IN YR' ID ((UPPIN | NERFIN) 'YR' ID (WHILE|TIL) expr)? ENDST block ('GTFO' ENDST)? 'IM OUTTA YR' ID ENDST
     ;
 
 //assignment statement
@@ -100,11 +100,13 @@ expr
     |   modexpr
     |   addexpr
     |   subexpr
-    |   minmaxexpr
+    |   maxexpr
+    |   minexpr
     |   bothofexpr
     |   eitherexpr
     |   oneofexpr
     |   equexpr
+    |   nequexpr
     |   ID
     |   value
     ;
@@ -135,11 +137,15 @@ addexpr
     ;
 
 subexpr
-    : 'DIFF OF' expr 'AN' expr
+    :   'DIFF OF' expr 'AN' expr
     ;
 
-minmaxexpr
-    :   ('BIGGR OF' expr 'AN' expr | 'SMALLR OF' expr 'AN' expr)
+maxexpr
+    :  'BIGGR OF' expr 'AN' expr
+    ;
+
+minexpr
+    :   'SMALLR OF' expr 'AN' expr
     ;
 
 bothofexpr
@@ -155,7 +161,11 @@ oneofexpr
     ;
 
 equexpr
-    :   ('BOTH SAEM' expr 'AN' expr | 'DIFFRINT' expr 'AN' expr )
+    :   'BOTH SAEM' expr 'AN' expr
+    ;
+
+nequexpr
+    :   'DIFFRINT' expr 'AN' expr
     ;
 
 //expressions are without 'AN'
