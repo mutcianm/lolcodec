@@ -6,6 +6,7 @@ import com.lolcode.tree.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.LexerNoViableAltException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
@@ -19,6 +20,14 @@ import java.io.IOException;
 public class Runner {
     private String filename;
 
+    //Lexer which exits on error insted of recovering
+    public static class BailLolcodeLexer extends lolcodeLexer {
+        public BailLolcodeLexer(CharStream input) { super(input); }
+        public void recover(LexerNoViableAltException e) {
+            throw new RuntimeException(e); //bail
+        }
+    }
+
     public void setInputFile(String file) {
         filename = file;
     }
@@ -26,9 +35,17 @@ public class Runner {
     public void test() {
         try {
             CharStream cs = new ANTLRFileStream(filename);
-            lolcodeLexer lexer = new lolcodeLexer(cs);
+
+            //use BailLexer
+            lolcodeLexer lexer = new BailLolcodeLexer(cs);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             lolcodeParser parser = new lolcodeParser(tokens);
+            parser.setErrorHandler(new BailErrorStrategy()); //yse bail error strategy
+
+            /*
+                parser.file() throws RuntimeException if something wrong now, do we expand on it?
+                like catching stuff and printing our errors...
+             */
             ParseTree tree = parser.file(); //builds parse tree, do syntax check
 //            lolcodeVisitor visitor = new LolcodeVisitorImpl();
             AstBuilder<TreeNode> visitor = new AstBuilder<>();
