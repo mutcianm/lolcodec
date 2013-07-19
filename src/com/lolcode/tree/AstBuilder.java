@@ -68,9 +68,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         TreeVariable variable = new TreeVariable();
         variable.setName(ctx.ID().toString());
         if (ctx.expr() != null) {
-            variable.setValue((TreeValue) visit(ctx.expr()));
-        } else {
-            log.info("Variable initializer failed to parse");
+            varDeclStmt.setInitialValue((TreeExpression) visit(ctx.expr()));
         }
         varDeclStmt.setVar(variable);
         return (T) varDeclStmt;
@@ -281,11 +279,8 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         TreeFunction func = new TreeFunction();
         func.setName(ctx.ID().toString());
         if (ctx.formalParameters() == null) {
-            log.log(Level.SEVERE, "function parameters failed to parse");
+            log.info("function " + func.getName() + "has no parameters");
         } else {
-            if (ctx.formalParameters().isEmpty()) {
-                log.log(Level.INFO, "function " + func.getName() + "has no parameters");
-            }
             for (lolcodeParser.FormalParameterContext param : ctx.formalParameters().formalParameter()) {
                 func.addParam((TreeFunctionParameter) visit(param));
             }
