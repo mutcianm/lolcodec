@@ -204,12 +204,26 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
-        return super.visitMaxexpr(ctx);
+        TreeMaxExpr maxExpr = new TreeMaxExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        TreeExpression lhs = (TreeExpression) visit(list.get(0));
+        maxExpr.setLhs(lhs);
+        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        maxExpr.setRhs(rhs);
+        return (T) maxExpr;
+        //return super.visitMaxexpr(ctx);
     }
 
     @Override
     public T visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx) {
-        return super.visitMinexpr(ctx);
+        TreeMinExpr minExpr = new TreeMinExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        TreeExpression lhs = (TreeExpression) visit(list.get(0));
+        minExpr.setLhs(lhs);
+        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        minExpr.setRhs(rhs);
+        return (T) minExpr;
+        //return super.visitMinexpr(ctx);
     }
 
     //AM I DOING IT RIGHT???
