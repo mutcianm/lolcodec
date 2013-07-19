@@ -652,8 +652,8 @@ public class lolcodeParser extends Parser {
     }
 
     public static class IfstatContext extends ParserRuleContext {
-        public StatContext stat(int i) {
-            return getRuleContext(StatContext.class, i);
+        public TerminalNode NOWAI() {
+            return getToken(lolcodeParser.NOWAI, 0);
         }
 
         public TerminalNode ENDST(int i) {
@@ -668,12 +668,24 @@ public class lolcodeParser extends Parser {
             return getRuleContexts(ExprContext.class);
         }
 
+        public BlockContext block(int i) {
+            return getRuleContext(BlockContext.class, i);
+        }
+
         public ExprContext expr(int i) {
             return getRuleContext(ExprContext.class, i);
         }
 
-        public List<StatContext> stat() {
-            return getRuleContexts(StatContext.class);
+        public List<TerminalNode> MEBBE() {
+            return getTokens(lolcodeParser.MEBBE);
+        }
+
+        public List<BlockContext> block() {
+            return getRuleContexts(BlockContext.class);
+        }
+
+        public TerminalNode MEBBE(int i) {
+            return getToken(lolcodeParser.MEBBE, i);
         }
 
         public IfstatContext(ParserRuleContext parent, int invokingState) {
@@ -712,7 +724,7 @@ public class lolcodeParser extends Parser {
                 setState(132);
                 match(ENDST);
                 setState(133);
-                stat();
+                block();
                 setState(141);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
@@ -726,7 +738,7 @@ public class lolcodeParser extends Parser {
                             setState(136);
                             match(ENDST);
                             setState(137);
-                            stat();
+                            block();
                         }
                     }
                     setState(143);
@@ -742,7 +754,7 @@ public class lolcodeParser extends Parser {
                         setState(145);
                         match(ENDST);
                         setState(146);
-                        stat();
+                        block();
                     }
                 }
 
@@ -2251,11 +2263,11 @@ public class lolcodeParser extends Parser {
                     "\2~\u0080\5\36\20\2\177w\3\2\2\2\177x\3\2\2\2\177y\3\2\2\2\177z\3\2\2" +
                     "\2\177{\3\2\2\2\177|\3\2\2\2\177}\3\2\2\2\177~\3\2\2\2\u0080\21\3\2\2" +
                     "\2\u0081\u0082\5 \21\2\u0082\u0083\7=\2\2\u0083\u0084\7\16\2\2\u0084\u0085" +
-                    "\7=\2\2\u0085\u0086\7\17\2\2\u0086\u0087\7=\2\2\u0087\u008f\5\20\t\2\u0088" +
-                    "\u0089\7\20\2\2\u0089\u008a\5 \21\2\u008a\u008b\7=\2\2\u008b\u008c\5\20" +
-                    "\t\2\u008c\u008e\3\2\2\2\u008d\u0088\3\2\2\2\u008e\u0091\3\2\2\2\u008f" +
+                    "\7=\2\2\u0085\u0086\7\17\2\2\u0086\u0087\7=\2\2\u0087\u008f\5\16\b\2\u0088" +
+                    "\u0089\7\20\2\2\u0089\u008a\5 \21\2\u008a\u008b\7=\2\2\u008b\u008c\5\16" +
+                    "\b\2\u008c\u008e\3\2\2\2\u008d\u0088\3\2\2\2\u008e\u0091\3\2\2\2\u008f" +
                     "\u008d\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0095\3\2\2\2\u0091\u008f\3\2" +
-                    "\2\2\u0092\u0093\7\21\2\2\u0093\u0094\7=\2\2\u0094\u0096\5\20\t\2\u0095" +
+                    "\2\2\u0092\u0093\7\21\2\2\u0093\u0094\7=\2\2\u0094\u0096\5\16\b\2\u0095" +
                     "\u0092\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u0097\3\2\2\2\u0097\u0098\7\22" +
                     "\2\2\u0098\u0099\7=\2\2\u0099\23\3\2\2\2\u009a\u009b\5 \21\2\u009b\u009c" +
                     "\7=\2\2\u009c\u009d\7\4\2\2\u009d\u00a8\7=\2\2\u009e\u009f\7\23\2\2\u009f" +

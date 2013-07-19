@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.LexerNoViableAltException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,13 +19,17 @@ import java.io.IOException;
  * Time: 10:43 PM
  */
 public class Runner {
+    private static Logger log = Logger.getLogger(AstBuilder.class.getName());
     private String filename;
 
     //Lexer which exits on error insted of recovering
     public static class BailLolcodeLexer extends lolcodeLexer {
-        public BailLolcodeLexer(CharStream input) { super(input); }
+        public BailLolcodeLexer(CharStream input) {
+            super(input);
+        }
+
         public void recover(LexerNoViableAltException e) {
-            throw new RuntimeException(e); //bail
+            throw e; //bail
         }
     }
 
@@ -53,8 +58,8 @@ public class Runner {
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir
             //generate bytecode from ir
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | LexerNoViableAltException e) {
+            log.severe(e.toString());
         }
     }
 }

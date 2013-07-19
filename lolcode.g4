@@ -57,7 +57,7 @@ stat:   varDecl
 
 //if statement
 ifstat
-    :   expr ENDST 'ORLY' ENDST 'YRLY' ENDST stat ('MEBBE' expr ENDST stat)* ('NOWAI' ENDST stat)? 'OIC' ENDST
+    :   expr ENDST 'ORLY' ENDST 'YRLY' ENDST block (MEBBE expr ENDST block)* (NOWAI ENDST block)? 'OIC' ENDST
     ;
 
 
