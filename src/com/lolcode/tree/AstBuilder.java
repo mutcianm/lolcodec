@@ -204,7 +204,25 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitMinmaxexpr(lolcodeParser.MinmaxexprContext ctx) {
-        return super.visitMinmaxexpr(ctx);
+        TreeBinaryExpr mExpr;
+        if (ctx.children.get(0).toString().equals("BIGGR OF")) {
+            // MAX EXPR
+            mExpr = new TreeMaxExpr();
+        } else if (ctx.children.get(0).toString().equals("SMALLR OF")) {
+            // MIN EXPR
+            mExpr = new TreeMinExpr();
+        } else {
+            //WTF???
+            mExpr = null;
+            log.severe("ERROR MATCHING MIN\\MAX EXPRESSION");
+        }
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        TreeExpression lhs = (TreeExpression) visit(list.get(0));
+        TreeExpression rhs = (TreeExpression) visit(list.get(1));
+        mExpr.setLhs(lhs);
+        mExpr.setRhs(rhs);
+        return (T) mExpr;
+        //return super.visitMinmaxexpr(ctx);
     }
 
     //AM I DOING IT RIGHT???
