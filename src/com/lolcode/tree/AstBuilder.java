@@ -30,6 +30,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFuncall(lolcodeParser.FuncallContext ctx) {
+        //funcall is actually funexpr, stupid i know
         return super.visitFuncall(ctx);
     }
 
@@ -197,7 +198,17 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFunexpr(lolcodeParser.FunexprContext ctx) {
-        return super.visitFunexpr(ctx);
+        TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
+        funcCallStmt.setFuncName(ctx.ID().toString());
+        if (ctx.exprList() == null) {
+            log.info("function call " + funcCallStmt.getFuncName() + "has no parameters");
+        } else {
+            for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
+                funcCallStmt.addArgument((TreeFunctionParameter) visit(param));
+            }
+        }
+        return (T) funcCallStmt;
+        //return super.visitFunexpr(ctx);
     }
 
     @Override
