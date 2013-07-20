@@ -1,0 +1,4 @@
+HAI
+    I HAS A VAR1 ITZ "test"
+    VISIBLE VAR1
+KTHXBYE

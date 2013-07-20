@@ -12,7 +12,7 @@ package com.lolcode.tree;
  */
 public class TreeVarDeclStmt extends TreeStatement {
     TreeVariable var;
-    TreeConstant initialValue;
+    TreeExpression initialValue;
 
     public TreeVarDeclStmt() {
         var = null;
@@ -27,11 +27,11 @@ public class TreeVarDeclStmt extends TreeStatement {
         this.var = var;
     }
 
-    public TreeConstant getInitialValue() {
+    public TreeExpression getInitialValue() {
         return initialValue;
     }
 
-    public void setInitialValue(TreeConstant initialValue) {
+    public void setInitialValue(TreeExpression initialValue) {
         this.initialValue = initialValue;
     }
 
