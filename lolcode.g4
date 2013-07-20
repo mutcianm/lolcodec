@@ -68,7 +68,7 @@ casestat
     ;
 
 caseblock
-    : OMG value ENDST block
+    : OMG value ENDST block? ENDST?
     ;
 
 //loop statement
