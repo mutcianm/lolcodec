@@ -2,6 +2,8 @@ package com.lolcode.tree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.q
@@ -23,25 +25,27 @@ import java.util.HashMap;
  *   OIC}</pre></p>
  */
 public class TreeCaseStmt extends TreeStatement {
-    TreeValue val;
-    HashMap<TreeConstant, ArrayList<TreeStatement>> body;
+    TreeExpression val;
+    HashMap<TreeConstant, List<TreeStatement>> body;
+    List<TreeStatement> defaultBranch;
 
     public TreeCaseStmt() {
         val = null;
         body = new HashMap<>();
+        defaultBranch = new ArrayList<>();
     }
 
-    public TreeValue getVal() {
+    public TreeExpression getVal() {
         return val;
     }
 
-    public void setVal(TreeValue val) {
+    public void setVal(TreeExpression val) {
         this.val = val;
     }
 
     public void addStatement(TreeConstant label, TreeStatement statement) {
         //might as well check if value is set prior to adding statements
-        ArrayList<TreeStatement> statements = body.get(label);
+        List<TreeStatement> statements = body.get(label);
         if (statements != null) {
             statements.add(statement);
         } else {
@@ -51,7 +55,15 @@ public class TreeCaseStmt extends TreeStatement {
         }
     }
 
-    public HashMap<TreeConstant, ArrayList<TreeStatement>> getBody() {
+    public void addDefaultStmt(TreeStatement statement) {
+        defaultBranch.add(statement);
+    }
+
+    public void addStatement(TreeConstant label, List<TreeStatement> stmts) {
+        body.put(label, stmts);
+    }
+
+    public Map<TreeConstant, List<TreeStatement>> getBody() {
         return body;
     }
 

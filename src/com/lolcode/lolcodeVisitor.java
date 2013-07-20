@@ -30,6 +30,14 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitFormalParameter(@NotNull lolcodeParser.FormalParameterContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link lolcodeParser#caseblock}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitCaseblock(@NotNull lolcodeParser.CaseblockContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link lolcodeParser#varDecl}.
      *
      * @param ctx the parse tree
@@ -94,20 +102,20 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link lolcodeParser#casestat}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link lolcodeParser#maxexpr}.
      *
      * @param ctx the parse tree
      * @return the visitor result
      */
     T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#casestat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx);
 
     /**
      * Visit a parse tree produced by {@link lolcodeParser#file}.

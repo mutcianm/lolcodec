@@ -4,6 +4,7 @@ import com.lolcode.lolcodeBaseVisitor;
 import com.lolcode.lolcodeParser;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -139,10 +140,49 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         return (T) notExpr;
     }
 
+    private class CasePair implements TreeNode {
+        public TreeConstant constant;
+        public List<TreeStatement> body;
+
+        private CasePair(TreeConstant constant, List<TreeStatement> body) {
+            this.constant = constant;
+            this.body = body;
+        }
+
+        @Override
+        public void accept(BaseASTVisitor v) {
+        }
+    }
+
     @Override
     public T visitCasestat(lolcodeParser.CasestatContext ctx) {
+        TreeCaseStmt caseStmt = new TreeCaseStmt();
+        TreeExpression expression = (TreeExpression) visit(ctx.expr());
+        caseStmt.setVal(expression);
+        for (lolcodeParser.CaseblockContext blk : ctx.caseblock()) {
+            CasePair pair = (CasePair) visit(blk);
+            caseStmt.addStatement(pair.constant, pair.body);
+        }
+        if (ctx.OMGWTF() != null) {
+            for (lolcodeParser.StatContext stat : ctx.block().stat()) {
+                caseStmt.addDefaultStmt((TreeStatement) visit(stat));
+            }
+        }
+        return (T) caseStmt;
+    }
 
-        return super.visitCasestat(ctx);
+    @Override
+    public T visitCaseblock(@NotNull lolcodeParser.CaseblockContext ctx) {
+        TreeConstant constant = (TreeConstant) visit(ctx.value());
+        ArrayList<TreeStatement> lst = new ArrayList<>();
+        for (lolcodeParser.StatContext stat : ctx.block().stat()) {
+            lst.add((TreeStatement) visit(stat));
+        }
+        if (ctx.GTFO() != null) {
+            lst.add(new TreeBreakStmt());
+        }
+
+        return (T) new CasePair(constant, lst);
     }
 
     @Override
@@ -179,6 +219,28 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitIfstat(lolcodeParser.IfstatContext ctx) {
+        TreeIfStmt ifStmt = new TreeIfStmt();
+        List<lolcodeParser.ExprContext> exprs = ctx.expr();
+        TreeExpression predicate = (TreeExpression) visit(exprs.get(0)); // first predicate is guaranteed to be present
+        ifStmt.setCondition(predicate);
+        for (lolcodeParser.StatContext stat : ctx.block(0).stat()) {
+            ifStmt.addTrueStmt((TreeStatement) visit(stat));
+        }
+        if (ctx.MEBBE() != null) {                //add else if branches if present
+            for (int i = 0; i < ctx.MEBBE().size(); ++i) {
+                TreeIfStmt tmp = new TreeIfStmt();
+                tmp.setCondition((TreeExpression) visit(ctx.expr().get(i + 1)));
+                for (lolcodeParser.StatContext stat : ctx.block().get(i + 1).stat()) {
+                    tmp.addTrueStmt((TreeStatement) visit(stat));
+                }
+                ifStmt.addElseIf(tmp);
+            }
+        }
+        if (ctx.NOWAI() != null) {            //add else branch if present
+            for (lolcodeParser.StatContext stat : ctx.block().get(ctx.block().size() - 1).stat()) {
+                ifStmt.addFalseStmt((TreeStatement) visit(stat));
+            }
+        }
         return super.visitIfstat(ctx);
     }
 

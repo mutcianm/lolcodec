@@ -33,6 +33,8 @@ public interface BaseASTVisitor {
 
     void visit(TreeFuncCallStmt funcCallStmt);
 
+    void visit(TreeBreakStmt breakStmt);
+
     //Expressions:
     void visit(TreeVariable variable);
 

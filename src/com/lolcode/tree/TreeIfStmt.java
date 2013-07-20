@@ -14,13 +14,23 @@ import java.util.ArrayList;
  */
 public class TreeIfStmt extends TreeStatement {
     private TreeExpression condition;
+    private ArrayList<TreeIfStmt> elseIfs;
     private ArrayList<TreeStatement> trueBranch;
     private ArrayList<TreeStatement> falseBranch;
 
     public TreeIfStmt() {
         condition = null;
+        elseIfs = new ArrayList<>();
         trueBranch = new ArrayList<>();
         falseBranch = new ArrayList<>();
+    }
+
+    public ArrayList<TreeIfStmt> getElseIf() {
+        return elseIfs;
+    }
+
+    public void addElseIf(TreeIfStmt elseIf) {
+        this.elseIfs.add(elseIf);
     }
 
     public void setCondition(TreeExpression condition) {

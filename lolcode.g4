@@ -63,7 +63,11 @@ ifstat
 
 //case statement
 casestat
-    :   expr ENDST 'WTF?' ENDST (OMG value ENDST block ('GTFO' ENDST)?)* (OMGWTF ENDST block ('GTFO' ENDST)?)? 'OIC' ENDST
+    :   expr ENDST 'WTF?' ENDST caseblock* (OMGWTF ENDST block (GTFO ENDST)?)? 'OIC' ENDST
+    ;
+
+caseblock
+    : OMG value ENDST block (GTFO ENDST)?
     ;
 
 //loop statement

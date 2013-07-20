@@ -43,6 +43,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
+    public T visitCaseblock(@NotNull lolcodeParser.CaseblockContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
     public T visitVarDecl(@NotNull lolcodeParser.VarDeclContext ctx) {
         return visitChildren(ctx);
     }
@@ -131,7 +142,7 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx) {
+    public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
         return visitChildren(ctx);
     }
 
@@ -142,7 +153,7 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
+    public T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx) {
         return visitChildren(ctx);
     }
 
