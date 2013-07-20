@@ -23,7 +23,7 @@ varDecl
 
 //declaring function
 functionDecl
-    :   'HOW DUZ I' ID formalParameters? ENDST block retpart ENDST 'IF U SAY SO' ENDST
+    :   'HOW DUZ I' ID formalParameters? ENDST block ENDST 'IF U SAY SO' ENDST
     ;
 
 //function params
@@ -51,6 +51,7 @@ stat:   varDecl
     |   loopstat
     |   assstat
     |   funcall
+    |   retpart
     |   visstat
     |   gimstat
     ;
@@ -63,16 +64,16 @@ ifstat
 
 //case statement
 casestat
-    :   expr ENDST 'WTF?' ENDST caseblock* (OMGWTF ENDST block (GTFO ENDST)?)? 'OIC' ENDST
+    :   expr ENDST 'WTF?' ENDST caseblock* (OMGWTF ENDST block)? 'OIC' ENDST
     ;
 
 caseblock
-    : OMG value ENDST block (GTFO ENDST)?
+    : OMG value ENDST block
     ;
 
 //loop statement
 loopstat
-    :   'IM IN YR' ID ((UPPIN | NERFIN) 'YR' ID (WHILE|TIL) expr)? ENDST block ('GTFO' ENDST)? 'IM OUTTA YR' ID ENDST
+    :   'IM IN YR' ID ((UPPIN | NERFIN) 'YR' ID (WHILE|TIL) expr)? ENDST block 'IM OUTTA YR' ID ENDST
     ;
 
 //assignment statement

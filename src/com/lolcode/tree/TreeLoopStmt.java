@@ -18,15 +18,49 @@ import java.util.ArrayList;
  * }</pre></p>
  */
 public class TreeLoopStmt extends TreeStatement {
+    private String label;
     private TreeVariable variable;
     private TreeExpression exitCondition;
     private ArrayList<TreeStatement> body;
 
+    public static enum loopType {TIL, WHILE, EMPTY}
+
+    public static enum opType {UPPUN, NERFIN, EMPTY}
+
+    private loopType lType;
+    private opType oType;
+
     public TreeLoopStmt() {
+        label = "";
         variable = null;
         exitCondition = null;
+        lType = loopType.EMPTY;
         body = new ArrayList<>();
 
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public loopType getlType() {
+        return lType;
+    }
+
+    public void setlType(loopType lType) {
+        this.lType = lType;
+    }
+
+    public opType getoType() {
+        return oType;
+    }
+
+    public void setoType(opType oType) {
+        this.oType = oType;
     }
 
     public TreeVariable getVariable() {

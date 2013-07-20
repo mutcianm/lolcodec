@@ -35,6 +35,8 @@ public interface BaseASTVisitor {
 
     void visit(TreeBreakStmt breakStmt);
 
+    void visit(TreeReturnStmt returnStmt);
+
     //Expressions:
     void visit(TreeVariable variable);
 

@@ -176,10 +176,6 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         for (lolcodeParser.StatContext stat : ctx.block().stat()) {
             lst.add((TreeStatement) visit(stat));
         }
-        if (ctx.GTFO() != null) {
-            lst.add(new TreeBreakStmt());
-        }
-
         return (T) new CasePair(constant, lst);
     }
 
@@ -239,7 +235,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
                 ifStmt.addFalseStmt((TreeStatement) visit(stat));
             }
         }
-        return super.visitIfstat(ctx);
+        return (T) ifStmt;
     }
 
     @Override
@@ -254,7 +250,29 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitLoopstat(lolcodeParser.LoopstatContext ctx) {
-        return super.visitLoopstat(ctx);
+        TreeLoopStmt loopStmt = new TreeLoopStmt();
+        loopStmt.setLabel(ctx.ID(0).toString());
+        if (ctx.expr() != null) {         //not an infinite loop
+            if (ctx.UPPIN() != null) {
+                loopStmt.setoType(TreeLoopStmt.opType.UPPUN);
+            } else if (ctx.NERFIN() != null) {
+                loopStmt.setoType(TreeLoopStmt.opType.NERFIN);
+            }
+            TreeVariable loopVar = new TreeVariable();
+            loopVar.setName(ctx.ID(1).toString());
+            loopStmt.setVariable(loopVar);
+            if (ctx.WHILE() != null) {
+                loopStmt.setlType(TreeLoopStmt.loopType.WHILE);
+            } else {
+                loopStmt.setlType(TreeLoopStmt.loopType.TIL);
+            }
+            TreeExpression condition = (TreeExpression) visit(ctx.expr());
+            loopStmt.setExitCondition(condition);
+        }
+        for (lolcodeParser.StatContext stat : ctx.block().stat()) {
+            loopStmt.addStatement((TreeStatement) visit(stat));
+        }
+        return (T) loopStmt;
     }
 
     @Override
@@ -371,7 +389,14 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitRetpart(lolcodeParser.RetpartContext ctx) {
-        return super.visitRetpart(ctx);
+        String tmp = ctx.getChild(0).getText();
+        if (tmp.equals("GTFO")) {
+            return (T) new TreeBreakStmt();
+        } else {
+            TreeReturnStmt returnStmt = new TreeReturnStmt();
+            returnStmt.setRetValue((TreeExpression) visit(ctx.expr()));
+            return (T) returnStmt;
+        }
     }
 
     @Override
