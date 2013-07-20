@@ -204,7 +204,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
             log.info("function call " + funcCallStmt.getFuncName() + "has no parameters");
         } else {
             for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
-                funcCallStmt.addArgument((TreeFunctionParameter) visit(param));
+                funcCallStmt.addArgument((TreeValue) visit(param));
             }
         }
         return (T) funcCallStmt;
