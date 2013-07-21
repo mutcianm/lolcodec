@@ -11,7 +11,6 @@ package com.lolcode.tree;
  * Describes interface to access types in AST nodes which support typing.
  */
 public interface TreeTypedValue {
-    enum TYPE {INT, FLOAT, BOOL, STRING, VOID, UNKNOWN}
 
     void setType(TYPE type);
 

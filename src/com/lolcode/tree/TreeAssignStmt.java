@@ -37,7 +37,7 @@ public class TreeAssignStmt extends TreeStatement {
     }
 
     @Override
-    public void accept(BaseASTVisitor v) {
-        v.visit(this);
+    public <T> T accept(BaseASTVisitor<T> v) {
+        return v.visit(this);
     }
 }

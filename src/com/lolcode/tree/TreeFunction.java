@@ -49,7 +49,7 @@ public class TreeFunction implements TreeNode {
     }
 
     @Override
-    public void accept(BaseASTVisitor v) {
-        v.visit(this);
+    public <T> T accept(BaseASTVisitor<T> v) {
+        return v.visit(this);
     }
 }

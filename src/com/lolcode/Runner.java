@@ -1,7 +1,9 @@
 package com.lolcode;
 
 
+import com.lolcode.checker.types.TypeGenerator;
 import com.lolcode.tree.AstBuilder;
+import com.lolcode.tree.TreeModule;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -51,9 +53,10 @@ public class Runner {
                 like catching stuff and printing our errors...
              */
             ParseTree tree = parser.file(); //builds parse tree, do syntax check
-//            lolcodeVisitor visitor = new LolcodeVisitorImpl();
             AstBuilder visitor = new AstBuilder(filename);
-            visitor.visit(tree); //builds ast
+            TreeModule ast = (TreeModule) visitor.visit(tree); //builds ast
+            TypeGenerator infer = new TypeGenerator();
+            infer.visit(ast);
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir
             //generate bytecode from ir

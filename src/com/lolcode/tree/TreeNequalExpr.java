@@ -8,7 +8,7 @@ package com.lolcode.tree;
  */
 public class TreeNequalExpr extends TreeBinaryExpr {
     @Override
-    public void accept(BaseASTVisitor v) {
-        v.visit(this);
+    public <T> T accept(BaseASTVisitor<T> v) {
+        return v.visit(this);
     }
 }

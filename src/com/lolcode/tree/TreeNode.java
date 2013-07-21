@@ -12,5 +12,5 @@ package com.lolcode.tree;
  */
 public interface TreeNode {
 
-    void accept(BaseASTVisitor v);
+    <T> T accept(BaseASTVisitor<T> v);
 }

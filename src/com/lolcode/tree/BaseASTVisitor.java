@@ -10,62 +10,62 @@ package com.lolcode.tree;
 /**
  * Declares a base visitor with all kinds of visitable nodes. AST visitors must implement this interface.
  */
-public interface BaseASTVisitor {
-    void visit(TreeFunction func);
+public interface BaseASTVisitor<T> {
+    T visit(TreeFunction func);
 
-    void visit(TreeModule module);
+    T visit(TreeModule module);
 
-    void visit(TreeFunctionParameter param);
+    T visit(TreeFunctionParameter param);
 
-    void visit(TreeIfStmt ifStmt);
+    T visit(TreeIfStmt ifStmt);
 
-    void visit(TreeLoopStmt loopStmt);
+    T visit(TreeLoopStmt loopStmt);
 
-    void visit(TreeAssignStmt assignStmt);
+    T visit(TreeAssignStmt assignStmt);
 
-    void visit(TreeCaseStmt caseStmt);
+    T visit(TreeCaseStmt caseStmt);
 
-    void visit(TreeVarDeclStmt varDeclStmt);
+    T visit(TreeVarDeclStmt varDeclStmt);
 
-    void visit(TreeVisibleStmt visibleStmt);
+    T visit(TreeVisibleStmt visibleStmt);
 
-    void visit(TreeGimmehStmt gimmehStmt);
+    T visit(TreeGimmehStmt gimmehStmt);
 
-    void visit(TreeFuncCallStmt funcCallStmt);
+    T visit(TreeFuncCallStmt funcCallStmt);
 
-    void visit(TreeBreakStmt breakStmt);
+    T visit(TreeBreakStmt breakStmt);
 
-    void visit(TreeReturnStmt returnStmt);
+    T visit(TreeReturnStmt returnStmt);
 
     //Expressions:
-    void visit(TreeVariable variable);
+    T visit(TreeVariable variable);
 
-    void visit(TreeConstant constant);
+    T visit(TreeConstant constant);
 
-    void visit(TreeSumExpr sumExpr);
+    T visit(TreeSumExpr sumExpr);
 
-    void visit(TreeSubExpr subExpr);
+    T visit(TreeSubExpr subExpr);
 
-    void visit(TreeMulExpr mulExpr);
+    T visit(TreeMulExpr mulExpr);
 
-    void visit(TreeDivExpr divExpr);
+    T visit(TreeDivExpr divExpr);
 
-    void visit(TreeModExpr modExpr);
+    T visit(TreeModExpr modExpr);
 
     //logic expressions
-    void visit(TreeMaxExpr maxExpr);
+    T visit(TreeMaxExpr maxExpr);
 
-    void visit(TreeMinExpr minExpr);
+    T visit(TreeMinExpr minExpr);
 
-    void visit(TreeAndExpr andExpr);
+    T visit(TreeAndExpr andExpr);
 
-    void visit(TreeOrExpr orExpr);
+    T visit(TreeOrExpr orExpr);
 
-    void visit(TreeXorExpr xorExpr);
+    T visit(TreeXorExpr xorExpr);
 
-    void visit(TreeNotExpr notExpr);
+    T visit(TreeNotExpr notExpr);
 
-    void visit(TreeEqualExpr equalExpr);
+    T visit(TreeEqualExpr equalExpr);
 
-    void visit(TreeNequalExpr nequalExpr);
+    T visit(TreeNequalExpr nequalExpr);
 }

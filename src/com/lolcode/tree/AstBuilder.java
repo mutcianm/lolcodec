@@ -39,20 +39,20 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     public TreeConstant visitValue(@NotNull lolcodeParser.ValueContext ctx) {
         TreeConstant constant = new TreeConstant();
         if (ctx.BOOL() != null) {
-            constant.setType(TreeTypedValue.TYPE.BOOL);
+            constant.setType(TYPE.BOOL);
             constant.fromString(ctx.BOOL().toString());
         } else if (ctx.INT() != null) {
-            constant.setType(TreeTypedValue.TYPE.INT);
+            constant.setType(TYPE.INT);
             constant.fromString(ctx.INT().toString());
         } else if (ctx.FLOAT() != null) {
-            constant.setType(TreeTypedValue.TYPE.FLOAT);
+            constant.setType(TYPE.FLOAT);
             constant.fromString(ctx.FLOAT().toString());
         } else if (ctx.STRING() != null) {
-            constant.setType(TreeTypedValue.TYPE.STRING);
+            constant.setType(TYPE.STRING);
             constant.fromString(ctx.STRING().toString().replaceAll("\"", ""));
         } else {
             log.warning("All types for constant failed to parse");
-            constant.setType(TreeTypedValue.TYPE.UNKNOWN);
+            constant.setType(TYPE.UNKNOWN);
         }
         return constant;
     }
@@ -134,7 +134,8 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         }
 
         @Override
-        public void accept(BaseASTVisitor v) {
+        public <T> T accept(BaseASTVisitor<T> v) {
+            return null;
         }
     }
 
