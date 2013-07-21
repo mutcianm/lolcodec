@@ -83,7 +83,11 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitGimstat(lolcodeParser.GimstatContext ctx) {
-        return super.visitGimstat(ctx);
+        TreeGimmehStmt gimmehStmt = new TreeGimmehStmt();
+        TreeVariable var = new TreeVariable();
+        var.setName(ctx.ID().toString());
+        gimmehStmt.setVariable(var);
+        return (T) gimmehStmt;
     }
 
     @Override
@@ -246,7 +250,10 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitOneofexpr(lolcodeParser.OneofexprContext ctx) {
-        return super.visitOneofexpr(ctx);
+        TreeOrExpr orExpr = new TreeOrExpr();
+        orExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        orExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) orExpr;
     }
 
     @Override
@@ -281,10 +288,10 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
         funcCallStmt.setFuncName(ctx.ID().toString());
         if (ctx.exprList() == null) {
-            log.info("function call " + funcCallStmt.getFuncName() + "has no parameters");
+            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
         } else {
             for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
-                funcCallStmt.addArgument((TreeValue) visit(param));
+                funcCallStmt.addArgument((TreeExpression) visit(param));
             }
         }
         return (T) funcCallStmt;
@@ -297,7 +304,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         List<lolcodeParser.ExprContext> list = ctx.expr();
         TreeExpression lhs = (TreeExpression) visit(list.get(0));
         maxExpr.setLhs(lhs);
-        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        TreeExpression rhs = (TreeExpression) visit(list.get(1));
         maxExpr.setRhs(rhs);
         return (T) maxExpr;
         //return super.visitMaxexpr(ctx);
@@ -309,7 +316,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
         List<lolcodeParser.ExprContext> list = ctx.expr();
         TreeExpression lhs = (TreeExpression) visit(list.get(0));
         minExpr.setLhs(lhs);
-        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        TreeExpression rhs = (TreeExpression) visit(list.get(1));
         minExpr.setRhs(rhs);
         return (T) minExpr;
         //return super.visitMinexpr(ctx);
@@ -338,7 +345,10 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitBothofexpr(lolcodeParser.BothofexprContext ctx) {
-        return super.visitBothofexpr(ctx);
+        TreeAndExpr andExpr = new TreeAndExpr();
+        andExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        andExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) andExpr;
     }
 
     @Override
@@ -409,7 +419,6 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
             log.severe("rgs of Div Expression failed to parse");
         }
         return (T) divExpr;
-        //return super.visitDivexpr(ctx);
     }
 
     @Override
@@ -426,28 +435,39 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFormalParameters(lolcodeParser.FormalParametersContext ctx) {
-
         return super.visitFormalParameters(ctx);
     }
 
     @Override
     public T visitSubexpr(@NotNull lolcodeParser.SubexprContext ctx) {
-        return super.visitSubexpr(ctx);
+        TreeSubExpr subExpr = new TreeSubExpr();
+        subExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        subExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) subExpr;
     }
 
     @Override
     public T visitEitherexpr(lolcodeParser.EitherexprContext ctx) {
-        return super.visitEitherexpr(ctx);
+        TreeXorExpr xorExpr = new TreeXorExpr();
+        xorExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        xorExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) xorExpr;
     }
 
     @Override
     public T visitEquexpr(lolcodeParser.EquexprContext ctx) {
-        return super.visitEquexpr(ctx);
+        TreeEqualExpr equalExpr = new TreeEqualExpr();
+        equalExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        equalExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) equalExpr;
     }
 
     @Override
     public T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx) {
-        return super.visitNequexpr(ctx);
+        TreeNequalExpr nequalExpr = new TreeNequalExpr();
+        nequalExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
+        nequalExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
+        return (T) nequalExpr;
     }
 
     //AM I DOING IT RIGHT???

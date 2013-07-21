@@ -61,5 +61,11 @@ public interface BaseASTVisitor {
 
     void visit(TreeOrExpr orExpr);
 
+    void visit(TreeXorExpr xorExpr);
+
     void visit(TreeNotExpr notExpr);
+
+    void visit(TreeEqualExpr equalExpr);
+
+    void visit(TreeNequalExpr nequalExpr);
 }
