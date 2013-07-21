@@ -7,10 +7,12 @@ package com.lolcode.tree;
  * Time: 9:24 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Basic node type. Mainly used as a root of ASTBuilder resulting tree.
  */
 public interface TreeNode {
 
-    <T> T accept(BaseASTVisitor<T> v);
+    <T> T accept(BaseASTVisitor<T> v) throws BaseAstException;
 }

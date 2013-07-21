@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 4:36 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Handles subtraction expressions. </br>{@code DIFF OF VAR1 an VAR2}</br>
  * Consists of two TreeExpression for lhs and rhs respectively.
@@ -14,7 +16,7 @@ package com.lolcode.tree;
 public class TreeSubExpr extends TreeBinaryExpr {
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

@@ -1,5 +1,7 @@
 package com.lolcode.tree;
 
+import com.lolcode.tree.exception.BaseAstException;
+
 import java.util.ArrayList;
 
 /**
@@ -49,7 +51,7 @@ public class TreeFunction implements TreeNode {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

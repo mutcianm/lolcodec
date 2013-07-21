@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 4:39 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Implements lolcode variable declaration and optional initialisation. Example: `I HAZ A VAR1 ITZ 256`
  */
@@ -36,7 +38,7 @@ public class TreeVarDeclStmt extends TreeStatement {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 3:50 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Stores assign statement. <p>For example:<pre> {@code VAR1 = VAR2 + 256}</pre> where VAR1 is lhs and VAR2 + 256 is rhs.
  * lhs must be of TreeValue type only, to avoid thing like `VAR1 + VAR2 = 256`, this should be checked in semantic check pass.</p>
@@ -37,7 +39,7 @@ public class TreeAssignStmt extends TreeStatement {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

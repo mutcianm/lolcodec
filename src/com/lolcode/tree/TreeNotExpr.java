@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 4:12 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Handles lolcode NOT expression. <p><pre>{@code
  * NOT BOTH SAEM VAR1 AN VAR2
@@ -28,7 +30,7 @@ public class TreeNotExpr extends TreeExpression {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

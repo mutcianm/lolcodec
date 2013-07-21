@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 5:09 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Handles lolcode AND expression. <p><pre>{@code
  *  BOTH OF VAR1 AN VAR2
@@ -14,7 +16,7 @@ package com.lolcode.tree;
  */
 public class TreeAndExpr extends TreeBinaryExpr {
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

@@ -4,6 +4,7 @@ package com.lolcode;
 import com.lolcode.checker.types.TypeGenerator;
 import com.lolcode.tree.AstBuilder;
 import com.lolcode.tree.TreeModule;
+import com.lolcode.tree.exception.BaseAstException;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -62,6 +63,9 @@ public class Runner {
             //generate bytecode from ir
         } catch (IOException | LexerNoViableAltException e) {
             log.severe(e.toString());
+        } catch (BaseAstException e) {
+            log.severe(String.valueOf(e));
+            throw new RuntimeException(e);
         }
     }
 }

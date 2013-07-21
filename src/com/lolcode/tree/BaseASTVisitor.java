@@ -7,13 +7,15 @@ package com.lolcode.tree;
  * Time: 2:31 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Declares a base visitor with all kinds of visitable nodes. AST visitors must implement this interface.
  */
 public interface BaseASTVisitor<T> {
-    T visit(TreeFunction func);
+    T visit(TreeFunction func) throws BaseAstException;
 
-    T visit(TreeModule module);
+    T visit(TreeModule module) throws BaseAstException;
 
     T visit(TreeFunctionParameter param);
 
@@ -21,13 +23,13 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeLoopStmt loopStmt);
 
-    T visit(TreeAssignStmt assignStmt);
+    T visit(TreeAssignStmt assignStmt) throws BaseAstException;
 
     T visit(TreeCaseStmt caseStmt);
 
-    T visit(TreeVarDeclStmt varDeclStmt);
+    T visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException;
 
-    T visit(TreeVisibleStmt visibleStmt);
+    T visit(TreeVisibleStmt visibleStmt) throws BaseAstException;
 
     T visit(TreeGimmehStmt gimmehStmt);
 
@@ -35,37 +37,37 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeBreakStmt breakStmt);
 
-    T visit(TreeReturnStmt returnStmt);
+    T visit(TreeReturnStmt returnStmt) throws BaseAstException;
 
     //Expressions:
     T visit(TreeVariable variable);
 
     T visit(TreeConstant constant);
 
-    T visit(TreeSumExpr sumExpr);
+    T visit(TreeSumExpr sumExpr) throws BaseAstException;
 
-    T visit(TreeSubExpr subExpr);
+    T visit(TreeSubExpr subExpr) throws BaseAstException;
 
-    T visit(TreeMulExpr mulExpr);
+    T visit(TreeMulExpr mulExpr) throws BaseAstException;
 
-    T visit(TreeDivExpr divExpr);
+    T visit(TreeDivExpr divExpr) throws BaseAstException;
 
-    T visit(TreeModExpr modExpr);
+    T visit(TreeModExpr modExpr) throws BaseAstException;
 
     //logic expressions
-    T visit(TreeMaxExpr maxExpr);
+    T visit(TreeMaxExpr maxExpr) throws BaseAstException;
 
-    T visit(TreeMinExpr minExpr);
+    T visit(TreeMinExpr minExpr) throws BaseAstException;
 
-    T visit(TreeAndExpr andExpr);
+    T visit(TreeAndExpr andExpr) throws BaseAstException;
 
-    T visit(TreeOrExpr orExpr);
+    T visit(TreeOrExpr orExpr) throws BaseAstException;
 
-    T visit(TreeXorExpr xorExpr);
+    T visit(TreeXorExpr xorExpr) throws BaseAstException;
 
-    T visit(TreeNotExpr notExpr);
+    T visit(TreeNotExpr notExpr) throws BaseAstException;
 
-    T visit(TreeEqualExpr equalExpr);
+    T visit(TreeEqualExpr equalExpr) throws BaseAstException;
 
-    T visit(TreeNequalExpr nequalExpr);
+    T visit(TreeNequalExpr nequalExpr) throws BaseAstException;
 }

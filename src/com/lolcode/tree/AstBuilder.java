@@ -96,7 +96,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
             //FIXME: something is wrong with grammar, BOOL values are treated as ID rather than as value
             if (ctx.ID().toString().equals("WIN") || ctx.ID().toString().equals("FAIL")) {
                 TreeConstant constant = new TreeConstant();
-                constant.setType(TreeTypedValue.TYPE.BOOL);
+                constant.setType(TYPE.BOOL);
                 constant.fromString(ctx.ID().toString());
                 return constant;
             }

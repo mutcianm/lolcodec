@@ -1,5 +1,7 @@
 package com.lolcode.tree;
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: miha
@@ -22,7 +24,7 @@ public class TreeReturnStmt extends TreeStatement {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

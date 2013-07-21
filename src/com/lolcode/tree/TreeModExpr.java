@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 4:30 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Handles lolcode MOD expression. <p><pre>{@code
  *  MOD OF VAR1 AN 10
@@ -14,7 +16,7 @@ package com.lolcode.tree;
  */
 public class TreeModExpr extends TreeBinaryExpr {
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }
