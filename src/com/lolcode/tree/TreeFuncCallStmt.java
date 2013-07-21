@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TreeFuncCallStmt extends TreeStatement {
     private String funcName; //!< name of function to call
-    private ArrayList<TreeExpression> arguments;
+    private final ArrayList<TreeExpression> arguments;
 
     public TreeFuncCallStmt() {
         funcName = "";
@@ -33,6 +33,10 @@ public class TreeFuncCallStmt extends TreeStatement {
 
     public void addArgument(TreeExpression arg) {
         arguments.add(arg);
+    }
+
+    public ArrayList<TreeExpression> getArguments() {
+        return arguments;
     }
 
     @Override

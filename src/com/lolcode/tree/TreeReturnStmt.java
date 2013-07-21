@@ -7,7 +7,7 @@ package com.lolcode.tree;
  * Time: 9:53 PM
  */
 public class TreeReturnStmt extends TreeStatement {
-    TreeExpression retValue;
+    private TreeExpression retValue;
 
     public TreeReturnStmt() {
         retValue = null;

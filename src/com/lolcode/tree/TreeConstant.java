@@ -19,7 +19,11 @@ public class TreeConstant extends TreeValue {
         realValue = "";
     }
 
-    protected void fromString(String val) {
+    public String getRealValue() {
+        return realValue;
+    }
+
+    void fromString(String val) {
         realValue = val;
     }
 

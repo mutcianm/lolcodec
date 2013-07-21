@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class TreeModule implements TreeNode {
 
     private String moduleName;
-    private ArrayList<TreeFunction> functions;
-    private ArrayList<TreeStatement> body;
+    private final ArrayList<TreeFunction> functions;
+    private final ArrayList<TreeStatement> body;
 
     public TreeModule() {
         moduleName = "";

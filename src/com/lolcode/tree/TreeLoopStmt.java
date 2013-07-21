@@ -21,7 +21,7 @@ public class TreeLoopStmt extends TreeStatement {
     private String label;
     private TreeVariable variable;
     private TreeExpression exitCondition;
-    private ArrayList<TreeStatement> body;
+    private final ArrayList<TreeStatement> body;
 
     public static enum loopType {TIL, WHILE, EMPTY}
 
@@ -35,6 +35,7 @@ public class TreeLoopStmt extends TreeStatement {
         variable = null;
         exitCondition = null;
         lType = loopType.EMPTY;
+        oType = opType.EMPTY;
         body = new ArrayList<>();
 
     }

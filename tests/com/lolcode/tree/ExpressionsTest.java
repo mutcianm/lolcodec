@@ -12,7 +12,7 @@ import org.junit.Test;
  * Time: 6:47 PM
  */
 public class ExpressionsTest extends TestCase {
-    Runner runner;
+    private Runner runner;
 
     @Before
     public void setUp() throws Exception {

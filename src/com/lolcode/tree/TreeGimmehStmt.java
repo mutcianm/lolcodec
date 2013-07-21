@@ -13,7 +13,7 @@ package com.lolcode.tree;
  * }</pre></p>
  */
 public class TreeGimmehStmt extends TreeStatement {
-    TreeVariable variable;
+    private TreeVariable variable;
 
     public TreeGimmehStmt() {
         variable = null;

@@ -14,18 +14,23 @@ public class LolAbstractValue implements LolValue {
 
     public LolAbstractValue(String name, String type) {
         this.name = name;
-        if (type.equals("NUMBR")) {
-            varType = LolValue.type.INT;
+        switch (type) {
+            case "NUMBR":
+                varType = LolValue.type.INT;
 
-        } else if (type.equals("YARN")) {
-            varType = LolValue.type.STRING;
+                break;
+            case "YARN":
+                varType = LolValue.type.STRING;
 
-        } else if (type.equals("NUMBAR")) {
-            varType = LolValue.type.FLOAT;
+                break;
+            case "NUMBAR":
+                varType = LolValue.type.FLOAT;
 
-        } else if (type.equals("TROOF")) {
-            varType = LolValue.type.BOOL;
+                break;
+            case "TROOF":
+                varType = LolValue.type.BOOL;
 
+                break;
         }
     }
 
@@ -63,7 +68,6 @@ public class LolAbstractValue implements LolValue {
     public boolean equals(Object other) {
         if (!super.equals(other)) return false;
         if (this == other) return true;
-        if (other == null) return false;
         LolValue _other = (LolValue) other;
         return this.getStrName().equals(_other.getStrName());
     }

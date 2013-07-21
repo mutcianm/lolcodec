@@ -5,8 +5,8 @@ package com.lolcode.tree;
  * as well as getters and setters for them.
  */
 public abstract class TreeBinaryExpr extends TreeExpression {
-    TreeExpression lhs;
-    TreeExpression rhs;
+    private TreeExpression lhs;
+    private TreeExpression rhs;
 
     public TreeBinaryExpr() {
         lhs = null;

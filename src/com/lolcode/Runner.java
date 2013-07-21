@@ -2,7 +2,6 @@ package com.lolcode;
 
 
 import com.lolcode.tree.AstBuilder;
-import com.lolcode.tree.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class Runner {
     private static Logger log = Logger.getLogger(AstBuilder.class.getName());
-    private String filename;
+    private String filename = "";
 
     //Lexer which exits on error insted of recovering
     public static class BailLolcodeLexer extends lolcodeLexer {
@@ -53,7 +52,7 @@ public class Runner {
              */
             ParseTree tree = parser.file(); //builds parse tree, do syntax check
 //            lolcodeVisitor visitor = new LolcodeVisitorImpl();
-            AstBuilder<TreeNode> visitor = new AstBuilder<>();
+            AstBuilder visitor = new AstBuilder(filename);
             visitor.visit(tree); //builds ast
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir

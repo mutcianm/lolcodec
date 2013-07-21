@@ -11,8 +11,8 @@ package com.lolcode.tree;
  * Implements lolcode variable declaration and optional initialisation. Example: `I HAZ A VAR1 ITZ 256`
  */
 public class TreeVarDeclStmt extends TreeStatement {
-    TreeVariable var;
-    TreeExpression initialValue;
+    private TreeVariable var;
+    private TreeExpression initialValue;
 
     public TreeVarDeclStmt() {
         var = null;

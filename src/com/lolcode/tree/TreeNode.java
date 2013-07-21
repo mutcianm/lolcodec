@@ -8,7 +8,7 @@ package com.lolcode.tree;
  */
 
 /**
- * Basic node type. Mainly used as a root of Builder resulting tree.
+ * Basic node type. Mainly used as a root of ASTBuilder resulting tree.
  */
 public interface TreeNode {
 

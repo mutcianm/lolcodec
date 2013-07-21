@@ -14,9 +14,9 @@ import java.util.ArrayList;
  */
 public class TreeIfStmt extends TreeStatement {
     private TreeExpression condition;
-    private ArrayList<TreeIfStmt> elseIfs;
-    private ArrayList<TreeStatement> trueBranch;
-    private ArrayList<TreeStatement> falseBranch;
+    private final ArrayList<TreeIfStmt> elseIfs;
+    private final ArrayList<TreeStatement> trueBranch;
+    private final ArrayList<TreeStatement> falseBranch;
 
     public TreeIfStmt() {
         condition = null;
@@ -55,6 +55,10 @@ public class TreeIfStmt extends TreeStatement {
 
     public ArrayList<TreeStatement> getFalseBranch() {
         return falseBranch;
+    }
+
+    public ArrayList<TreeIfStmt> getElseIfs() {
+        return elseIfs;
     }
 
     @Override

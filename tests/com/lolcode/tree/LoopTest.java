@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class LoopTest extends TestCase {
 
-    Runner runner;
+    private Runner runner;
 
     @Before
     public void setUp() throws Exception {

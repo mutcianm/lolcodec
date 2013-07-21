@@ -25,9 +25,9 @@ import java.util.Map;
  *   OIC}</pre></p>
  */
 public class TreeCaseStmt extends TreeStatement {
-    TreeExpression val;
-    HashMap<TreeConstant, List<TreeStatement>> body;
-    List<TreeStatement> defaultBranch;
+    private TreeExpression val;
+    private final HashMap<TreeConstant, List<TreeStatement>> body;
+    private final List<TreeStatement> defaultBranch;
 
     public TreeCaseStmt() {
         val = null;
@@ -65,6 +65,10 @@ public class TreeCaseStmt extends TreeStatement {
 
     public Map<TreeConstant, List<TreeStatement>> getBody() {
         return body;
+    }
+
+    public List<TreeStatement> getDefaultBranch() {
+        return defaultBranch;
     }
 
     @Override

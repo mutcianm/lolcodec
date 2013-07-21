@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class FunctionTest extends TestCase {
 
-    Runner runner;
+    private Runner runner;
 
     @Before
     public void setUp() throws Exception {

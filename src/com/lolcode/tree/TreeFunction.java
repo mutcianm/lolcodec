@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public class TreeFunction implements TreeNode {
     private String name;
-    private ArrayList<TreeFunctionParameter> params;
-    private ArrayList<TreeStatement> body;
+    private final ArrayList<TreeFunctionParameter> params;
+    private final ArrayList<TreeStatement> body;
 
     public TreeFunction() {
         name = "";

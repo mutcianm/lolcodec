@@ -12,10 +12,10 @@ package com.lolcode.tree;
  */
 public abstract class TreeValue extends TreeExpression implements TreeTypedValue {
 
-    protected TreeValue value; //
+    private TreeValue value; //
     private TYPE type;
 
-    public TreeValue() {
+    TreeValue() {
         type = TYPE.UNKNOWN;
         value = null;
     }
