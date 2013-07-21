@@ -246,7 +246,7 @@ value
     |   BOOL
     ;
 
-INT : ('-')?[0-9]+ { setText("int"); } ;
+INT : ('-')?[0-9]+  ;
 
 STRING : '"' [\u0000-\u0021\u0023-\uFFFE]* '"';
 
