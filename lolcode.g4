@@ -235,7 +235,6 @@ MKAY : 'MKAY';
 VISIBLE : 'VISIBLE';
 GIMMEH : 'GIMMEH';
 
-ID : LETTER ( LETTER | [0-9_] )*;
 fragment
 LETTER : [a-zA-Z] ;
 
@@ -253,6 +252,8 @@ STRING : '"' [\u0000-\u0021\u0023-\uFFFE]* '"';
 FLOAT : (-)? [0-9]? '.' [0-9]+ ('f'|'F')? ;
 
 BOOL : 'WIN' | 'FAIL' ;
+
+ID : LETTER ( LETTER | [0-9_] )*;
 
 ENDST
     :   '\n'+

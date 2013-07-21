@@ -25,8 +25,8 @@ public class lolcodeParser extends Parser {
             DIFFRINT = 26, SMALLROF = 27, PRODUKTOF = 28, QUOSHUNTOF = 29, MODOF = 30, SUMOF = 31,
             DIFFOF = 32, SMOOSH = 33, UPPIN = 34, NERFIN = 35, IMINYR = 36, IMOUTTAYR = 37, ANYOF = 38,
             ONEOF = 39, ALLOF = 40, EITHEROF = 41, BOTHOF = 42, NOT = 43, GTFO = 44, YR = 45, NYR = 46,
-            HOWDUZ = 47, IFUSAY = 48, R = 49, IHAS = 50, MKAY = 51, VISIBLE = 52, GIMMEH = 53, ID = 54,
-            INT = 55, STRING = 56, FLOAT = 57, BOOL = 58, ENDST = 59, WS = 60, SL_COMMENT = 61;
+            HOWDUZ = 47, IFUSAY = 48, R = 49, IHAS = 50, MKAY = 51, VISIBLE = 52, GIMMEH = 53, INT = 54,
+            STRING = 55, FLOAT = 56, BOOL = 57, ID = 58, ENDST = 59, WS = 60, SL_COMMENT = 61;
     public static final String[] tokenNames = {
             "<INVALID>", "'FOUND YR'", "'WTF?'", "'WRK'", "'MAEK'", "'A'", "'AN'",
             "'BIGGR OF'", "'HAI'", "'KTHXBYE'", "'WILE'", "'TIL'", "'ORLY'", "'YRLY'",
@@ -36,7 +36,7 @@ public class lolcodeParser extends Parser {
             "'DIFF OF'", "'SMOOSH'", "'UPPIN'", "'NERFIN'", "'IM IN YR'", "'IM OUTTA YR'",
             "'ANY OF'", "'ONE OF'", "'ALL OF'", "'EITHER OF'", "'BOTH OF'", "'NOT'",
             "'GTFO'", "'YR'", "'N YR'", "'HOW DUZ I'", "'IF U SAY SO'", "'R'", "'I HAS A'",
-            "'MKAY'", "'VISIBLE'", "'GIMMEH'", "ID", "INT", "STRING", "FLOAT", "BOOL",
+            "'MKAY'", "'VISIBLE'", "'GIMMEH'", "INT", "STRING", "FLOAT", "BOOL", "ID",
             "ENDST", "WS", "SL_COMMENT"
     };
     public static final int
@@ -189,7 +189,7 @@ public class lolcodeParser extends Parser {
                 setState(81);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 1) | (1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << GTFO) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 1) | (1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << GTFO) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL) | (1L << ID))) != 0)) {
                     {
                         {
                             setState(78);
@@ -496,7 +496,7 @@ public class lolcodeParser extends Parser {
                 setState(119);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 1) | (1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << GTFO) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 1) | (1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << IMINYR) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << GTFO) | (1L << IHAS) | (1L << VISIBLE) | (1L << GIMMEH) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL) | (1L << ID))) != 0)) {
                     {
                         {
                             setState(116);
@@ -2225,7 +2225,7 @@ public class lolcodeParser extends Parser {
                 setState(305);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
-                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << ID) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL))) != 0)) {
+                while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BIGGROF) | (1L << BOTHSAEM) | (1L << DIFFRINT) | (1L << SMALLROF) | (1L << PRODUKTOF) | (1L << QUOSHUNTOF) | (1L << MODOF) | (1L << SUMOF) | (1L << DIFFOF) | (1L << ONEOF) | (1L << EITHEROF) | (1L << BOTHOF) | (1L << NOT) | (1L << INT) | (1L << STRING) | (1L << FLOAT) | (1L << BOOL) | (1L << ID))) != 0)) {
                     {
                         {
                             setState(302);
@@ -2390,7 +2390,7 @@ public class lolcodeParser extends Parser {
                     "\3\34\3\34\3\34\3\34\3\35\3\35\3\35\3\35\3\35\3\36\3\36\3\36\3\36\3\36" +
                     "\3\37\3\37\3\37\3\37\3\37\3 \3 \3 \3 \3 \3!\7!\u0132\n!\f!\16!\u0135\13" +
                     "!\3\"\3\"\3\"\3\"\3\"\5\"\u013c\n\"\3#\3#\3#\2$\2\4\6\b\n\f\16\20\22\24" +
-                    "\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BD\2\5\3\2$%\3\2\f\r\3\29<\u0144" +
+                    "\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BD\2\5\3\2$%\3\2\f\r\3\28;\u0144" +
                     "\2I\3\2\2\2\4N\3\2\2\2\6X\3\2\2\2\b`\3\2\2\2\nk\3\2\2\2\ft\3\2\2\2\16" +
                     "y\3\2\2\2\20\u0085\3\2\2\2\22\u0087\3\2\2\2\24\u00a0\3\2\2\2\26\u00b2" +
                     "\3\2\2\2\30\u00bb\3\2\2\2\32\u00ca\3\2\2\2\34\u00cf\3\2\2\2\36\u00d1\3" +
@@ -2401,11 +2401,11 @@ public class lolcodeParser extends Parser {
                     "\u013d\3\2\2\2FH\5\b\5\2GF\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JL\3\2" +
                     "\2\2KI\3\2\2\2LM\5\4\3\2M\3\3\2\2\2NO\7\n\2\2OS\7=\2\2PR\5\20\t\2QP\3" +
                     "\2\2\2RU\3\2\2\2SQ\3\2\2\2ST\3\2\2\2TV\3\2\2\2US\3\2\2\2VW\7\13\2\2W\5" +
-                    "\3\2\2\2XY\7\64\2\2Y\\\78\2\2Z[\7\32\2\2[]\5\"\22\2\\Z\3\2\2\2\\]\3\2" +
-                    "\2\2]^\3\2\2\2^_\7=\2\2_\7\3\2\2\2`a\7\61\2\2ac\78\2\2bd\5\n\6\2cb\3\2" +
+                    "\3\2\2\2XY\7\64\2\2Y\\\7<\2\2Z[\7\32\2\2[]\5\"\22\2\\Z\3\2\2\2\\]\3\2" +
+                    "\2\2]^\3\2\2\2^_\7=\2\2_\7\3\2\2\2`a\7\61\2\2ac\7<\2\2bd\5\n\6\2cb\3\2" +
                     "\2\2cd\3\2\2\2de\3\2\2\2ef\7=\2\2fg\5\16\b\2gh\7=\2\2hi\7\62\2\2ij\7=" +
                     "\2\2j\t\3\2\2\2kl\7/\2\2lq\5\f\7\2mn\7\60\2\2np\5\f\7\2om\3\2\2\2ps\3" +
-                    "\2\2\2qo\3\2\2\2qr\3\2\2\2r\13\3\2\2\2sq\3\2\2\2tu\78\2\2u\r\3\2\2\2v" +
+                    "\2\2\2qo\3\2\2\2qr\3\2\2\2r\13\3\2\2\2sq\3\2\2\2tu\7<\2\2u\r\3\2\2\2v" +
                     "x\5\20\t\2wv\3\2\2\2x{\3\2\2\2yw\3\2\2\2yz\3\2\2\2z\17\3\2\2\2{y\3\2\2" +
                     "\2|\u0086\5\6\4\2}\u0086\5\22\n\2~\u0086\5\24\13\2\177\u0086\5\30\r\2" +
                     "\u0080\u0086\5\32\16\2\u0081\u0086\5\34\17\2\u0082\u0086\5B\"\2\u0083" +
@@ -2428,25 +2428,25 @@ public class lolcodeParser extends Parser {
                     "\7=\2\2\u00b1\25\3\2\2\2\u00b2\u00b3\7\23\2\2\u00b3\u00b4\5D#\2\u00b4" +
                     "\u00b6\7=\2\2\u00b5\u00b7\5\16\b\2\u00b6\u00b5\3\2\2\2\u00b6\u00b7\3\2" +
                     "\2\2\u00b7\u00b9\3\2\2\2\u00b8\u00ba\7=\2\2\u00b9\u00b8\3\2\2\2\u00b9" +
-                    "\u00ba\3\2\2\2\u00ba\27\3\2\2\2\u00bb\u00bc\7&\2\2\u00bc\u00c2\78\2\2" +
-                    "\u00bd\u00be\t\2\2\2\u00be\u00bf\7/\2\2\u00bf\u00c0\78\2\2\u00c0\u00c1" +
+                    "\u00ba\3\2\2\2\u00ba\27\3\2\2\2\u00bb\u00bc\7&\2\2\u00bc\u00c2\7<\2\2" +
+                    "\u00bd\u00be\t\2\2\2\u00be\u00bf\7/\2\2\u00bf\u00c0\7<\2\2\u00c0\u00c1" +
                     "\t\3\2\2\u00c1\u00c3\5\"\22\2\u00c2\u00bd\3\2\2\2\u00c2\u00c3\3\2\2\2" +
                     "\u00c3\u00c4\3\2\2\2\u00c4\u00c5\7=\2\2\u00c5\u00c6\5\16\b\2\u00c6\u00c7" +
-                    "\7\'\2\2\u00c7\u00c8\78\2\2\u00c8\u00c9\7=\2\2\u00c9\31\3\2\2\2\u00ca" +
-                    "\u00cb\78\2\2\u00cb\u00cc\7\63\2\2\u00cc\u00cd\5\"\22\2\u00cd\u00ce\7" +
+                    "\7\'\2\2\u00c7\u00c8\7<\2\2\u00c8\u00c9\7=\2\2\u00c9\31\3\2\2\2\u00ca" +
+                    "\u00cb\7<\2\2\u00cb\u00cc\7\63\2\2\u00cc\u00cd\5\"\22\2\u00cd\u00ce\7" +
                     "=\2\2\u00ce\33\3\2\2\2\u00cf\u00d0\5\"\22\2\u00d0\35\3\2\2\2\u00d1\u00d2" +
                     "\7\66\2\2\u00d2\u00d3\5\"\22\2\u00d3\u00d4\7=\2\2\u00d4\37\3\2\2\2\u00d5" +
-                    "\u00d6\7\67\2\2\u00d6\u00d7\78\2\2\u00d7\u00d8\7=\2\2\u00d8!\3\2\2\2\u00d9" +
+                    "\u00d6\7\67\2\2\u00d6\u00d7\7<\2\2\u00d7\u00d8\7=\2\2\u00d8!\3\2\2\2\u00d9" +
                     "\u00ea\5$\23\2\u00da\u00ea\5&\24\2\u00db\u00ea\5(\25\2\u00dc\u00ea\5*" +
                     "\26\2\u00dd\u00ea\5,\27\2\u00de\u00ea\5.\30\2\u00df\u00ea\5\60\31\2\u00e0" +
                     "\u00ea\5\62\32\2\u00e1\u00ea\5\64\33\2\u00e2\u00ea\5\66\34\2\u00e3\u00ea" +
                     "\58\35\2\u00e4\u00ea\5:\36\2\u00e5\u00ea\5<\37\2\u00e6\u00ea\5> \2\u00e7" +
-                    "\u00ea\78\2\2\u00e8\u00ea\5D#\2\u00e9\u00d9\3\2\2\2\u00e9\u00da\3\2\2" +
+                    "\u00ea\7<\2\2\u00e8\u00ea\5D#\2\u00e9\u00d9\3\2\2\2\u00e9\u00da\3\2\2" +
                     "\2\u00e9\u00db\3\2\2\2\u00e9\u00dc\3\2\2\2\u00e9\u00dd\3\2\2\2\u00e9\u00de" +
                     "\3\2\2\2\u00e9\u00df\3\2\2\2\u00e9\u00e0\3\2\2\2\u00e9\u00e1\3\2\2\2\u00e9" +
                     "\u00e2\3\2\2\2\u00e9\u00e3\3\2\2\2\u00e9\u00e4\3\2\2\2\u00e9\u00e5\3\2" +
                     "\2\2\u00e9\u00e6\3\2\2\2\u00e9\u00e7\3\2\2\2\u00e9\u00e8\3\2\2\2\u00ea" +
-                    "#\3\2\2\2\u00eb\u00ed\78\2\2\u00ec\u00ee\5@!\2\u00ed\u00ec\3\2\2\2\u00ed" +
+                    "#\3\2\2\2\u00eb\u00ed\7<\2\2\u00ec\u00ee\5@!\2\u00ed\u00ec\3\2\2\2\u00ed" +
                     "\u00ee\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef\u00f0\7=\2\2\u00f0%\3\2\2\2\u00f1" +
                     "\u00f2\7-\2\2\u00f2\u00f3\5\"\22\2\u00f3\'\3\2\2\2\u00f4\u00f5\7\36\2" +
                     "\2\u00f5\u00f6\5\"\22\2\u00f6\u00f7\7\b\2\2\u00f7\u00f8\5\"\22\2\u00f8" +
