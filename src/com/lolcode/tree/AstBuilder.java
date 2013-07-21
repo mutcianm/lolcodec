@@ -31,6 +31,7 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFuncall(lolcodeParser.FuncallContext ctx) {
+        //funcall is actually funexpr, stupid i know
         return super.visitFuncall(ctx);
     }
 
@@ -277,17 +278,41 @@ public class AstBuilder<T extends TreeNode> extends lolcodeBaseVisitor<T> {
 
     @Override
     public T visitFunexpr(lolcodeParser.FunexprContext ctx) {
-        return super.visitFunexpr(ctx);
+        TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
+        funcCallStmt.setFuncName(ctx.ID().toString());
+        if (ctx.exprList() == null) {
+            log.info("function call " + funcCallStmt.getFuncName() + "has no parameters");
+        } else {
+            for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
+                funcCallStmt.addArgument((TreeValue) visit(param));
+            }
+        }
+        return (T) funcCallStmt;
+        //return super.visitFunexpr(ctx);
     }
 
     @Override
     public T visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
-        return super.visitMaxexpr(ctx);
+        TreeMaxExpr maxExpr = new TreeMaxExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        TreeExpression lhs = (TreeExpression) visit(list.get(0));
+        maxExpr.setLhs(lhs);
+        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        maxExpr.setRhs(rhs);
+        return (T) maxExpr;
+        //return super.visitMaxexpr(ctx);
     }
 
     @Override
     public T visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx) {
-        return super.visitMinexpr(ctx);
+        TreeMinExpr minExpr = new TreeMinExpr();
+        List<lolcodeParser.ExprContext> list = ctx.expr();
+        TreeExpression lhs = (TreeExpression) visit(list.get(0));
+        minExpr.setLhs(lhs);
+        TreeExpression rhs = (TreeExpression) visit(list.get(0));
+        minExpr.setRhs(rhs);
+        return (T) minExpr;
+        //return super.visitMinexpr(ctx);
     }
 
     //AM I DOING IT RIGHT???
