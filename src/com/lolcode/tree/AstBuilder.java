@@ -93,6 +93,13 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitExpr(lolcodeParser.ExprContext ctx) {
         if (ctx.ID() != null) {
+            //FIXME: something is wrong with grammar, BOOL values are treated as ID rather than as value
+            if (ctx.ID().toString().equals("WIN") || ctx.ID().toString().equals("FAIL")) {
+                TreeConstant constant = new TreeConstant();
+                constant.setType(TreeTypedValue.TYPE.BOOL);
+                constant.fromString(ctx.ID().toString());
+                return constant;
+            }
             TreeVariable variable = new TreeVariable();
             variable.setName(ctx.ID().toString());
             return variable;
