@@ -22,7 +22,7 @@ public class TreeAssignStmt extends TreeStatement {
         rhs = null;
     }
 
-    public TreeValue getLhs() {
+    public TreeVariable getLhs() {
         return lhs;
     }
 

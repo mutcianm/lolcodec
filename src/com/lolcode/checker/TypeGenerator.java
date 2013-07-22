@@ -1,4 +1,4 @@
-package com.lolcode.checker.types;
+package com.lolcode.checker;
 
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
@@ -13,6 +13,7 @@ import com.lolcode.tree.exception.BaseAstException;
 /**
  * Attempts to infer types for variables if possible.
  * Is intrusive: overwrites types in AST.
+ * TODO: keep track of variable assignments as well as expressions.
  */
 public class TypeGenerator implements BaseASTVisitor<TYPE> {
 

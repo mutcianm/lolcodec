@@ -7,6 +7,8 @@ package com.lolcode.tree;
  * Time: 6:38 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Handles lolcode input statement. <p><pre>{@code
  * GIMMEH VAR1
@@ -28,7 +30,7 @@ public class TreeGimmehStmt extends TreeStatement {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }
 }

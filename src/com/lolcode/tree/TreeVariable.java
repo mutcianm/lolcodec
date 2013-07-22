@@ -7,10 +7,12 @@ package com.lolcode.tree;
  * Time: 4:39 PM
  */
 
+import com.lolcode.tree.exception.BaseAstException;
+
 /**
  * Implements lolcode mutable values, such as local function and module variables, loop variables.
  */
-public class TreeVariable extends TreeValue {
+public class TreeVariable extends TreeValue implements Comparable {
     private String name;
 
     public TreeVariable() {
@@ -26,7 +28,29 @@ public class TreeVariable extends TreeValue {
     }
 
     @Override
-    public <T> T accept(BaseASTVisitor<T> v) {
+    public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        TreeVariable tmp = (TreeVariable) o;
+        return name.compareTo(tmp.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if ((o == null)) return false;
+
+        TreeVariable variable = (TreeVariable) o;
+
+        return !((name != null) ? !name.equals(variable.name) : (variable.name != null));
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (name != null) ? name.hashCode() : 0;
     }
 }

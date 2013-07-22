@@ -93,13 +93,6 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitExpr(lolcodeParser.ExprContext ctx) {
         if (ctx.ID() != null) {
-            //FIXME: something is wrong with grammar, BOOL values are treated as ID rather than as value
-            if (ctx.ID().toString().equals("WIN") || ctx.ID().toString().equals("FAIL")) {
-                TreeConstant constant = new TreeConstant();
-                constant.setType(TYPE.BOOL);
-                constant.fromString(ctx.ID().toString());
-                return constant;
-            }
             TreeVariable variable = new TreeVariable();
             variable.setName(ctx.ID().toString());
             return variable;
@@ -186,7 +179,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
                 module.addFunction((TreeFunction) visit(fDecl));
                 i++;
             }
-            log.log(Level.INFO, "Got " + i + " functions in a module");
+//            log.log(Level.INFO, "Got " + i + " functions in a module");
         }
         if (ctx.main() == null) {
             log.severe("No module body found in module.");
@@ -275,7 +268,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
         funcCallStmt.setFuncName(ctx.ID().toString());
         if (ctx.exprList() == null) {
-            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
+//            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
         } else {
             for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
                 funcCallStmt.addArgument((TreeExpression) visit(param));
@@ -334,7 +327,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         TreeFunction func = new TreeFunction();
         func.setName(ctx.ID().toString());
         if (ctx.formalParameters() == null) {
-            log.info("function " + func.getName() + " has no parameters");
+//            log.info("function " + func.getName() + " has no parameters");
         } else {
             for (lolcodeParser.FormalParameterContext param : ctx.formalParameters().formalParameter()) {
                 func.addParam((TreeFunctionParameter) visit(param));

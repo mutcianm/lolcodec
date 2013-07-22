@@ -1,4 +1,4 @@
-package com.lolcode.checker.types;
+package com.lolcode.checker;
 
 import com.lolcode.tree.exception.BaseAstException;
 

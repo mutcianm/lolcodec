@@ -17,32 +17,32 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeModule module) throws BaseAstException;
 
-    T visit(TreeFunctionParameter param);
+    T visit(TreeFunctionParameter param) throws BaseAstException;
 
-    T visit(TreeIfStmt ifStmt);
+    T visit(TreeIfStmt ifStmt) throws BaseAstException;
 
-    T visit(TreeLoopStmt loopStmt);
+    T visit(TreeLoopStmt loopStmt) throws BaseAstException;
 
     T visit(TreeAssignStmt assignStmt) throws BaseAstException;
 
-    T visit(TreeCaseStmt caseStmt);
+    T visit(TreeCaseStmt caseStmt) throws BaseAstException;
 
     T visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException;
 
     T visit(TreeVisibleStmt visibleStmt) throws BaseAstException;
 
-    T visit(TreeGimmehStmt gimmehStmt);
+    T visit(TreeGimmehStmt gimmehStmt) throws BaseAstException;
 
-    T visit(TreeFuncCallStmt funcCallStmt);
+    T visit(TreeFuncCallStmt funcCallStmt) throws BaseAstException;
 
-    T visit(TreeBreakStmt breakStmt);
+    T visit(TreeBreakStmt breakStmt) throws BaseAstException;
 
     T visit(TreeReturnStmt returnStmt) throws BaseAstException;
 
     //Expressions:
-    T visit(TreeVariable variable);
+    T visit(TreeVariable variable) throws BaseAstException;
 
-    T visit(TreeConstant constant);
+    T visit(TreeConstant constant) throws BaseAstException;
 
     T visit(TreeSumExpr sumExpr) throws BaseAstException;
 
