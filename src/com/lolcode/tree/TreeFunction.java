@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Handles lolcode functions. Stores zero or more arguments in TreeFunctionParameter array,
  * and zero or more statements as function body in TreeStatement array.
  */
-public class TreeFunction implements TreeNode {
+public class TreeFunction extends PositionedTreeNode {
     private String name;
     private final ArrayList<TreeFunctionParameter> params;
     private final ArrayList<TreeStatement> body;

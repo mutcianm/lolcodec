@@ -25,7 +25,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
         }
         if (lType != rType) {
 //            throw new CastException("Unexpected types in \"" + exceptionMessage + "\" expression: " + lType + " and " + rType);
-            ErrorHandler.castError(exceptionMessage, lType, rType);
+            ErrorHandler.castError(expr.getPos(), exceptionMessage, lType, rType);
         }
         return lType;
     }
@@ -43,7 +43,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
             return TYPE.BOOL;
         }
 //        throw new CastException("Unexpected types in \"" + exceptionMessage + "\" expression: " + lType + " and " + rType);
-        ErrorHandler.castError(exceptionMessage, lType, rType);
+        ErrorHandler.castError(expr.getPos(), exceptionMessage, lType, rType);
         return TYPE.UNKNOWN;
     }
 
@@ -195,7 +195,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
             return type;
         }
 //        throw new CastException("Wrong type in \"not\" expression: " + type);
-        ErrorHandler.castError("not", type, TYPE.BOOL);
+        ErrorHandler.castError(notExpr.getPos(), "not", type, TYPE.BOOL);
         return TYPE.UNKNOWN;
     }
 

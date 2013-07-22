@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Represents lolcode primary compilation unit in ast. Consists of 0 or more function declarations
  * and 0 or more body statements, which act as main() in c.
  */
-public class TreeModule implements TreeNode {
+public class TreeModule extends PositionedTreeNode {
 
     private String moduleName;
     private final ArrayList<TreeFunction> functions;

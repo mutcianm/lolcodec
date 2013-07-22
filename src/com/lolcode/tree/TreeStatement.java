@@ -17,6 +17,6 @@ package com.lolcode.tree;
  * <li>input\output statements</li>
  * <li>function calls</li>
  */
-public abstract class TreeStatement implements TreeNode {
+public abstract class TreeStatement extends PositionedTreeNode {
 
 }

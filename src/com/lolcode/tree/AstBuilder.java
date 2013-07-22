@@ -38,6 +38,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeConstant visitValue(@NotNull lolcodeParser.ValueContext ctx) {
         TreeConstant constant = new TreeConstant();
+        constant.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         if (ctx.BOOL() != null) {
             constant.setType(TYPE.BOOL);
             constant.fromString(ctx.BOOL().toString());
@@ -60,6 +61,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeFunctionParameter visitFormalParameter(lolcodeParser.FormalParameterContext ctx) {
         TreeFunctionParameter param = new TreeFunctionParameter();
+        param.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         param.setName(ctx.ID().toString());
         return param;
     }
@@ -67,7 +69,10 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeVarDeclStmt visitVarDecl(lolcodeParser.VarDeclContext ctx) {
         TreeVarDeclStmt varDeclStmt = new TreeVarDeclStmt();
+        TreeNode.position pos = new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
+        varDeclStmt.setPos(pos);
         TreeVariable variable = new TreeVariable();
+        variable.setPos(pos);
         variable.setName(ctx.ID().toString());
         if (ctx.expr() != null) {
             varDeclStmt.setInitialValue((TreeExpression) visit(ctx.expr()));
@@ -83,8 +88,11 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
 
     @Override
     public TreeGimmehStmt visitGimstat(lolcodeParser.GimstatContext ctx) {
+        TreeNode.position pos = new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
         TreeGimmehStmt gimmehStmt = new TreeGimmehStmt();
         TreeVariable var = new TreeVariable();
+        gimmehStmt.setPos(pos);
+        var.setPos(pos);
         var.setName(ctx.ID().toString());
         gimmehStmt.setVariable(var);
         return gimmehStmt;
@@ -94,6 +102,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     public TreeNode visitExpr(lolcodeParser.ExprContext ctx) {
         if (ctx.ID() != null) {
             TreeVariable variable = new TreeVariable();
+            variable.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
             variable.setName(ctx.ID().toString());
             return variable;
         }
@@ -103,7 +112,9 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeAssignStmt visitAssstat(lolcodeParser.AssstatContext ctx) {
         TreeAssignStmt assignStmt = new TreeAssignStmt();
+        assignStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         TreeVariable lhs = new TreeVariable();
+        lhs.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         lhs.setName(ctx.ID().toString());
         assignStmt.setLhs(lhs);
         assignStmt.setRhs((TreeExpression) visit(ctx.expr()));
@@ -113,6 +124,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeVisibleStmt visitVisstat(lolcodeParser.VisstatContext ctx) {
         TreeVisibleStmt visibleStmt = new TreeVisibleStmt();
+        visibleStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         visibleStmt.setArgument((TreeExpression) visit(ctx.expr()));
         return visibleStmt;
     }
@@ -120,11 +132,12 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeNotExpr visitNotexpr(lolcodeParser.NotexprContext ctx) {
         TreeNotExpr notExpr = new TreeNotExpr();
+        notExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         notExpr.setExpr((TreeExpression) visit(ctx.expr()));
         return notExpr;
     }
 
-    private class CasePair implements TreeNode {
+    private class CasePair extends PositionedTreeNode {
         public TreeConstant constant;
         public List<TreeStatement> body;
 
@@ -142,6 +155,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeCaseStmt visitCasestat(lolcodeParser.CasestatContext ctx) {
         TreeCaseStmt caseStmt = new TreeCaseStmt();
+        caseStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         TreeExpression expression = (TreeExpression) visit(ctx.expr());
         caseStmt.setVal(expression);
         for (lolcodeParser.CaseblockContext blk : ctx.caseblock()) {
@@ -172,6 +186,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
             log.log(Level.SEVERE, "visitFile() called more than once for same file!");
         }
         TreeModule module = new TreeModule();
+        module.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         module.setModuleName(filename);
         if (!ctx.functionDecl().isEmpty()) {
             int i = 0;
@@ -199,6 +214,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeIfStmt visitIfstat(lolcodeParser.IfstatContext ctx) {
         TreeIfStmt ifStmt = new TreeIfStmt();
+        ifStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         List<lolcodeParser.ExprContext> exprs = ctx.expr();
         TreeExpression predicate = (TreeExpression) visit(exprs.get(0)); // first predicate is guaranteed to be present
         ifStmt.setCondition(predicate);
@@ -208,6 +224,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         if (ctx.MEBBE() != null) {                //add else if branches if present
             for (int i = 0; i < ctx.MEBBE().size(); ++i) {
                 TreeIfStmt tmp = new TreeIfStmt();
+                tmp.setPos(new TreeNode.position(ctx.MEBBE(i).getSymbol().getLine(), ctx.MEBBE(i).getSymbol().getCharPositionInLine()));
                 tmp.setCondition((TreeExpression) visit(ctx.expr().get(i + 1)));
                 for (lolcodeParser.StatContext stat : ctx.block().get(i + 1).stat()) {
                     tmp.addTrueStmt((TreeStatement) visit(stat));
@@ -231,6 +248,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeOrExpr visitOneofexpr(lolcodeParser.OneofexprContext ctx) {
         TreeOrExpr orExpr = new TreeOrExpr();
+        orExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         orExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         orExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return orExpr;
@@ -239,6 +257,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeLoopStmt visitLoopstat(lolcodeParser.LoopstatContext ctx) {
         TreeLoopStmt loopStmt = new TreeLoopStmt();
+        loopStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         loopStmt.setLabel(ctx.ID(0).toString());
         if (ctx.expr() != null) {         //not an infinite loop
             if (ctx.UPPIN() != null) {
@@ -247,6 +266,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
                 loopStmt.setoType(TreeLoopStmt.opType.NERFIN);
             }
             TreeVariable loopVar = new TreeVariable();
+            loopVar.setPos(new TreeNode.position(ctx.ID(1).getSymbol().getLine(), ctx.ID(1).getSymbol().getCharPositionInLine()));
             loopVar.setName(ctx.ID(1).toString());
             loopStmt.setVariable(loopVar);
             if (ctx.WHILE() != null) {
@@ -266,6 +286,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeFuncCallStmt visitFunexpr(lolcodeParser.FunexprContext ctx) {
         TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
+        funcCallStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         funcCallStmt.setFuncName(ctx.ID().toString());
         if (ctx.exprList() == null) {
 //            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
@@ -280,6 +301,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeMaxExpr visitMaxexpr(@NotNull lolcodeParser.MaxexprContext ctx) {
         TreeMaxExpr maxExpr = new TreeMaxExpr();
+        maxExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         maxExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         maxExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return maxExpr;
@@ -288,6 +310,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeMinExpr visitMinexpr(@NotNull lolcodeParser.MinexprContext ctx) {
         TreeMinExpr minExpr = new TreeMinExpr();
+        minExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         minExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         minExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return minExpr;
@@ -296,6 +319,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeModExpr visitModexpr(lolcodeParser.ModexprContext ctx) {
         TreeModExpr modExpr = new TreeModExpr();
+        modExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         modExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         modExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return modExpr;
@@ -304,6 +328,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeAndExpr visitBothofexpr(lolcodeParser.BothofexprContext ctx) {
         TreeAndExpr andExpr = new TreeAndExpr();
+        andExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         andExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         andExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return andExpr;
@@ -312,6 +337,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeSumExpr visitAddexpr(lolcodeParser.AddexprContext ctx) {
         TreeSumExpr sumExpr = new TreeSumExpr();
+        sumExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         sumExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         sumExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return sumExpr;
@@ -325,6 +351,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeFunction visitFunctionDecl(lolcodeParser.FunctionDeclContext ctx) {
         TreeFunction func = new TreeFunction();
+        func.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         func.setName(ctx.ID().toString());
         if (ctx.formalParameters() == null) {
 //            log.info("function " + func.getName() + " has no parameters");
@@ -347,6 +374,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeDivExpr visitDivexpr(@NotNull lolcodeParser.DivexprContext ctx) {
         TreeDivExpr divExpr = new TreeDivExpr();
+        divExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         divExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         divExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return divExpr;
@@ -356,9 +384,12 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     public TreeStatement visitRetpart(lolcodeParser.RetpartContext ctx) {
         String tmp = ctx.getChild(0).getText();
         if (tmp.equals("GTFO")) {
-            return new TreeBreakStmt();
+            TreeBreakStmt breakStmt = new TreeBreakStmt();
+            breakStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
+            return breakStmt;
         } else {
             TreeReturnStmt returnStmt = new TreeReturnStmt();
+            returnStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
             returnStmt.setRetValue((TreeExpression) visit(ctx.expr()));
             return returnStmt;
         }
@@ -372,6 +403,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeSubExpr visitSubexpr(@NotNull lolcodeParser.SubexprContext ctx) {
         TreeSubExpr subExpr = new TreeSubExpr();
+        subExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         subExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         subExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return subExpr;
@@ -380,6 +412,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeXorExpr visitEitherexpr(lolcodeParser.EitherexprContext ctx) {
         TreeXorExpr xorExpr = new TreeXorExpr();
+        xorExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         xorExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         xorExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return xorExpr;
@@ -388,6 +421,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeEqualExpr visitEquexpr(lolcodeParser.EquexprContext ctx) {
         TreeEqualExpr equalExpr = new TreeEqualExpr();
+        equalExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         equalExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         equalExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return equalExpr;
@@ -396,6 +430,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeNequalExpr visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx) {
         TreeNequalExpr nequalExpr = new TreeNequalExpr();
+        nequalExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         nequalExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         nequalExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return nequalExpr;
@@ -404,6 +439,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeMulExpr visitMultexpr(lolcodeParser.MultexprContext ctx) {
         TreeMulExpr mulExpr = new TreeMulExpr();
+        mulExpr.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         mulExpr.setLhs((TreeExpression) visit(ctx.expr().get(0)));
         mulExpr.setRhs((TreeExpression) visit(ctx.expr().get(1)));
         return mulExpr;

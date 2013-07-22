@@ -16,6 +16,6 @@ package com.lolcode.tree;
  * <li>funexpr - no idea what it is</li>
  * </p>
  */
-public abstract class TreeExpression implements TreeNode {
+public abstract class TreeExpression extends PositionedTreeNode {
 
 }
