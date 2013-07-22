@@ -118,7 +118,7 @@ expr
 
 //function call
 funexpr
-    :   ID exprList? ENDST
+    :   ID exprList? MKAY ENDST?
     ;
 
 notexpr
@@ -175,7 +175,8 @@ nequexpr
 
 //expressions are without 'AN'
 exprList
-    :  (expr)*;
+    :  'YR' expr
+    |  'YR' expr ('N YR' expr)*;
 
 retpart 
     :   'FOUND YR' expr ENDST //return EXPR
