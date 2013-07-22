@@ -23,7 +23,7 @@ varDecl
 
 //declaring function
 functionDecl
-    :   'HOW DUZ I' ID formalParameters? ENDST block ENDST 'IF U SAY SO' ENDST
+    :   'HOW DUZ I' ID formalParameters? ENDST block 'IF U SAY SO' ENDST
     ;
 
 //function params
@@ -179,7 +179,7 @@ exprList
 
 retpart 
     :   'FOUND YR' expr ENDST //return EXPR
-    |   'GTFO' //return NOOB
+    |   'GTFO' ENDST //return NOOB
     ;   //if DOESN'T EXIST RETURN IT
 
 WTF : 'WTF?';
@@ -234,9 +234,7 @@ IHAS : 'I HAS A';
 MKAY : 'MKAY';
 VISIBLE : 'VISIBLE';
 GIMMEH : 'GIMMEH';
-
-fragment
-LETTER : [a-zA-Z] ;
+FOUNDYR : 'FOUND YR';
 
 value
     :   INT 
@@ -249,11 +247,13 @@ INT : ('-')?[0-9]+  ;
 
 STRING : '"' [\u0000-\u0021\u0023-\uFFFE]* '"';
 
-FLOAT : (-)? [0-9]? '.' [0-9]+ ('f'|'F')? ;
+FLOAT : ('-')? [0-9]? '.' [0-9]+ ('f'|'F')? ;
 
 BOOL : 'WIN' | 'FAIL' ;
 
 ID : LETTER ( LETTER | [0-9_] )*;
+fragment
+LETTER : [a-zA-Z] ;
 
 ENDST
     :   '\n'+
