@@ -1,6 +1,7 @@
 package com.lolcode;
 
 
+import com.lolcode.checker.ErrorHandler;
 import com.lolcode.checker.ScopeChecker;
 import com.lolcode.checker.TypeGenerator;
 import com.lolcode.tree.AstBuilder;
@@ -61,6 +62,10 @@ public class Runner {
             scopeChecker.visit(ast);
             TypeGenerator infer = new TypeGenerator();
             infer.visit(ast);
+            if (!ErrorHandler.clean) {
+                System.err.println("Compilation failed");
+                System.exit(-1);
+            }
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir
             //generate bytecode from ir

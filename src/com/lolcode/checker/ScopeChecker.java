@@ -50,7 +50,8 @@ public class ScopeChecker implements BaseASTVisitor {
 
     private void checkInScopes(TreeVariable var) throws UndeclaredVariableException {
         if (findInScopes(var) == scopeLocation.NOTFOUND) {
-            throw new UndeclaredVariableException(var);
+//            throw new UndeclaredVariableException(var);
+            ErrorHandler.undeclaredVariable(var.getName());
         }
     }
 
@@ -75,7 +76,8 @@ public class ScopeChecker implements BaseASTVisitor {
     public Object visit(TreeModule module) throws BaseAstException {
         for (TreeFunction func : module.getFunctions()) {     //firstly try to add all module function to map
             if (functions.containsKey(func.getName())) {
-                throw new RedeclaredFunctionException(func);//throw if a function with the same name is already present
+//                throw new RedeclaredFunctionException(func);//throw if a function with the same name is already present
+                ErrorHandler.redeclaredFunction(func);
             }
             functions.put(func.getName(), func);
         }
@@ -157,7 +159,8 @@ public class ScopeChecker implements BaseASTVisitor {
     public Object visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException {
         switch (findInScopes(varDeclStmt.getVar())) {
             case CURRENT: {
-                throw new RedeclaredVariableException(varDeclStmt.getVar()); //variable cannot be declared in same scope more than once
+//                throw new RedeclaredVariableException(varDeclStmt.getVar()); //variable cannot be declared in same scope more than once
+                ErrorHandler.redeclaredVarible(varDeclStmt.getVar());
             }
             case UPPER:
             case NOTFOUND:
@@ -182,11 +185,15 @@ public class ScopeChecker implements BaseASTVisitor {
     @Override
     public Object visit(TreeFuncCallStmt funcCallStmt) throws BaseAstException {
         if (!functions.containsKey(funcCallStmt.getFuncName())) {
-            throw new UndeclaredFunctionException(funcCallStmt.getFuncName());
+//            throw new UndeclaredFunctionException(funcCallStmt.getFuncName());
+            ErrorHandler.undeclaredFunction(funcCallStmt.getFuncName());
+            return null;
         }
         TreeFunction func = functions.get(funcCallStmt.getFuncName());
         if (func.getParams().size() != funcCallStmt.getArguments().size()) {
-            throw new WrongArgumentsException(func, funcCallStmt.getArguments().size());
+//            throw new WrongArgumentsException(func, funcCallStmt.getArguments().size());
+            ErrorHandler.wrongArguments(func, funcCallStmt.getArguments().size());
+            return null;
         }
         for (TreeExpression expression : funcCallStmt.getArguments()) {
             expression.accept(this);
