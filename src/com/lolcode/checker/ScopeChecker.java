@@ -48,9 +48,8 @@ public class ScopeChecker implements BaseASTVisitor {
         return scopeLocation.NOTFOUND;
     }
 
-    private void checkInScopes(TreeVariable var) throws UndeclaredVariableException {
+    private void checkInScopes(TreeVariable var) throws BaseAstException {
         if (findInScopes(var) == scopeLocation.NOTFOUND) {
-//            throw new UndeclaredVariableException(var);
             ErrorHandler.undeclaredVariable(var.getPos(), var.getName());
         }
     }
@@ -76,7 +75,6 @@ public class ScopeChecker implements BaseASTVisitor {
     public Object visit(TreeModule module) throws BaseAstException {
         for (TreeFunction func : module.getFunctions()) {     //firstly try to add all module function to map
             if (functions.containsKey(func.getName())) {
-//                throw new RedeclaredFunctionException(func);//throw if a function with the same name is already present
                 ErrorHandler.redeclaredFunction(func.getPos(), func);
             }
             functions.put(func.getName(), func);
@@ -159,7 +157,6 @@ public class ScopeChecker implements BaseASTVisitor {
     public Object visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException {
         switch (findInScopes(varDeclStmt.getVar())) {
             case CURRENT: {
-//                throw new RedeclaredVariableException(varDeclStmt.getVar()); //variable cannot be declared in same scope more than once
                 ErrorHandler.redeclaredVarible(varDeclStmt.getPos(), varDeclStmt.getVar());
             }
             case UPPER:
@@ -185,13 +182,11 @@ public class ScopeChecker implements BaseASTVisitor {
     @Override
     public Object visit(TreeFuncCallStmt funcCallStmt) throws BaseAstException {
         if (!functions.containsKey(funcCallStmt.getFuncName())) {
-//            throw new UndeclaredFunctionException(funcCallStmt.getFuncName());
             ErrorHandler.undeclaredFunction(funcCallStmt.getPos(), funcCallStmt.getFuncName());
             return null;
         }
         TreeFunction func = functions.get(funcCallStmt.getFuncName());
         if (func.getParams().size() != funcCallStmt.getArguments().size()) {
-//            throw new WrongArgumentsException(func, funcCallStmt.getArguments().size());
             ErrorHandler.wrongArguments(func.getPos(), func, funcCallStmt.getArguments().size());
             return null;
         }
@@ -213,7 +208,7 @@ public class ScopeChecker implements BaseASTVisitor {
     }
 
     @Override
-    public Object visit(TreeVariable variable) throws UndeclaredVariableException {
+    public Object visit(TreeVariable variable) throws BaseAstException {
         checkInScopes(variable);
         return null;
     }

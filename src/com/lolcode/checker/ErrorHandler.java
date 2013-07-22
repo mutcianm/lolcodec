@@ -5,8 +5,6 @@ import com.lolcode.tree.TreeFunction;
 import com.lolcode.tree.TreeNode;
 import com.lolcode.tree.TreeVariable;
 
-import java.util.logging.Logger;
-
 /**
  * Created with IntelliJ IDEA.
  * User: miha
@@ -14,12 +12,10 @@ import java.util.logging.Logger;
  * Time: 4:53 PM
  */
 public class ErrorHandler {
-    private static Logger log = Logger.getLogger(ErrorHandler.class.getName());
     public static boolean clean = true;
 
     private static void out(TreeNode.position pos, String what) {
         clean = false;
-//        log.severe(what);
         String tmp = pos.toString() + " ";
         System.err.println(tmp + what);
     }
