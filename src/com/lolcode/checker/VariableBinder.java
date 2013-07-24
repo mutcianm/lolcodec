@@ -37,13 +37,14 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
         return binaryExpr;
     }
 
-    private TreeVariable findVariable(String name) throws BaseAstException {
+    private TreeVariable findVariable(TreeVariable var) throws BaseAstException {
         ListIterator<Map<String, TreeVariable>> it = scopes.listIterator();
         while (it.hasNext()) {
-            TreeVariable var = it.next().get(name);
-            if (var != null) return var;
+            TreeVariable found = it.next().get(var.getName());
+            if (found != null) return found;
         }
-        throw new BaseAstException(name + "is undefined. This is an error of scope checker");
+//        throw new BaseAstException(name + "is undefined. This is an error of scope checker");
+        return var;
     }
 
     @Override
@@ -104,7 +105,7 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
     public TreeExpression visit(TreeLoopStmt loopStmt) throws BaseAstException {
         HashMap<String, TreeVariable> current = new HashMap<>();
         if (loopStmt.getVariable() != null) {                         //if loop is conditional
-            TreeVariable weak = findVariable(loopStmt.getVariable().getName());
+            TreeVariable weak = findVariable(loopStmt.getVariable());
             /*
                 this is not very obvious point. Because loop makes new variable, inheriting previous' value and
                 name(but it's still a new variable in a different scope), we need to keep track of the previous' one
@@ -128,7 +129,7 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
 
     @Override
     public TreeExpression visit(TreeAssignStmt assignStmt) throws BaseAstException {
-        assignStmt.setLhs(findVariable(assignStmt.getLhs().getName()));
+        assignStmt.setLhs(findVariable(assignStmt.getLhs()));
         assignStmt.setRhs(assignStmt.getRhs().accept(this));
         return null;
     }
@@ -163,7 +164,7 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
 
     @Override
     public TreeExpression visit(TreeGimmehStmt gimmehStmt) throws BaseAstException {
-        gimmehStmt.setVariable(findVariable(gimmehStmt.getVariable().getName()));
+        gimmehStmt.setVariable(findVariable(gimmehStmt.getVariable()));
         return null;
     }
 
@@ -195,7 +196,7 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
 
     @Override
     public TreeExpression visit(TreeVariable variable) throws BaseAstException {
-        return findVariable(variable.getName());
+        return findVariable(variable);
     }
 
     @Override
