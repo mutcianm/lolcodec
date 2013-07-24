@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class TreeLoopStmt extends TreeStatement {
     private String label;
     private TreeVariable variable;
+    public TreeVariable weakref;
     private TreeExpression exitCondition;
     private final ArrayList<TreeStatement> body;
 
@@ -35,6 +36,7 @@ public class TreeLoopStmt extends TreeStatement {
     public TreeLoopStmt() {
         label = "";
         variable = null;
+        weakref = null;
         exitCondition = null;
         lType = loopType.EMPTY;
         oType = opType.EMPTY;

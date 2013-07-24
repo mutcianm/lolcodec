@@ -38,7 +38,7 @@ public class ErrorHandler {
     }
 
     public static void castError(TreeNode.position pos, String op, TYPE ltype, TYPE rtype) {
-        err(pos, "Cannot cast from " + rtype + " to " + ltype + " in \"" + op + "\"");
+        err(pos, "Unexpected types in \"" + op + "\" " + ltype + " and " + rtype);
     }
 
     public static void redeclaredVarible(TreeNode.position pos, TreeVariable var) {

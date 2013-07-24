@@ -4,6 +4,7 @@ package com.lolcode;
 import com.lolcode.checker.ErrorHandler;
 import com.lolcode.checker.ScopeChecker;
 import com.lolcode.checker.TypeGenerator;
+import com.lolcode.checker.VariableBinder;
 import com.lolcode.tree.AstBuilder;
 import com.lolcode.tree.TreeModule;
 import com.lolcode.tree.exception.BaseAstException;
@@ -60,6 +61,8 @@ public class Runner {
             TreeModule ast = (TreeModule) visitor.visit(tree); //builds ast
             ScopeChecker scopeChecker = new ScopeChecker();
             scopeChecker.visit(ast);
+            VariableBinder binder = new VariableBinder();
+            binder.visit(ast);
             TypeGenerator infer = new TypeGenerator();
             infer.visit(ast);
             if (!ErrorHandler.clean) {
@@ -69,6 +72,7 @@ public class Runner {
             //visit ast, do semantics check, [optimize]
             //visit ast, generate ir
             //generate bytecode from ir
+            System.out.println("Compilation finished successfully");
         } catch (IOException | LexerNoViableAltException e) {
             log.severe(e.toString());
         } catch (BaseAstException e) {

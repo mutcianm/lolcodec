@@ -19,6 +19,11 @@ public class TreeVariable extends TreeValue implements Comparable {
         name = "";
     }
 
+    public TreeVariable(TreeVariable other) {
+        this.name = other.name;
+        this.setType(other.getType());
+    }
+
     public String getName() {
         return name;
     }

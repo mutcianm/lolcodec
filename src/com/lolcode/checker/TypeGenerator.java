@@ -3,6 +3,8 @@ package com.lolcode.checker;
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: miha
@@ -50,7 +52,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
         for (TreeStatement statement : func.getBody()) {
             statement.accept(this);
         }
-        return null;        //there is a way to define lolcode function return type, look it up in reference
+        return null;        //TODO: there is a way to define lolcode function return type, look it up in reference
     }
 
     @Override
@@ -70,12 +72,27 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
-    public TYPE visit(TreeIfStmt ifStmt) {
+    public TYPE visit(TreeIfStmt ifStmt) throws BaseAstException {
+        ifStmt.getCondition().accept(this);
+        for (TreeStatement statement : ifStmt.getTrueBranch()) {
+            statement.accept(this);
+        }
+        for (TreeIfStmt elseif : ifStmt.getElseIfs()) {
+            visit(elseif);
+        }
+        for (TreeStatement statement : ifStmt.getFalseBranch()) {
+            statement.accept(this);
+        }
         return null;
     }
 
     @Override
-    public TYPE visit(TreeLoopStmt loopStmt) {
+    public TYPE visit(TreeLoopStmt loopStmt) throws BaseAstException {
+        loopStmt.getVariable().setType(loopStmt.weakref.getType());
+        loopStmt.getExitCondition().accept(this);
+        for (TreeStatement statement : loopStmt.getBody()) {
+            statement.accept(this);
+        }
         return null;
     }
 
@@ -87,7 +104,20 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
-    public TYPE visit(TreeCaseStmt caseStmt) {
+    public TYPE visit(TreeCaseStmt caseStmt) throws BaseAstException {
+        TYPE val = caseStmt.getVal().accept(this);
+        if (val != TYPE.UNKNOWN) {
+            for (TreeConstant constant : caseStmt.getBody().keySet()) {
+                if (constant.getType() != val) {
+                    ErrorHandler.castError(constant.getPos(), "case", val, constant.getType());
+                }
+            }
+        }
+        for (List<TreeStatement> branch : caseStmt.getBody().values()) {
+            for (TreeStatement statement : branch) {
+                statement.accept(this);
+            }
+        }
         return null;
     }
 
@@ -140,27 +170,27 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeSumExpr sumExpr) throws BaseAstException {
-        return inferBinaryExpr(sumExpr, "summation");
+        return inferBinaryExpr(sumExpr, "sum");
     }
 
     @Override
     public TYPE visit(TreeSubExpr subExpr) throws BaseAstException {
-        return inferBinaryExpr(subExpr, "subtraction");
+        return inferBinaryExpr(subExpr, "sub");
     }
 
     @Override
     public TYPE visit(TreeMulExpr mulExpr) throws BaseAstException {
-        return inferBinaryExpr(mulExpr, "multiplication");
+        return inferBinaryExpr(mulExpr, "mul");
     }
 
     @Override
     public TYPE visit(TreeDivExpr divExpr) throws BaseAstException {
-        return inferBinaryExpr(divExpr, "division");
+        return inferBinaryExpr(divExpr, "div");
     }
 
     @Override
     public TYPE visit(TreeModExpr modExpr) throws BaseAstException {
-        return inferBinaryExpr(modExpr, "modulo");
+        return inferBinaryExpr(modExpr, "mod");
     }
 
     @Override
@@ -200,13 +230,13 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeEqualExpr equalExpr) throws BaseAstException {
-        inferBinaryExpr(equalExpr, "equality");
+        inferBinaryExpr(equalExpr, "equal");
         return TYPE.BOOL;
     }
 
     @Override
     public TYPE visit(TreeNequalExpr nequalExpr) throws BaseAstException {
-        inferBinaryExpr(nequalExpr, "inequality");
+        inferBinaryExpr(nequalExpr, "nequal");
         return TYPE.BOOL;
     }
 }
