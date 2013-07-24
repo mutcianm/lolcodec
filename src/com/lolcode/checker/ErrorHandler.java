@@ -14,13 +14,10 @@ import com.lolcode.tree.TreeVariable;
 public class ErrorHandler {
     public static boolean clean = true;
 
-    private static void out(String what) {
-        System.err.println(what);
-    }
 
     private static void err(TreeNode.position pos, String what) {
         clean = false;
-        String tmp = pos.toString() + " ";
+        String tmp = pos.toString() + "\t";
         System.err.println(tmp + what);
     }
 
@@ -38,7 +35,7 @@ public class ErrorHandler {
     }
 
     public static void castError(TreeNode.position pos, String op, TYPE ltype, TYPE rtype) {
-        err(pos, "Unexpected types in \"" + op + "\" " + ltype + " and " + rtype);
+        err(pos, "Unexpected types in \"" + op + "\"\t" + ltype + " and " + rtype);
     }
 
     public static void redeclaredVarible(TreeNode.position pos, TreeVariable var) {
