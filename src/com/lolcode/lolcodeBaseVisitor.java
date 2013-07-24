@@ -21,17 +21,6 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitFuncall(@NotNull lolcodeParser.FuncallContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p/>
-     * The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.
-     */
-    @Override
     public T visitFormalParameter(@NotNull lolcodeParser.FormalParameterContext ctx) {
         return visitChildren(ctx);
     }
@@ -88,6 +77,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      */
     @Override
     public T visitExpr(@NotNull lolcodeParser.ExprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitDummystmt(@NotNull lolcodeParser.DummystmtContext ctx) {
         return visitChildren(ctx);
     }
 

@@ -109,7 +109,12 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
-    public TYPE visit(TreeFuncCallStmt funcCallStmt) {
+    public TYPE visit(TreeDummyStmt dummyStmt) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public TYPE visit(TreeFuncCallExpr funcCallStmt) {
         return null;
     }
 

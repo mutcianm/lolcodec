@@ -14,14 +14,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     /**
-     * Visit a parse tree produced by {@link lolcodeParser#funcall}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitFuncall(@NotNull lolcodeParser.FuncallContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link lolcodeParser#formalParameter}.
      *
      * @param ctx the parse tree
@@ -68,6 +60,14 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitExpr(@NotNull lolcodeParser.ExprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#dummystmt}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitDummystmt(@NotNull lolcodeParser.DummystmtContext ctx);
 
     /**
      * Visit a parse tree produced by {@link lolcodeParser#assstat}.
