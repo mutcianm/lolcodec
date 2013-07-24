@@ -16,11 +16,11 @@ import java.util.ArrayList;
  *  I DUNNO HOW TO FUNCTION CALL
  * }</pre></p>
  */
-public class TreeFuncCallStmt extends TreeStatement {
+public class TreeFuncCallExpr extends TreeExpression {
     private String funcName; //!< name of function to call
     private final ArrayList<TreeExpression> arguments;
 
-    public TreeFuncCallStmt() {
+    public TreeFuncCallExpr() {
         funcName = "";
         arguments = new ArrayList<>();
     }

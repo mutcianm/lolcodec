@@ -33,7 +33,9 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeGimmehStmt gimmehStmt) throws BaseAstException;
 
-    T visit(TreeFuncCallStmt funcCallStmt) throws BaseAstException;
+    T visit(TreeFuncCallExpr funcCallStmt) throws BaseAstException;
+
+    T visit(TreeDummyStmt dummyStmt) throws BaseAstException;
 
     T visit(TreeBreakStmt breakStmt) throws BaseAstException;
 

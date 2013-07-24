@@ -180,7 +180,12 @@ public class ScopeChecker implements BaseASTVisitor {
     }
 
     @Override
-    public Object visit(TreeFuncCallStmt funcCallStmt) throws BaseAstException {
+    public Object visit(TreeDummyStmt dummyStmt) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public Object visit(TreeFuncCallExpr funcCallStmt) throws BaseAstException {
         if (!functions.containsKey(funcCallStmt.getFuncName())) {
             throw new UndeclaredFunctionException(funcCallStmt.getFuncName());
         }

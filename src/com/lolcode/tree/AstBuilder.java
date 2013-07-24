@@ -29,11 +29,6 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         root = null;
     }
 
-    @Override
-    public TreeNode visitFuncall(lolcodeParser.FuncallContext ctx) {
-        //funcall is actually funexpr, stupid i know
-        return visitChildren(ctx);
-    }
 
     @Override
     public TreeConstant visitValue(@NotNull lolcodeParser.ValueContext ctx) {
@@ -264,8 +259,8 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeFuncCallStmt visitFunexpr(lolcodeParser.FunexprContext ctx) {
-        TreeFuncCallStmt funcCallStmt = new TreeFuncCallStmt();
+    public TreeFuncCallExpr visitFunexpr(lolcodeParser.FunexprContext ctx) {
+        TreeFuncCallExpr funcCallStmt = new TreeFuncCallExpr();
         funcCallStmt.setFuncName(ctx.ID().toString());
         if (ctx.exprList() == null) {
 //            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
@@ -275,6 +270,13 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
             }
         }
         return funcCallStmt;
+    }
+
+    @Override
+    public TreeDummyStmt visitDummystmt(@NotNull lolcodeParser.DummystmtContext ctx) {
+        TreeDummyStmt dummyStmt = new TreeDummyStmt();
+        dummyStmt.setBody((TreeExpression) visit(ctx.expr()));
+        return dummyStmt;
     }
 
     @Override

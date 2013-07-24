@@ -50,10 +50,14 @@ stat:   varDecl
     |   casestat
     |   loopstat
     |   assstat
-    |   funcall
     |   retpart
     |   visstat
     |   gimstat
+    |   dummystmt
+    ;
+
+dummystmt
+    :   expr ENDST
     ;
 
 //if statement
@@ -82,10 +86,6 @@ assstat
     :   ID 'R' expr ENDST
     ;
 
-//function call
-funcall
-    :   expr //fun call somehow, not sure wtf
-    ;
 
 //visible (print)
 visstat 
