@@ -181,6 +181,7 @@ public class ScopeChecker implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeDummyStmt dummyStmt) throws BaseAstException {
+        dummyStmt.getBody().accept(this);
         return null;
     }
 
@@ -192,7 +193,7 @@ public class ScopeChecker implements BaseASTVisitor {
         }
         TreeFunction func = functions.get(funcCallStmt.getFuncName());
         if (func.getParams().size() != funcCallStmt.getArguments().size()) {
-            ErrorHandler.wrongArguments(func.getPos(), func, funcCallStmt.getArguments().size());
+            ErrorHandler.wrongArguments(funcCallStmt.getPos(), func, funcCallStmt.getArguments().size());
             return null;
         }
         for (TreeExpression expression : funcCallStmt.getArguments()) {

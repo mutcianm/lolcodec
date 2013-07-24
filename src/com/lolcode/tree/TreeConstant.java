@@ -30,6 +30,22 @@ public class TreeConstant extends TreeValue {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if ((o == null) || (getClass() != o.getClass())) return false;
+
+        TreeConstant constant = (TreeConstant) o;
+
+        return !((realValue != null) ? !realValue.equals(constant.realValue) : (constant.realValue != null));
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (realValue != null) ? realValue.hashCode() : 0;
+    }
+
+    @Override
     public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
     }

@@ -110,7 +110,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeDummyStmt dummyStmt) throws BaseAstException {
-        return null;
+        return dummyStmt.getBody().accept(this);
     }
 
     @Override

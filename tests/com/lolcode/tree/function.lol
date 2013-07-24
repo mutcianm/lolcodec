@@ -1,15 +1,25 @@
-HOW DUZ I testfunc YR a N YR b N YR c
-VISIBLE a
-GTFO
+BTW no arguments
+HOW DUZ I func1
+    VISIBLE "func1"
+    GTFO
+IF U SAY SO
+
+BTW one argument
+HOW DUZ I func2 YR VAR1
+    VISIBLE VAR1
+    GTFO
+IF U SAY SO
+
+BTW more than one argument
+HOW DUZ I func3 YR VAR1 N YR VAR2
+    VISIBLE SUM OF VAR1 AN VAR2
+    GTFO
 IF U SAY SO
 
 HAI
-I HAS A a
-I HAS A b
-I HAS A c
-testfunc MKAY
-testfunc YR a MKAY
-testfunc YR a N YR testfunc MKAY N YR c MKAY
-testfunc YR "somevalue" N YR VAR1 N YR 123 MKAY
-VISIBLE "FUK"
+    func1 MKAY
+    func2 YR "test" MKAY
+    func3 YR 123 N YR 321 MKAY
+    BTW complicated calls
+    func3 YR SUM OF 123 AN 321 N YR func1 MKAY MKAY
 KTHXBYE

@@ -61,8 +61,8 @@ public class TreeCaseStmt extends TreeStatement {
         defaultBranch.add(statement);
     }
 
-    public void addStatement(TreeConstant label, List<TreeStatement> stmts) {
-        body.put(label, stmts);
+    public boolean addStatement(TreeConstant label, List<TreeStatement> stmts) {
+        return body.put(label, stmts) == null;          // returns true if there was no value for label
     }
 
     public Map<TreeConstant, List<TreeStatement>> getBody() {

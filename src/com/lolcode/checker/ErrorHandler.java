@@ -14,33 +14,50 @@ import com.lolcode.tree.TreeVariable;
 public class ErrorHandler {
     public static boolean clean = true;
 
-    private static void out(TreeNode.position pos, String what) {
+    private static void out(String what) {
+        System.err.println(what);
+    }
+
+    private static void err(TreeNode.position pos, String what) {
         clean = false;
         String tmp = pos.toString() + " ";
         System.err.println(tmp + what);
     }
 
+    private static void warn(TreeNode.position pos, String what) {
+        String tmp = pos.toString() + " ";
+        System.out.println(tmp + what);
+    }
+
+    public static void otherError(TreeNode.position pos, String message) {
+        err(pos, message);
+    }
+
+    public static void warnCaseOverride(TreeNode.position pos, String label) {
+        warn(pos, "Label \"" + label + "\" in case statement overrides previous");
+    }
+
     public static void castError(TreeNode.position pos, String op, TYPE ltype, TYPE rtype) {
-        out(pos, "Cannot cast from " + rtype + " to " + ltype + " in \"" + op + "\"");
+        err(pos, "Cannot cast from " + rtype + " to " + ltype + " in \"" + op + "\"");
     }
 
     public static void redeclaredVarible(TreeNode.position pos, TreeVariable var) {
-        out(pos, "Variable \"" + var.getName() + "\" is redeclared");
+        err(pos, "Variable \"" + var.getName() + "\" is redeclared");
     }
 
     public static void undeclaredVariable(TreeNode.position pos, String var) {
-        out(pos, "Variable \"" + var + "\" is undeclared");
+        err(pos, "Variable \"" + var + "\" is undeclared");
     }
 
     public static void redeclaredFunction(TreeNode.position pos, TreeFunction func) {
-        out(pos, "Function \"" + func.getName() + "\" is redeclared");
+        err(pos, "Function \"" + func.getName() + "\" is redeclared");
     }
 
     public static void undeclaredFunction(TreeNode.position pos, String func) {
-        out(pos, "Function \"" + func + "\" is undeclared");
+        err(pos, "Function \"" + func + "\" is undeclared");
     }
 
     public static void wrongArguments(TreeNode.position pos, TreeFunction func, int got) {
-        out(pos, "Function \"" + func.getName() + "\" expects " + func.getParams().size() + " argument(s), given " + got);
+        err(pos, "Function \"" + func.getName() + "\" expects " + func.getParams().size() + " argument(s), given " + got);
     }
 }

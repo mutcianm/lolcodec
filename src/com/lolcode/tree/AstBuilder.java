@@ -1,5 +1,6 @@
 package com.lolcode.tree;
 
+import com.lolcode.checker.ErrorHandler;
 import com.lolcode.lolcodeBaseVisitor;
 import com.lolcode.lolcodeParser;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -155,7 +156,9 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         caseStmt.setVal(expression);
         for (lolcodeParser.CaseblockContext blk : ctx.caseblock()) {
             CasePair pair = (CasePair) visit(blk);
-            caseStmt.addStatement(pair.constant, pair.body);
+            if (!caseStmt.addStatement(pair.constant, pair.body)) {
+                ErrorHandler.warnCaseOverride(pair.constant.getPos(), pair.constant.getRealValue());
+            }
         }
         if (ctx.OMGWTF() != null) {
             for (lolcodeParser.StatContext stat : ctx.block().stat()) {
@@ -184,12 +187,9 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         module.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         module.setModuleName(filename);
         if (!ctx.functionDecl().isEmpty()) {
-            int i = 0;
             for (lolcodeParser.FunctionDeclContext fDecl : ctx.functionDecl()) {
                 module.addFunction((TreeFunction) visit(fDecl));
-                i++;
             }
-//            log.log(Level.INFO, "Got " + i + " functions in a module");
         }
         if (ctx.main() == null) {
             log.severe("No module body found in module.");
@@ -281,10 +281,9 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeFuncCallExpr visitFunexpr(lolcodeParser.FunexprContext ctx) {
         TreeFuncCallExpr funcCallStmt = new TreeFuncCallExpr();
+        funcCallStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         funcCallStmt.setFuncName(ctx.ID().toString());
-        if (ctx.exprList() == null) {
-//            log.info("function call " + funcCallStmt.getFuncName() + " has no parameters");
-        } else {
+        if (ctx.exprList() != null) {
             for (lolcodeParser.ExprContext param : ctx.exprList().expr()) {
                 funcCallStmt.addArgument((TreeExpression) visit(param));
             }
@@ -295,6 +294,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeDummyStmt visitDummystmt(@NotNull lolcodeParser.DummystmtContext ctx) {
         TreeDummyStmt dummyStmt = new TreeDummyStmt();
+        dummyStmt.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         dummyStmt.setBody((TreeExpression) visit(ctx.expr()));
         return dummyStmt;
     }
@@ -354,9 +354,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         TreeFunction func = new TreeFunction();
         func.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
         func.setName(ctx.ID().toString());
-        if (ctx.formalParameters() == null) {
-//            log.info("function " + func.getName() + " has no parameters");
-        } else {
+        if (ctx.formalParameters() != null) {
             for (lolcodeParser.FormalParameterContext param : ctx.formalParameters().formalParameter()) {
                 func.addParam((TreeFunctionParameter) visit(param));
             }

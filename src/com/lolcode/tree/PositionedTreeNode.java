@@ -7,7 +7,7 @@ package com.lolcode.tree;
  * Time: 5:30 PM
  */
 public abstract class PositionedTreeNode implements TreeNode {
-    protected position pos;
+    protected position pos = null;
 
     @Override
     public position getPos() {
