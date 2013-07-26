@@ -13,6 +13,7 @@ import com.lolcode.tree.TreeVariable;
  */
 public class ErrorHandler {
     public static boolean clean = true;
+    public static boolean disableWarnings;
 
 
     private static void err(TreeNode.position pos, String what) {
@@ -22,6 +23,7 @@ public class ErrorHandler {
     }
 
     private static void warn(TreeNode.position pos, String what) {
+        if (disableWarnings) return;
         String tmp = pos.toString() + " ";
         System.out.println(tmp + what);
     }
@@ -39,11 +41,11 @@ public class ErrorHandler {
     }
 
     public static void redeclaredVarible(TreeNode.position pos, TreeVariable var) {
-        err(pos, "Variable \"" + var.getName() + "\" is redeclared");
+        err(pos, "Variable \"" + var.getName() + "\" is redeclared in current scope");
     }
 
     public static void undeclaredVariable(TreeNode.position pos, String var) {
-        err(pos, "Variable \"" + var + "\" is undeclared");
+        err(pos, "Variable \"" + var + "\" is undeclared in current scope");
     }
 
     public static void redeclaredFunction(TreeNode.position pos, TreeFunction func) {

@@ -26,6 +26,12 @@ import java.util.logging.Logger;
 public class Runner {
     private static Logger log = Logger.getLogger(AstBuilder.class.getName());
     private String filename = "";
+    private boolean disableWarnings = false;
+
+    public Runner setOption(boolean disableWarnings) {
+        ErrorHandler.disableWarnings = disableWarnings;
+        return this;
+    }
 
     //Lexer which exits on error insted of recovering
     public static class BailLolcodeLexer extends lolcodeLexer {

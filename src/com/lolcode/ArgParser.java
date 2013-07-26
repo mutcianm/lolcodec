@@ -10,10 +10,12 @@ import java.util.ArrayList;
  */
 public class ArgParser {
     public ArrayList<String> inputFiles;
+    public boolean disableWarnings;
     private static final String help = "Usage:\n" +
             "lolc.jar [options] <list of input files ...>\n" +
             "OPTIONS:\n" +
-            "\t -h, --help\t\tShow this help\n";
+            "\t-h, --help\t\t\t\t\tShow this help\n" +
+            "\t-Woff, --disable-warnings\tDisable all warnings\n";
 
     public ArgParser() {
         inputFiles = new ArrayList<>();
@@ -30,6 +32,10 @@ public class ArgParser {
                 case "-h":
                     System.out.print(help);
                     return 1;
+                case "-Woff":
+                case "--disable-warnings":
+                    disableWarnings = true;
+                    break;
                 default:
                     inputFiles.add(str);
             }
