@@ -195,6 +195,7 @@ public class ScopeChecker implements BaseASTVisitor {
         if (func.getParams().size() != funcCallStmt.getArguments().size()) {
             ErrorHandler.wrongArguments(funcCallStmt.getPos(), func, funcCallStmt.getArguments().size());
         }
+        funcCallStmt.setBoundFunction(func);
         for (TreeExpression expression : funcCallStmt.getArguments()) {
             expression.accept(this);
         }

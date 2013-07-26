@@ -3,7 +3,10 @@ package com.lolcode.checker;
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,11 +16,39 @@ import java.util.List;
  */
 
 /**
- * Attempts to infer types for variables if possible.
- * Is intrusive: overwrites types in AST.
- * TODO: keep track of variable assignments as well as expressions.
+ * Attempts to infer types for variables if possible.<p>
+ * Is intrusive: overwrites types in AST.</br>
+ * NOTE: since lolcode has dynamic typing we cannot explicitly set variable types from outer scope in conditional blocks.</br>
+ * Conditional blocks are: if & switch.</br>
+ * For example,</br> <pre>{@code
+ * I HAS A VAR ITZ 123
+ * ARG1, ORLY
+ * YRLY
+ *    VAR R WIN
+ * NOWAI
+ *    VAR R "STR"
+ * OIC
+ * }</pre>
+ * VAR type thus cannot be determined at compile time and it should become of type UNKNOWN. So the rules are:
+ * <ul><li>(scopeIsDirty && varScope == local) -> can overwrite type</li>
+ * <li>(scopeIsDirty && varScope == upper) -> CANNOT overwrite type</li>
+ * <li>(!scopeIsDirty && varScope == upper) -> can overwrite type</li>
+ * <li>(!scopeIsDirty && varScope == local) -> can overwrite type</li></ul>
+ * </br><p>
+ * Generator also attempts to infer function return type if possible.</br>
+ * If a function has multiple return statements which return different types, a warning is generated.
+ * </p>
+ * </p>
  */
 public class TypeGenerator implements BaseASTVisitor<TYPE> {
+    Stack<Boolean> scopeIsDirty;
+    HashSet<TYPE> funcReturnType = null; //dirty hack to get function return type, only works because lambdas and closures are not allowed in lolcode
+    Stack<Set<TreeVariable>> scopes;
+
+    public TypeGenerator() {
+        scopes = new Stack<>();
+        scopeIsDirty = new Stack<>();
+    }
 
     TYPE inferBinaryExpr(TreeBinaryExpr expr, String exceptionMessage) throws BaseAstException {
         TYPE lType = expr.getLhs().accept(this);
@@ -49,20 +80,38 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeFunction func) throws BaseAstException {
+        funcReturnType = new HashSet<>(8); //magic number of enum size rounded to 8
+        scopeIsDirty.push(false);
+        HashSet<TreeVariable> current = new HashSet<>();
+        current.addAll(func.getParams());
+        scopes.push(current);
         for (TreeStatement statement : func.getBody()) {
             statement.accept(this);
         }
-        return null;        //TODO: there is a way to define lolcode function return type, look it up in reference
+        scopes.pop();
+        scopeIsDirty.pop();
+        funcReturnType.remove(null);
+        if (funcReturnType.size() == 1) { //only one return statement
+            func.setType(funcReturnType.iterator().next());
+        } else if (funcReturnType.size() > 1) {
+            ErrorHandler.warnAmbiguousReturnType(func.getPos(), func);
+        }
+        return null;
     }
 
     @Override
     public TYPE visit(TreeModule module) throws BaseAstException {
         for (TreeFunction func : module.getFunctions()) {
-            func.accept(this);
+            visit(func);
         }
+        scopeIsDirty.push(false);
+        HashSet<TreeVariable> current = new HashSet<>();
+        scopes.push(current);
         for (TreeStatement statement : module.getBody()) {
             statement.accept(this);
         }
+        scopes.pop();
+        scopeIsDirty.pop();
         return TYPE.UNKNOWN;
     }
 
@@ -74,32 +123,53 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     @Override
     public TYPE visit(TreeIfStmt ifStmt) throws BaseAstException {
         ifStmt.getCondition().accept(this);
+        scopeIsDirty.push(true);
+        HashSet<TreeVariable> current = new HashSet<>();
+        scopes.push(current);
         for (TreeStatement statement : ifStmt.getTrueBranch()) {
             statement.accept(this);
         }
+        scopes.pop();
+        scopeIsDirty.pop();
         for (TreeIfStmt elseif : ifStmt.getElseIfs()) {
             visit(elseif);
         }
+        scopeIsDirty.push(true);
+        current = new HashSet<>();
+        scopes.push(current);
         for (TreeStatement statement : ifStmt.getFalseBranch()) {
             statement.accept(this);
         }
+        scopes.pop();
+        scopeIsDirty.pop();
         return null;
     }
 
     @Override
     public TYPE visit(TreeLoopStmt loopStmt) throws BaseAstException {
-        loopStmt.getVariable().setType(loopStmt.weakref.getType());
-        loopStmt.getExitCondition().accept(this);
+        HashSet<TreeVariable> current = new HashSet<>();
+        if (loopStmt.getVariable() != null) {
+            loopStmt.getVariable().setType(loopStmt.weakref.getType());
+            current.add(loopStmt.getVariable());
+            scopes.push(current);
+            loopStmt.getExitCondition().accept(this);
+        } else {
+            scopes.push(current);
+        }
+        scopeIsDirty.push(false);
         for (TreeStatement statement : loopStmt.getBody()) {
             statement.accept(this);
         }
+        scopes.pop();
+        scopeIsDirty.pop();
         return null;
     }
 
     @Override
     public TYPE visit(TreeAssignStmt assignStmt) throws BaseAstException {
         TYPE rhsType = assignStmt.getRhs().accept(this);
-        assignStmt.getLhs().setType(rhsType);
+        TYPE tmp = (scopeIsDirty.peek() && !scopes.peek().contains(assignStmt.getLhs())) ? TYPE.UNKNOWN : rhsType;
+        assignStmt.getLhs().setType(tmp);
         return rhsType;
     }
 
@@ -114,9 +184,14 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
             }
         }
         for (List<TreeStatement> branch : caseStmt.getBody().values()) {
+            HashSet<TreeVariable> current = new HashSet<>();
+            scopes.push(current);
+            scopeIsDirty.push(true);
             for (TreeStatement statement : branch) {
                 statement.accept(this);
             }
+            scopes.pop();
+            scopeIsDirty.pop();
         }
         return null;
     }
@@ -125,6 +200,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     public TYPE visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException {
         TYPE type = (varDeclStmt.getInitialValue() != null) ? varDeclStmt.getInitialValue().accept(this) : TYPE.UNKNOWN;
         varDeclStmt.getVar().setType(type);
+        scopes.peek().add(varDeclStmt.getVar());
         return type;
     }
 
@@ -135,6 +211,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeGimmehStmt gimmehStmt) {
+        gimmehStmt.getVariable().setType(TYPE.UNKNOWN);
         return null;
     }
 
@@ -145,7 +222,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeFuncCallExpr funcCallStmt) {
-        return null;
+        return funcCallStmt.getBoundFunction().getType();
     }
 
     @Override
@@ -154,8 +231,10 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
+    //this is a rough workaround, see funcReturnType comment
     public TYPE visit(TreeReturnStmt returnStmt) throws BaseAstException {
-        return returnStmt.getRetValue().accept(this);
+        funcReturnType.add(returnStmt.getRetValue().accept(this));
+        return null;
     }
 
     @Override

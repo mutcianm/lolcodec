@@ -37,6 +37,10 @@ public class ErrorHandler {
         warn(pos, "Label \"" + label + "\" in case statement overrides previous");
     }
 
+    public static void warnAmbiguousReturnType(TreeNode.position pos, TreeFunction func) {
+        warn(pos, "Function \"" + func.getName() + "\" has ambiguous return type");
+    }
+
     public static void castError(TreeNode.position pos, String op, TYPE ltype, TYPE rtype) {
         err(pos, "Unexpected types in \"" + op + "\" " + ltype + " and " + rtype);
     }

@@ -15,13 +15,15 @@ import java.util.ArrayList;
  * Handles lolcode functions. Stores zero or more arguments in TreeFunctionParameter array,
  * and zero or more statements as function body in TreeStatement array.
  */
-public class TreeFunction extends PositionedTreeNode {
+public class TreeFunction extends PositionedTreeNode implements TreeTypedValue {
     private String name;
     private final ArrayList<TreeFunctionParameter> params;
     private final ArrayList<TreeStatement> body;
+    private TYPE returnType;
 
     public TreeFunction() {
         name = "";
+        returnType = TYPE.UNKNOWN;
         params = new ArrayList<>();
         body = new ArrayList<>();
     }
@@ -69,5 +71,15 @@ public class TreeFunction extends PositionedTreeNode {
     @Override
     public <T> T accept(BaseASTVisitor<T> v) throws BaseAstException {
         return v.visit(this);
+    }
+
+    @Override
+    public void setType(TYPE type) {
+        returnType = type;
+    }
+
+    @Override
+    public TYPE getType() {
+        return returnType;
     }
 }

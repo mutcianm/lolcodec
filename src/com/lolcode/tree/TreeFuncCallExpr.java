@@ -19,10 +19,20 @@ import java.util.ArrayList;
 public class TreeFuncCallExpr extends TreeExpression {
     private String funcName; //!< name of function to call
     private final ArrayList<TreeExpression> arguments;
+    private TreeFunction boundFunction;
 
     public TreeFuncCallExpr() {
         funcName = "";
         arguments = new ArrayList<>();
+        boundFunction = null;
+    }
+
+    public TreeFunction getBoundFunction() {
+        return boundFunction;
+    }
+
+    public void setBoundFunction(TreeFunction boundFunction) {
+        this.boundFunction = boundFunction;
     }
 
     public String getFuncName() {
