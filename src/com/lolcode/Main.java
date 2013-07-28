@@ -3,9 +3,14 @@ package com.lolcode;
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
-        Runner runer = new Runner();
-        runer.setInputFile("test.lol");
-        runer.test();
+        ArgParser parser = new ArgParser();
+        if (parser.parse(args) == 0) {
+            for (String filename : parser.inputFiles) {
+                Runner runner = new Runner();
+                runner.setOption(parser.disableWarnings);
+                runner.setInputFile(filename);
+                runner.test();
+            }
+        }
     }
 }
