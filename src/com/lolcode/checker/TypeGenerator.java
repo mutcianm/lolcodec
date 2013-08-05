@@ -53,8 +53,15 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     TYPE inferBinaryExpr(TreeBinaryExpr expr, String exceptionMessage) throws BaseAstException {
         TYPE lType = expr.getLhs().accept(this);
         TYPE rType = expr.getRhs().accept(this);
+        expr.getLhs().setType(lType);
+        expr.getRhs().setType(rType);
         if ((lType == TYPE.UNKNOWN) || (rType == TYPE.UNKNOWN)) {
             return TYPE.UNKNOWN;
+        }
+        if (((lType == TYPE.INT) && (rType == TYPE.FLOAT)) || ((lType == TYPE.FLOAT) && (rType == TYPE.INT))) {
+            expr.getLhs().setType(TYPE.FLOAT);
+            expr.getRhs().setType(TYPE.FLOAT);
+            return TYPE.FLOAT;
         }
         if (lType != rType) {
             ErrorHandler.castError(expr.getPos(), exceptionMessage, lType, rType);
@@ -65,6 +72,8 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     TYPE inferBinaryLogicExpr(TreeBinaryExpr expr, String exceptionMessage) throws BaseAstException {
         TYPE lType = expr.getLhs().accept(this);
         TYPE rType = expr.getRhs().accept(this);
+        expr.getLhs().setType(lType);
+        expr.getRhs().setType(rType);
         if ((lType == TYPE.UNKNOWN) && (rType == TYPE.UNKNOWN)) {
             return TYPE.UNKNOWN;
         }
