@@ -12,6 +12,7 @@
 #define ERR_BAD_OP          4
 
 enum lType{INT, FLOAT, BOOL, STRING, VOID, UNDEF};
+
 struct lolvariable{
     enum lType type;
     union value{
@@ -22,6 +23,10 @@ struct lolvariable{
     } value;
 };
 
+/* I/O operations */
 void visible(struct lolvariable* var);
+
+/* Math operations */
+void sum(struct lolvariable* result, struct lolvariable* lhs, struct lolvariable* rhs);
 
 #endif
