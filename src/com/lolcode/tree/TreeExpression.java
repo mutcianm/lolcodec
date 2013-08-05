@@ -16,6 +16,16 @@ package com.lolcode.tree;
  * <li>funexpr - no idea what it is</li>
  * </p>
  */
-public abstract class TreeExpression extends PositionedTreeNode {
+public abstract class TreeExpression extends PositionedTreeNode implements TreeTypedValue {
+    private TYPE type = TYPE.UNKNOWN;
 
+    @Override
+    public void setType(TYPE type) {
+        this.type = type;
+    }
+
+    @Override
+    public TYPE getType() {
+        return type;
+    }
 }
