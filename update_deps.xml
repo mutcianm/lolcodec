@@ -1,0 +1,7 @@
+<project name="Update Dependencies" default="get_libs">
+    <target name="get_libs">
+        <mkdir dir="lib"/>
+        <get src="http://repo1.maven.org/maven2/org/antlr/antlr4-runtime/4.1/antlr4-runtime-4.1.jar"
+             dest="lib/antlr4-runtime-4.1.jar"/>
+    </target>
+</project>
