@@ -35,8 +35,8 @@ public class LolObjectTest {
     private void testCompareException(LolObject lhs, LolObject rhs) {
         try {
             lhs.compare(rhs);
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeBadCompare e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtBadCompareException e) {
         }
     }
 
@@ -78,8 +78,8 @@ public class LolObjectTest {
         doTestToLolBool(new LolInt(0), false);
         try {
             doTestToLolBool(new LolObject(), true);
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -95,8 +95,8 @@ public class LolObjectTest {
         doTestToLolInt(new LolString("314"), 314);
         try {
             doTestToLolInt(new LolObject(), 1);
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -112,8 +112,8 @@ public class LolObjectTest {
         doTestToLolDouble(new LolString("3.14159265359"), 3.14159265359);
         try {
             doTestToLolDouble(new LolObject(), 1);
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -129,8 +129,8 @@ public class LolObjectTest {
         doTestToLolString(new LolDouble(3.14159265359), "3.14159265359");
         try {
             doTestToLolString(new LolObject(), "");
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -138,7 +138,7 @@ public class LolObjectTest {
         try {
             lhs.add(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -147,7 +147,8 @@ public class LolObjectTest {
         Assert.assertEquals(new LolInt(123).add(new LolInt(321)).intVal, 444);
         Assert.assertEquals(new LolDouble(3.14159265359).add(new LolDouble(2.71828182846)).doubleVal, 5.8598744820499995, 0);
         Assert.assertEquals(new LolString("aaaa").add(new LolString("0000")).strVal, "aaaa0000");
-        //todo: auto cast int <-> double
+        Assert.assertEquals(new LolInt(123).add(new LolDouble(3.21)).doubleVal, 126.21, 0.001);
+        Assert.assertEquals(new LolDouble(3.21).add(new LolInt(3)).doubleVal, 6.21, 0.001);
 
         testAddExceptions(new LolBool(true), new LolDouble(123));
         testAddExceptions(new LolBool(true), new LolInt(123));
@@ -155,11 +156,10 @@ public class LolObjectTest {
         testAddExceptions(new LolDouble(123), new LolString(""));
         testAddExceptions(new LolString(""), new LolInt(1));
         testAddExceptions(new LolBool(true), new LolBool(true));
-//        testAddExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().add(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -167,7 +167,7 @@ public class LolObjectTest {
         try {
             lhs.sub(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -175,7 +175,8 @@ public class LolObjectTest {
     public void testSub() throws Exception {
         Assert.assertEquals(new LolInt(444).sub(new LolInt(321)).intVal, 123);
         Assert.assertEquals(new LolDouble(5.8598744820499995).sub(new LolDouble(2.71828182846)).doubleVal, 3.1415926535899996, 0);
-        //todo: auto cast int <-> double
+        Assert.assertEquals(new LolInt(123).sub(new LolDouble(3.21)).doubleVal, 119.79, 0.001);
+        Assert.assertEquals(new LolDouble(3.21).sub(new LolInt(3)).doubleVal, 0.21, 0.001);
 
         testSubExceptions(new LolBool(true), new LolDouble(123));
         testSubExceptions(new LolBool(true), new LolInt(123));
@@ -186,8 +187,8 @@ public class LolObjectTest {
         testSubExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().sub(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -195,7 +196,7 @@ public class LolObjectTest {
         try {
             lhs.mul(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -206,17 +207,17 @@ public class LolObjectTest {
         Assert.assertEquals(new LolInt(123).mul(new LolDouble(3.21)).doubleVal, 394.83, 0.001);
         Assert.assertEquals(new LolDouble(1.23).mul(new LolInt(321)).doubleVal, 394.83, 0.001);
 
-        testSubExceptions(new LolBool(true), new LolDouble(123));
-        testSubExceptions(new LolBool(true), new LolInt(123));
-        testSubExceptions(new LolBool(true), new LolString(""));
-        testSubExceptions(new LolDouble(123), new LolString(""));
-        testSubExceptions(new LolString(""), new LolInt(1));
-        testSubExceptions(new LolBool(true), new LolBool(true));
-        testSubExceptions(new LolString(""), new LolString(""));
+        testMulExceptions(new LolBool(true), new LolDouble(123));
+        testMulExceptions(new LolBool(true), new LolInt(123));
+        testMulExceptions(new LolBool(true), new LolString(""));
+        testMulExceptions(new LolDouble(123), new LolString(""));
+        testMulExceptions(new LolString(""), new LolInt(1));
+        testMulExceptions(new LolBool(true), new LolBool(true));
+        testMulExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().mul(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -224,7 +225,7 @@ public class LolObjectTest {
         try {
             lhs.div(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -244,8 +245,8 @@ public class LolObjectTest {
         testDivExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().div(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -253,7 +254,7 @@ public class LolObjectTest {
         try {
             lhs.mod(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -274,8 +275,8 @@ public class LolObjectTest {
         testModExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().mod(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -283,7 +284,7 @@ public class LolObjectTest {
         try {
             lhs.and(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -302,8 +303,8 @@ public class LolObjectTest {
         testAndExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().and(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -311,7 +312,7 @@ public class LolObjectTest {
         try {
             lhs.or(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -330,8 +331,8 @@ public class LolObjectTest {
         testOrExceptions(new LolString(""), new LolString(""));
         try {
             new LolObject().or(new LolObject());
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -339,7 +340,7 @@ public class LolObjectTest {
         try {
             lhs.not();
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -353,8 +354,8 @@ public class LolObjectTest {
         testNotExceptions(new LolString(""));
         try {
             new LolObject().not();
-            Assert.fail("LolRuntimeUnsupportedOp not thrown");
-        } catch (LolRuntimeUnsupportedOp e) {
+            Assert.fail("LolRtUnsupportedOpException not thrown");
+        } catch (LolRtUnsupportedOpException e) {
         }
     }
 
@@ -362,7 +363,7 @@ public class LolObjectTest {
         try {
             lhs.eq(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBadCompare e) {
+        } catch (LolRtBadCompareException e) {
         }
     }
 
@@ -393,7 +394,7 @@ public class LolObjectTest {
         try {
             lhs.neq(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRuntimeBinOpWrongType | LolRuntimeUnsupportedOp e) {
+        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
         }
     }
 
@@ -412,11 +413,11 @@ public class LolObjectTest {
         Assert.assertEquals(new LolString("testCompare").neq(new LolString("testCompare")).toBool(), false);
         Assert.assertEquals(new LolString("aaac").neq(new LolString("aaaa")).toBool(), true);
 
-        testEqExceptions(new LolBool(true), new LolDouble(1.3));
-        testEqExceptions(new LolBool(true), new LolInt(1));
-        testEqExceptions(new LolBool(true), new LolString(""));
-        testEqExceptions(new LolInt(1), new LolDouble(1.4));
-        testEqExceptions(new LolInt(1), new LolString(""));
-        testEqExceptions(new LolDouble(1.3), new LolString(""));
+        testNeqExceptions(new LolBool(true), new LolDouble(1.3));
+        testNeqExceptions(new LolBool(true), new LolInt(1));
+        testNeqExceptions(new LolBool(true), new LolString(""));
+        testNeqExceptions(new LolInt(1), new LolDouble(1.4));
+        testNeqExceptions(new LolInt(1), new LolString(""));
+        testNeqExceptions(new LolDouble(1.3), new LolString(""));
     }
 }

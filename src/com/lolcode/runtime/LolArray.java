@@ -26,7 +26,7 @@ public class LolArray extends LolObject {
         if (res != null) {
             return res;
         }
-        throw new LolRuntimeNoSuchKey(index);
+        throw new LolRtNoSuchKeyException(index);
     }
 
     public LolObject put(LolObject index, LolObject value) {

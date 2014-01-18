@@ -1,7 +1,6 @@
 package com.lolcode.tree;
 
 import com.lolcode.Runner;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ import org.junit.Test;
  * Date: 7/20/13
  * Time: 7:16 PM
  */
-public class FunctionTest extends TestCase {
+public class FunctionTest {
 
     private Runner runner;
 

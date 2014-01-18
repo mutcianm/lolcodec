@@ -29,7 +29,7 @@ public class LolObject {
 
     public LolObject compare(LolObject rhs) {
         if (rhs.type != this.type)
-            throw new LolRuntimeBadCompare("cannot compare " + this.type + " with " + rhs.type);
+            throw new LolRtBadCompareException("cannot compare " + this.type + " with " + rhs.type);
         switch (type) {
             case INT:
                 return new LolInt(Integer.compare(this.intVal, rhs.intVal));
@@ -41,7 +41,7 @@ public class LolObject {
                 return new LolInt(Boolean.compare(this.intVal != 0, rhs.intVal != 0));
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("compare()", type);
+                throw new LolRtUnsupportedOpException("compare()", type);
         }
     }
 
@@ -57,7 +57,7 @@ public class LolObject {
                 return new LolBool(toBool());
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("toLolBool()", type);
+                throw new LolRtUnsupportedOpException("toLolBool()", type);
         }
     }
 
@@ -73,7 +73,7 @@ public class LolObject {
                 return new LolInt(intVal);
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("toLolInt()", type);
+                throw new LolRtUnsupportedOpException("toLolInt()", type);
         }
     }
 
@@ -89,7 +89,7 @@ public class LolObject {
                 return new LolDouble(intVal);
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("toLolDouble()", type);
+                throw new LolRtUnsupportedOpException("toLolDouble()", type);
         }
     }
 
@@ -105,13 +105,13 @@ public class LolObject {
                 return new LolString(Boolean.toString(toBool()));
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("toLolString()", type);
+                throw new LolRtUnsupportedOpException("toLolString()", type);
         }
     }
 
     public LolObject add(LolObject rhs) {
 //        if (rhs.type != this.type)
-//            throw new LolRuntimeBinOpWrongType("add", this.type, rhs.type);
+//            throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
@@ -119,10 +119,10 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.intVal + rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("add", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
             case STRING:
                 if (rhs.type != LolType.STRING)
-                    throw new LolRuntimeBinOpWrongType("add", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
                 return new LolString(this.strVal + rhs.strVal);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
@@ -130,17 +130,17 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.doubleVal + rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("add", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
             case BOOL:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("add", type);
+                throw new LolRtUnsupportedOpException("add", type);
         }
     }
 
     public LolObject sub(LolObject rhs) {
 //        if (rhs.type != this.type)
-//            throw new LolRuntimeBinOpWrongType("sub", this.type, rhs.type);
+//            throw new LolRtBinOpWrongTypeException("sub", this.type, rhs.type);
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
@@ -148,25 +148,25 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.intVal - rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("sub", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("sub", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
                     return new LolDouble(this.doubleVal - rhs.intVal);
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.doubleVal - rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("sub", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("sub", this.type, rhs.type);
             case BOOL:
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("sub", type);
+                throw new LolRtUnsupportedOpException("sub", type);
         }
     }
 
     public LolObject mul(LolObject rhs) {
 //        if (rhs.type != this.type)
-//            throw new LolRuntimeBinOpWrongType("sub", this.type, rhs.type);
+//            throw new LolRtBinOpWrongTypeException("sub", this.type, rhs.type);
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
@@ -174,25 +174,25 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.intVal * rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("mul", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("mul", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
                     return new LolDouble(this.doubleVal * rhs.intVal);
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.doubleVal * rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("mul", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("mul", this.type, rhs.type);
             case BOOL:
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("mul", type);
+                throw new LolRtUnsupportedOpException("mul", type);
         }
     }
 
     public LolObject div(LolObject rhs) {
 //        if (rhs.type != this.type)
-//            throw new LolRuntimeBinOpWrongType("div", this.type, rhs.type);
+//            throw new LolRtBinOpWrongTypeException("div", this.type, rhs.type);
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
@@ -200,25 +200,25 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.intVal / rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("div", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("div", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
                     return new LolDouble(this.doubleVal / rhs.intVal);
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.doubleVal / rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("div", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("div", this.type, rhs.type);
             case BOOL:
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("div", type);
+                throw new LolRtUnsupportedOpException("div", type);
         }
     }
 
     public LolObject mod(LolObject rhs) {
 //        if (rhs.type != this.type)
-//            throw new LolRuntimeBinOpWrongType("mod", this.type, rhs.type);
+//            throw new LolRtBinOpWrongTypeException("mod", this.type, rhs.type);
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
@@ -226,25 +226,25 @@ public class LolObject {
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.intVal % rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("mod", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("mod", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
                     return new LolDouble(this.doubleVal % rhs.intVal);
                 else if (rhs.type == LolType.DOUBLE)
                     return new LolDouble(this.doubleVal % rhs.doubleVal);
                 else
-                    throw new LolRuntimeBinOpWrongType("mod", this.type, rhs.type);
+                    throw new LolRtBinOpWrongTypeException("mod", this.type, rhs.type);
             case BOOL:
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("mod", type);
+                throw new LolRtUnsupportedOpException("mod", type);
         }
     }
 
     public LolObject and(LolObject rhs) {
         if (rhs.type != this.type)
-            throw new LolRuntimeBinOpWrongType("and", this.type, rhs.type);
+            throw new LolRtBinOpWrongTypeException("and", this.type, rhs.type);
         switch (type) {
             case BOOL:
                 return new LolBool(this.toBool() & rhs.toBool());
@@ -253,13 +253,13 @@ public class LolObject {
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("and", type);
+                throw new LolRtUnsupportedOpException("and", type);
         }
     }
 
     public LolObject or(LolObject rhs) {
         if (rhs.type != this.type)
-            throw new LolRuntimeBinOpWrongType("or", this.type, rhs.type);
+            throw new LolRtBinOpWrongTypeException("or", this.type, rhs.type);
         switch (type) {
             case BOOL:
                 return new LolBool(this.toBool() | rhs.toBool());
@@ -268,7 +268,7 @@ public class LolObject {
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("or", type);
+                throw new LolRtUnsupportedOpException("or", type);
         }
     }
 
@@ -281,7 +281,7 @@ public class LolObject {
             case STRING:
             case UNDEFINED:
             default:
-                throw new LolRuntimeUnsupportedOp("not", type);
+                throw new LolRtUnsupportedOpException("not", type);
         }
     }
 
