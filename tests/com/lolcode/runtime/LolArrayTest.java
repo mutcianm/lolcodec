@@ -5,6 +5,13 @@ import org.junit.Assert;
 
 public class LolArrayTest {
 
+    @Test(expected = LolRuntimeNoSuchKey.class)
+    public void testInvalidKey() throws Exception {
+        LolArray array = new LolArray(new LolInt(23),new LolDouble(21));
+        array.get(new LolString("InVALD KEY"));
+    }
+
+
     @Test
     public void testGet() throws Exception {
         LolArray array = new LolArray(new LolInt(23),new LolDouble(21));
@@ -12,12 +19,6 @@ public class LolArrayTest {
         Assert.assertTrue(array.get(new LolInt(0)).eq(new LolInt(23)).toBool());
         Assert.assertTrue(array.get(new LolString("1")).eq(new LolDouble(21)).toBool());
         Assert.assertTrue(array.get(new LolString("ASASSS")).eq(new LolString("MEH")).toBool());
-        try {
-            array.get(new LolString("InVALD KEY"));
-            Assert.fail("Got wrong element");
-        } catch (LolRuntimeException e) {
-
-        }
     }
 
 

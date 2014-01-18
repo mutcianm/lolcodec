@@ -26,7 +26,7 @@ public class LolArray extends LolObject {
         if (res != null) {
             return res;
         }
-        throw new LolRuntimeException("no element at such index present in map");
+        throw new LolRuntimeNoSuchKey(index);
     }
 
     public LolObject put(LolObject index, LolObject value) {
