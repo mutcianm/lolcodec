@@ -12,16 +12,19 @@ public class LolArray extends LolObject {
     public LolArray(LolObject... objects) {
         this.type = LolType.ARRAY;
         arr = new HashMap<>();
-        arr.put("length",new LolInt(objects.length));
         for (int i = 0; i < objects.length; i++) {
             arr.put(Integer.toString(i), objects[i]);
         }
     }
 
+    @Override
     public LolObject get(LolObject index) {
-        String key = index.toLolString().strVal;
-        if (arr.containsKey(key)) {
-            return arr.get(key);
+        if (index.toLolString().strVal.equals("length")) {
+            return new LolInt(arr.size());
+        }
+        LolObject res = arr.get(index.toLolString().strVal);
+        if (res != null) {
+            return res;
         }
         throw new LolRuntimeException("no element at such index present in map");
     }
@@ -29,22 +32,7 @@ public class LolArray extends LolObject {
     public LolObject put(LolObject index, LolObject value) {
         String strInd = index.toLolString().strVal;
         //do we put here usual logical things, like
-        if (strInd.equals("length")) {
-            throw new LolRuntimeException("not allowed to assign length");
-        }
         arr.put(strInd, value);
-        try {
-            double d = Double.parseDouble(strInd);
-            if (d == (long) d) {
-                int length = arr.get("length").intVal;
-                int i = (int) d;
-                if (i >= length) {
-                    arr.put("length",new LolInt(i+1));
-                }
-            }
-        } catch (NumberFormatException e) {
-
-        }
         return value;
     }
 }
