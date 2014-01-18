@@ -3,20 +3,27 @@ package com.lolcode.runtime;
 import java.util.Scanner;
 
 public class LolStdLib {
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
-    public static void print(LolObject lolObject) {
-        System.out.print(lolObject.toLolString().strVal);
+    protected void putStr(String str) {
+        System.out.println(str);
     }
 
-    public static LolObject read() {
-        String str = scanner.nextLine();
+    protected String readStr() {
+        return scanner.nextLine();
+    }
+
+    public void print(LolObject lolObject) {
+        putStr(lolObject.toLolString().strVal);
+    }
+
+    public LolObject read() {
+        String str = readStr();
         if (str.equals("true")) {
             return new LolBool(true);
         } else if (str.equals("false")) {
             return new LolBool(false);
         }
-        LolObject result;
         try {
             return new LolInt(Integer.parseInt(str));
         } catch (Exception e) {
