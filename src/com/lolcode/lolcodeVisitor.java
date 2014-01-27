@@ -126,14 +126,6 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link lolcodeParser#arrayPut}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link lolcodeParser#file}.
      *
      * @param ctx the parse tree
@@ -222,14 +214,6 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitStat(@NotNull lolcodeParser.StatContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link lolcodeParser#arrayGet}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link lolcodeParser#functionDecl}.
      *
      * @param ctx the parse tree
@@ -294,6 +278,14 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
     T visitEitherexpr(@NotNull lolcodeParser.EitherexprContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link lolcodeParser#arraygetexpr}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitArraygetexpr(@NotNull lolcodeParser.ArraygetexprContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link lolcodeParser#equexpr}.
      *
      * @param ctx the parse tree
@@ -308,4 +300,12 @@ public interface lolcodeVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link lolcodeParser#arrayputstat}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitArrayputstat(@NotNull lolcodeParser.ArrayputstatContext ctx);
 }

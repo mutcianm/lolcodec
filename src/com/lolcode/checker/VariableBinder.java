@@ -3,7 +3,10 @@ package com.lolcode.checker;
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,9 +41,8 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
     }
 
     private TreeVariable findVariable(TreeVariable var) throws BaseAstException {
-        ListIterator<Map<String, TreeVariable>> it = scopes.listIterator();
-        while (it.hasNext()) {
-            TreeVariable found = it.next().get(var.getName());
+        for (Map<String, TreeVariable> scope : scopes) {
+            TreeVariable found = scope.get(var.getName());
             if (found != null) return found;
         }
 //        throw new BaseAstException(name + "is undefined. This is an error of scope checker");
@@ -231,17 +233,23 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
 
     @Override
     public TreeExpression visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
+        scopes.peek().put(arrayDeclStmt.getArray().getName(), arrayDeclStmt.getArray());
         return null;
     }
 
     @Override
-    public TreeExpression visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+    public TreeExpression visit(TreeArrayPutStmt arrayPutStmt) throws BaseAstException {
+        arrayPutStmt.setArray(findVariable(arrayPutStmt.getArray()));
+        arrayPutStmt.setKey(arrayPutStmt.getKey().accept(this));
+        arrayPutStmt.setValue(arrayPutStmt.getValue().accept(this));
         return null;
     }
 
     @Override
     public TreeExpression visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
-        return null;
+        arrayGetExpr.setArray(findVariable(arrayGetExpr.getArray()));
+        arrayGetExpr.setKey(arrayGetExpr.getKey().accept(this));
+        return arrayGetExpr;
     }
 
     @Override

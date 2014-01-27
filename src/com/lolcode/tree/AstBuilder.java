@@ -80,7 +80,10 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitArrayDecl(@NotNull lolcodeParser.ArrayDeclContext ctx) {
         TreeArrayDeclStmt arrayDeclStmt = new TreeArrayDeclStmt();
+        TreeNode.position pos = new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
+        arrayDeclStmt.setPos(pos);
         TreeVariable array = new TreeVariable();
+        array.setPos(new TreeNode.position(ctx.start.getLine(), ctx.ID().getSymbol().getCharPositionInLine()));
         array.setName(ctx.ID().toString());
         array.setType(TYPE.ARRAY);
         arrayDeclStmt.setArray(array);
@@ -88,10 +91,13 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx) {
-        TreeArrayPutExpr arrayPutExpr = new TreeArrayPutExpr();
+    public TreeNode visitArrayputstat(@NotNull lolcodeParser.ArrayputstatContext ctx) {
+        TreeArrayPutStmt arrayPutExpr = new TreeArrayPutStmt();
+        TreeNode.position pos = new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
+        arrayPutExpr.setPos(pos);
         TreeVariable array = new TreeVariable();
         array.setName(ctx.ID().toString());
+        array.setPos(new TreeNode.position(ctx.start.getLine(), ctx.ID().getSymbol().getCharPositionInLine()));
         arrayPutExpr.setArray(array);
         arrayPutExpr.setKey((TreeExpression) visit(ctx.expr().get(0)));
         arrayPutExpr.setValue((TreeExpression) visit(ctx.expr().get(1)));
@@ -99,13 +105,16 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx) {
-        TreeArrayGetExpr arrayPutExpr = new TreeArrayGetExpr();
+    public TreeNode visitArraygetexpr(@NotNull lolcodeParser.ArraygetexprContext ctx) {
+        TreeArrayGetExpr arrayGetExpr = new TreeArrayGetExpr();
+        TreeNode.position pos = new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine());
+        arrayGetExpr.setPos(pos);
         TreeVariable array = new TreeVariable();
         array.setName(ctx.ID().toString());
-        arrayPutExpr.setArray(array);
-        arrayPutExpr.setKey((TreeExpression) visit(ctx.expr()));
-        return arrayPutExpr;
+        array.setPos(new TreeNode.position(ctx.start.getLine(), ctx.ID().getSymbol().getCharPositionInLine()));
+        arrayGetExpr.setArray(array);
+        arrayGetExpr.setKey((TreeExpression) visit(ctx.expr()));
+        return arrayGetExpr;
     }
 
     @Override

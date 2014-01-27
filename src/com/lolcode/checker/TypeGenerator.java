@@ -215,7 +215,9 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
-        return null;
+        arrayDeclStmt.getArray().setType(TYPE.ARRAY);
+        scopes.peek().add(arrayDeclStmt.getArray());
+        return TYPE.ARRAY;
     }
 
     @Override
@@ -287,13 +289,13 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
-    public TYPE visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+    public TYPE visit(TreeArrayPutStmt arrayPutStmt) throws BaseAstException {
         return null;
     }
 
     @Override
     public TYPE visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
-        return null;
+        return TYPE.UNKNOWN;
     }
 
     @Override

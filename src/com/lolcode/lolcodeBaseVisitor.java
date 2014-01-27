@@ -175,17 +175,6 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p/>
-     * The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.
-     */
-    @Override
     public T visitFile(@NotNull lolcodeParser.FileContext ctx) {
         return visitChildren(ctx);
     }
@@ -307,17 +296,6 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
-    public T visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p/>
-     * The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.
-     */
-    @Override
     public T visitFunctionDecl(@NotNull lolcodeParser.FunctionDeclContext ctx) {
         return visitChildren(ctx);
     }
@@ -406,6 +384,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
+    public T visitArraygetexpr(@NotNull lolcodeParser.ArraygetexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
     public T visitEquexpr(@NotNull lolcodeParser.EquexprContext ctx) {
         return visitChildren(ctx);
     }
@@ -418,6 +407,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      */
     @Override
     public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitArrayputstat(@NotNull lolcodeParser.ArrayputstatContext ctx) {
         return visitChildren(ctx);
     }
 }

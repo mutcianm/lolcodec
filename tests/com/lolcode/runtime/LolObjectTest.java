@@ -394,7 +394,7 @@ public class LolObjectTest {
         try {
             lhs.neq(rhs);
             Assert.fail("Exception not thrown");
-        } catch (LolRtBinOpWrongTypeException | LolRtUnsupportedOpException e) {
+        } catch (LolRtBadCompareException e) {
         }
     }
 

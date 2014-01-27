@@ -30,14 +30,10 @@ arrayDecl
     : 'I HAS A BOX' ID ENDST
     ;
 
-arrayGet
-    : 'TAKE FROM' ID 'LABELED' expr ENDST
+arrayputstat
+    : 'PUT' expr 'IN' ID 'N LABEL AS' expr ENDST
     ;
-
-arrayPut
-    : PUT expr IN ID NLABEL expr ENDST
-    ;
-
+	
 //function params
 formalParameters
     :   'YR' formalParameter ('N YR' formalParameter)*
@@ -59,6 +55,7 @@ block
 
 stat:   varDecl
     |   arrayDecl
+	|	arrayputstat
     |   ifstat
     |   casestat
     |   loopstat
@@ -112,8 +109,7 @@ gimstat
 
 expr
     :   funexpr
-    |   arrayGet
-    |   arrayPut
+	| 	arraygetexpr
     |   notexpr
     |   multexpr
     |   divexpr
@@ -136,6 +132,10 @@ funexpr
     :   ID exprList? MKAY ENDST?
     ;
 
+arraygetexpr
+    : 'TAKE FROM' ID 'LABELED' expr
+    ;
+	
 notexpr
     :   'NOT' expr
     ;

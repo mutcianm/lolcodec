@@ -2,7 +2,7 @@ package com.lolcode.tree;
 
 import com.lolcode.tree.exception.BaseAstException;
 
-public class TreeArrayPutExpr extends TreeExpression {
+public class TreeArrayPutStmt extends TreeStatement {
 
     private TreeExpression value = null;
     private TreeVariable array = null;

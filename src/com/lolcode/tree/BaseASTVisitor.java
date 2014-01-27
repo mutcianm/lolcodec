@@ -58,7 +58,7 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeModExpr modExpr) throws BaseAstException;
 
-    T visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException;
+    T visit(TreeArrayPutStmt arrayPutExpr) throws BaseAstException;
 
     T visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException;
 

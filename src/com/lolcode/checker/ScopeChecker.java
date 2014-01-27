@@ -167,8 +167,18 @@ public class ScopeChecker implements BaseASTVisitor {
         return null;
     }
 
+    //FIXME: deduplicate this
     @Override
     public Object visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
+        switch (findInScopes(arrayDeclStmt.getArray())) {
+            case CURRENT: {
+                ErrorHandler.redeclaredVarible(arrayDeclStmt.getPos(), arrayDeclStmt.getArray());
+            }
+            case UPPER:
+            case NOTFOUND:
+                // if a variable is either declared in previous scope or undeclared at all it's ok
+                scopes.peek().add(arrayDeclStmt.getArray()); //add it to current scope
+        }
         return null;
     }
 
@@ -260,12 +270,17 @@ public class ScopeChecker implements BaseASTVisitor {
     }
 
     @Override
-    public Object visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+    public Object visit(TreeArrayPutStmt arrayPutExpr) throws BaseAstException {
+        checkInScopes(arrayPutExpr.getArray());
+        arrayPutExpr.getKey().accept(this);
+        arrayPutExpr.getValue().accept(this);
         return null;
     }
 
     @Override
     public Object visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
+        checkInScopes(arrayGetExpr.getArray());
+        arrayGetExpr.getKey().accept(this);
         return null;
     }
 
