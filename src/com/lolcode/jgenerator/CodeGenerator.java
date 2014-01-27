@@ -2,13 +2,16 @@ package com.lolcode.jgenerator;
 
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
+import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class CodeGenerator implements BaseASTVisitor {
     //CONST
@@ -79,27 +82,27 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeModule module) throws BaseAstException {
-        ClassWriter cw = new ClassWriter(0);
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         String fileName = new File(module.getModuleName()).getName();
         fileName = fileName.substring(0,fileName.lastIndexOf('.'));
         cw.visit(Opcodes.V1_6,Opcodes.ACC_PUBLIC,"com/lolcode/" + fileName,null,"java/lang/Object",null);
 
         //STDLIB FIELD
-        cw.visitField(Opcodes.ACC_PUBLIC,"STDLIB",Type.LOLSTDLIB,null,null);
+        cw.visitField(Opcodes.ACC_PUBLIC, "STDLIB", Type.LOLSTDLIB, null, null);
         //where init??
 
 
         //Constructor?
         MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"<init>","()V",null, null);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V" );
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V");
         mv.visitVarInsn(Opcodes.ALOAD, 0);
-        mv.visitTypeInsn(Opcodes.NEW,Type.LOLSTDLIB);
+        mv.visitTypeInsn(Opcodes.NEW, Class.LOLSTDLIB);
         mv.visitInsn(Opcodes.DUP);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.LOLSTDLIB, "<init>", "()V");
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLSTDLIB, "<init>", "()V");
         mv.visitFieldInsn(Opcodes.PUTFIELD, "com/lolcode/" + fileName, "STDLIB", Type.LOLSTDLIB);
         mv.visitInsn(Opcodes.RETURN);
-        mv.visitMaxs(20, 20);
+        mv.visitMaxs(0, 0);
         mv.visitEnd();
 
         //visit functions?
@@ -120,9 +123,12 @@ public class CodeGenerator implements BaseASTVisitor {
                 "(Ljava/lang/String;)V");
         mv.visitInsn(Opcodes.RETURN);
 
-        mv.visitMaxs(20, 20);
+        mv.visitMaxs(0, 0);
         mv.visitEnd();
         cw.visitEnd();
+
+        PrintWriter pw = new PrintWriter(System.out);
+        CheckClassAdapter.verify(new ClassReader(cw.toByteArray()), true, pw);
         writeFile(cw, fileName);
         return null;
     }
