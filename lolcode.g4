@@ -26,6 +26,18 @@ functionDecl
     :   'HOW DUZ I' ID formalParameters? ENDST block 'IF U SAY SO' ENDST
     ;
 
+arrayDecl
+    : 'I HAS A BOX' ID ENDST
+    ;
+
+arrayGet
+    : 'TAKE FROM' ID 'LABELED' expr ENDST
+    ;
+
+arrayPut
+    : 'PUTIN' ID 'N LABEL AS' expr ENDST
+    ;
+
 //function params
 formalParameters
     :   'YR' formalParameter ('N YR' formalParameter)*
@@ -46,6 +58,7 @@ block
     ;
 
 stat:   varDecl
+    |   arrayDecl
     |   ifstat
     |   casestat
     |   loopstat
@@ -99,6 +112,8 @@ gimstat
 
 expr
     :   funexpr
+    |   arrayGet
+    |   arrayPut
     |   notexpr
     |   multexpr
     |   divexpr
@@ -248,7 +263,7 @@ INT : ('-')?[0-9]+  ;
 
 STRING : '"' [\u0000-\u0021\u0023-\uFFFE]* '"';
 
-FLOAT : ('-')? [0-9]? '.' [0-9]+ ('f'|'F')? ;
+FLOAT : ('-')? [0-9]* '.' [0-9]+ ('f'|'F')? ;
 
 BOOL : 'WIN' | 'FAIL' ;
 
