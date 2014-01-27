@@ -6,6 +6,10 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class CodeGenerator implements BaseASTVisitor {
     //CONST
     private static final String RUNTIME_PACKAGE = "com/lolcode/runtime/";
@@ -49,6 +53,17 @@ public class CodeGenerator implements BaseASTVisitor {
         this.fileName = fileName;
     }
 
+    private void writeFile(ClassWriter cw, String className) {
+        try {
+            byte[] code = cw.toByteArray();
+            FileOutputStream fos = new FileOutputStream(className + ".class");
+            fos.write(code);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public Object visit(TreeFunction func) throws BaseAstException {
         StringBuilder signatureBuilder = new StringBuilder("(");
@@ -74,9 +89,13 @@ public class CodeGenerator implements BaseASTVisitor {
 
 
         //Constructor?
-        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"<init>",null,"()V", null);
-        mv.visitInsn(Opcodes.ALOAD);
-        mv.visitMaxs(1,1);
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"<init>","()V",null, null);
+        mv.visitVarInsn(Opcodes.ALOAD, 0);
+        mv.visitTypeInsn(Opcodes.NEW,Type.LOLSTDLIB);
+        mv.visitInsn(Opcodes.DUP);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.LOLSTDLIB, "<init>", "()V");
+        mv.visitFieldInsn(Opcodes.PUTFIELD, "com/lolcode/Generated", "STDLIB", Type.LOLSTDLIB);
+        mv.visitMaxs(1, 1);
         mv.visitEnd();
 
         //visit functions?
@@ -85,9 +104,10 @@ public class CodeGenerator implements BaseASTVisitor {
         }
 
         //go through main?
-        mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,"main",null,"([Ljava/lang/String;)V",null);
+        mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,"main","([Ljava/lang/String;)V",null, null);
 
-
+        String fileName = new File(module.getModuleName()).getName();
+        writeFile(cw, fileName.substring(0,fileName.lastIndexOf('.')));
         return null;
     }
 

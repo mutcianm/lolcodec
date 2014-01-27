@@ -5,6 +5,7 @@ import com.lolcode.checker.ErrorHandler;
 import com.lolcode.checker.ScopeChecker;
 import com.lolcode.checker.TypeGenerator;
 import com.lolcode.checker.VariableBinder;
+import com.lolcode.jgenerator.CodeGenerator;
 import com.lolcode.tree.AstBuilder;
 import com.lolcode.tree.TreeModule;
 import com.lolcode.tree.exception.BaseAstException;
@@ -71,6 +72,8 @@ public class Runner {
             binder.visit(ast);
             TypeGenerator infer = new TypeGenerator();
             infer.visit(ast);
+            CodeGenerator gen = new CodeGenerator("Generated");
+            gen.visit(ast);
             if (!ErrorHandler.clean) {
                 System.err.println("Compilation failed");
                 System.exit(-1);
