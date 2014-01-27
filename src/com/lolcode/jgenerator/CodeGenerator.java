@@ -2,10 +2,13 @@ package com.lolcode.jgenerator;
 
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public class CodeGenerator implements BaseASTVisitor {
     //CONST
-    private static final String RUNTIME_PACKAGE = "com/lolcode/runtime";
+    private static final String RUNTIME_PACKAGE = "com/lolcode/runtime/";
 
     private class Class {
         public static final String LOLARRAY = RUNTIME_PACKAGE + "LolArray";
@@ -30,16 +33,61 @@ public class CodeGenerator implements BaseASTVisitor {
         public static final String LOLDOUBLE = "L"+Class.LOLDOUBLE+";";
         public static final String LOLINT = "L"+Class.LOLINT+";";
         public static final String LOLOBJECT = "L"+Class.LOLOBJECT+";";
-        public static final String LOLSTRING = "L"+Class.LOLSTRING;
+        public static final String LOLSTRING = "L"+Class.LOLSTRING+";";
+        public static final String LOLSTDLIB = "L"+Class.LOLSTDLIB+";";
+    }
+
+    //FIELDS
+
+    private String fileName;
+    private MethodVisitor mv;
+    private ClassWriter cw;
+
+
+    //CONSTRUCTOR
+    public CodeGenerator(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
     public Object visit(TreeFunction func) throws BaseAstException {
+        StringBuilder signatureBuilder = new StringBuilder("(");
+        for (TreeFunctionParameter param : func.getParams()) {
+            //signature.append(param.getType())
+            signatureBuilder.append(Type.LOLOBJECT);
+        }
+        signatureBuilder.append(")"+Type.LOLOBJECT);
+        String signature = signatureBuilder.toString();
+
+
         return null;
     }
 
     @Override
     public Object visit(TreeModule module) throws BaseAstException {
+        ClassWriter cw = new ClassWriter(0);
+        cw.visit(Opcodes.V1_6,Opcodes.ACC_PUBLIC,fileName,null,"java/lang/Object",null);
+
+        //STDLIB FIELD
+        cw.visitField(Opcodes.ACC_PUBLIC,"STDLIB",Type.LOLSTDLIB,null,null);
+        //where init??
+
+
+        //Constructor?
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"<init>",null,"()V", null);
+        mv.visitInsn(Opcodes.ALOAD);
+        mv.visitMaxs(1,1);
+        mv.visitEnd();
+
+        //visit functions?
+        for (TreeFunction func : module.getFunctions()) {
+            visit(func);
+        }
+
+        //go through main?
+        mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,"main",null,"([Ljava/lang/String;)V",null);
+
+
         return null;
     }
 
