@@ -214,6 +214,11 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     }
 
     @Override
+    public TYPE visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
+        return null;
+    }
+
+    @Override
     public TYPE visit(TreeVisibleStmt visibleStmt) throws BaseAstException {
         return visibleStmt.getArgument().accept(this);
     }
@@ -279,6 +284,16 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
     @Override
     public TYPE visit(TreeModExpr modExpr) throws BaseAstException {
         return inferBinaryExpr(modExpr, "mod");
+    }
+
+    @Override
+    public TYPE visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public TYPE visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
+        return null;
     }
 
     @Override

@@ -79,17 +79,33 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitArrayDecl(@NotNull lolcodeParser.ArrayDeclContext ctx) {
-        return super.visitArrayDecl(ctx);
+        TreeArrayDeclStmt arrayDeclStmt = new TreeArrayDeclStmt();
+        TreeVariable array = new TreeVariable();
+        array.setName(ctx.ID().toString());
+        array.setType(TYPE.ARRAY);
+        arrayDeclStmt.setArray(array);
+        return arrayDeclStmt;
     }
 
     @Override
     public TreeNode visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx) {
-        return super.visitArrayPut(ctx);
+        TreeArrayPutExpr arrayPutExpr = new TreeArrayPutExpr();
+        TreeVariable array = new TreeVariable();
+        array.setName(ctx.ID().toString());
+        arrayPutExpr.setArray(array);
+        arrayPutExpr.setKey((TreeExpression) visit(ctx.expr().get(0)));
+        arrayPutExpr.setValue((TreeExpression) visit(ctx.expr().get(1)));
+        return arrayPutExpr;
     }
 
     @Override
     public TreeNode visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx) {
-        return super.visitArrayGet(ctx);
+        TreeArrayGetExpr arrayPutExpr = new TreeArrayGetExpr();
+        TreeVariable array = new TreeVariable();
+        array.setName(ctx.ID().toString());
+        arrayPutExpr.setArray(array);
+        arrayPutExpr.setKey((TreeExpression) visit(ctx.expr()));
+        return arrayPutExpr;
     }
 
     @Override

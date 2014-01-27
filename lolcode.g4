@@ -35,7 +35,7 @@ arrayGet
     ;
 
 arrayPut
-    : 'PUTIN' ID 'N LABEL AS' expr ENDST
+    : PUT expr IN ID NLABEL expr ENDST
     ;
 
 //function params
@@ -251,6 +251,9 @@ MKAY : 'MKAY';
 VISIBLE : 'VISIBLE';
 GIMMEH : 'GIMMEH';
 FOUNDYR : 'FOUND YR';
+PUT : 'PUT';
+IN : 'IN';
+NLABEL : 'N LABEL AS';
 
 value
     :   INT 

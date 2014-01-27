@@ -29,6 +29,8 @@ public interface BaseASTVisitor<T> {
 
     T visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException;
 
+    T visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException;
+
     T visit(TreeVisibleStmt visibleStmt) throws BaseAstException;
 
     T visit(TreeGimmehStmt gimmehStmt) throws BaseAstException;
@@ -55,6 +57,10 @@ public interface BaseASTVisitor<T> {
     T visit(TreeDivExpr divExpr) throws BaseAstException;
 
     T visit(TreeModExpr modExpr) throws BaseAstException;
+
+    T visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException;
+
+    T visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException;
 
     //logic expressions
     T visit(TreeMaxExpr maxExpr) throws BaseAstException;

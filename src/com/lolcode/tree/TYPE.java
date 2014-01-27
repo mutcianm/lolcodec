@@ -7,5 +7,5 @@ package com.lolcode.tree;
  * Time: 7:50 PM
  */
 public enum TYPE {
-    INT, FLOAT, BOOL, STRING, VOID, UNKNOWN
+    INT, FLOAT, BOOL, STRING, VOID, ARRAY, UNKNOWN
 }

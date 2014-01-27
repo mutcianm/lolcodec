@@ -168,6 +168,11 @@ public class ScopeChecker implements BaseASTVisitor {
     }
 
     @Override
+    public Object visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
+        return null;
+    }
+
+    @Override
     public Object visit(TreeVisibleStmt visibleStmt) throws BaseAstException {
         visibleStmt.getArgument().accept(this);
         return null;
@@ -251,6 +256,16 @@ public class ScopeChecker implements BaseASTVisitor {
     @Override
     public Object visit(TreeModExpr modExpr) throws BaseAstException {
         visitBinaryExpr(modExpr);
+        return null;
+    }
+
+    @Override
+    public Object visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public Object visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
         return null;
     }
 

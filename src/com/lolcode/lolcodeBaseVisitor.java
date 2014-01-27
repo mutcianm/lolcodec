@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
- * operations with no return type.
+ *            operations with no return type.
  */
 public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements lolcodeVisitor<T> {
     /**
@@ -416,5 +416,8 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.
      */
-	@Override public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) { return visitChildren(ctx); }
+    @Override
+    public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) {
+        return visitChildren(ctx);
+    }
 }

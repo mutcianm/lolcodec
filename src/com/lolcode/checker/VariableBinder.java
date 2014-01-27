@@ -230,6 +230,21 @@ public class VariableBinder implements BaseASTVisitor<TreeExpression> {
     }
 
     @Override
+    public TreeExpression visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public TreeExpression visit(TreeArrayPutExpr arrayPutExpr) throws BaseAstException {
+        return null;
+    }
+
+    @Override
+    public TreeExpression visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
+        return null;
+    }
+
+    @Override
     public TreeExpression visit(TreeMaxExpr maxExpr) throws BaseAstException {
         return visitBinaryExpr(maxExpr);
     }
