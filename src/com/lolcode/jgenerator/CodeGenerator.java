@@ -43,14 +43,13 @@ public class CodeGenerator implements BaseASTVisitor {
 
     //FIELDS
 
-    private String fileName;
     private MethodVisitor mv;
     private ClassWriter cw;
 
 
     //CONSTRUCTOR
-    public CodeGenerator(String fileName) {
-        this.fileName = fileName;
+    public CodeGenerator() {
+        super();
     }
 
     private void writeFile(ClassWriter cw, String className) {
@@ -81,7 +80,9 @@ public class CodeGenerator implements BaseASTVisitor {
     @Override
     public Object visit(TreeModule module) throws BaseAstException {
         ClassWriter cw = new ClassWriter(0);
-        cw.visit(Opcodes.V1_6,Opcodes.ACC_PUBLIC,fileName,null,"java/lang/Object",null);
+        String fileName = new File(module.getModuleName()).getName();
+        fileName = fileName.substring(0,fileName.lastIndexOf('.'));
+        cw.visit(Opcodes.V1_6,Opcodes.ACC_PUBLIC,"com/lolcode/" + fileName,null,"java/lang/Object",null);
 
         //STDLIB FIELD
         cw.visitField(Opcodes.ACC_PUBLIC,"STDLIB",Type.LOLSTDLIB,null,null);
@@ -91,11 +92,14 @@ public class CodeGenerator implements BaseASTVisitor {
         //Constructor?
         MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"<init>","()V",null, null);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V" );
+        mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitTypeInsn(Opcodes.NEW,Type.LOLSTDLIB);
         mv.visitInsn(Opcodes.DUP);
         mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.LOLSTDLIB, "<init>", "()V");
-        mv.visitFieldInsn(Opcodes.PUTFIELD, "com/lolcode/Generated", "STDLIB", Type.LOLSTDLIB);
-        mv.visitMaxs(1, 1);
+        mv.visitFieldInsn(Opcodes.PUTFIELD, "com/lolcode/" + fileName, "STDLIB", Type.LOLSTDLIB);
+        mv.visitInsn(Opcodes.RETURN);
+        mv.visitMaxs(20, 20);
         mv.visitEnd();
 
         //visit functions?
@@ -105,9 +109,21 @@ public class CodeGenerator implements BaseASTVisitor {
 
         //go through main?
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,"main","([Ljava/lang/String;)V",null, null);
+        mv.visitFieldInsn(Opcodes.GETSTATIC,
+                "java/lang/System",
+                "out",
+                "Ljava/io/PrintStream;");
+        mv.visitLdcInsn("hello");
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,
+                "java/io/PrintStream",
+                "println",
+                "(Ljava/lang/String;)V");
+        mv.visitInsn(Opcodes.RETURN);
 
-        String fileName = new File(module.getModuleName()).getName();
-        writeFile(cw, fileName.substring(0,fileName.lastIndexOf('.')));
+        mv.visitMaxs(20, 20);
+        mv.visitEnd();
+        cw.visitEnd();
+        writeFile(cw, fileName);
         return null;
     }
 

@@ -72,7 +72,7 @@ public class Runner {
             binder.visit(ast);
             TypeGenerator infer = new TypeGenerator();
             infer.visit(ast);
-            CodeGenerator gen = new CodeGenerator("Generated");
+            CodeGenerator gen = new CodeGenerator();
             gen.visit(ast);
             if (!ErrorHandler.clean) {
                 System.err.println("Compilation failed");
