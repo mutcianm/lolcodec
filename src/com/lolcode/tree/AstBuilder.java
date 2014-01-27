@@ -78,6 +78,21 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
     }
 
     @Override
+    public TreeNode visitArrayDecl(@NotNull lolcodeParser.ArrayDeclContext ctx) {
+        return super.visitArrayDecl(ctx);
+    }
+
+    @Override
+    public TreeNode visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx) {
+        return super.visitArrayPut(ctx);
+    }
+
+    @Override
+    public TreeNode visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx) {
+        return super.visitArrayGet(ctx);
+    }
+
+    @Override
     public TreeNode visitBlock(lolcodeParser.BlockContext ctx) {
         return visitChildren(ctx);
     }

@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
- *            operations with no return type.
+ * operations with no return type.
  */
 public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements lolcodeVisitor<T> {
     /**
@@ -131,6 +131,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
+    public T visitArrayDecl(@NotNull lolcodeParser.ArrayDeclContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
     public T visitNequexpr(@NotNull lolcodeParser.NequexprContext ctx) {
         return visitChildren(ctx);
     }
@@ -154,6 +165,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      */
     @Override
     public T visitCasestat(@NotNull lolcodeParser.CasestatContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
+    public T visitArrayPut(@NotNull lolcodeParser.ArrayPutContext ctx) {
         return visitChildren(ctx);
     }
 
@@ -285,6 +307,17 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * {@link #visitChildren} on {@code ctx}.
      */
     @Override
+    public T visitArrayGet(@NotNull lolcodeParser.ArrayGetContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p/>
+     * The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.
+     */
+    @Override
     public T visitFunctionDecl(@NotNull lolcodeParser.FunctionDeclContext ctx) {
         return visitChildren(ctx);
     }
@@ -383,8 +416,5 @@ public class lolcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
      * The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.
      */
-    @Override
-    public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) {
-        return visitChildren(ctx);
-    }
+	@Override public T visitMultexpr(@NotNull lolcodeParser.MultexprContext ctx) { return visitChildren(ctx); }
 }
