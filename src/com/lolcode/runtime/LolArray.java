@@ -5,6 +5,11 @@ import java.util.HashMap;
 public class LolArray extends LolObject {
     private HashMap<String, LolObject> arr;
 
+    public LolArray() {
+        this.type = LolType.ARRAY;
+        arr = new HashMap<>();
+    }
+
     public LolArray(LolType type) {
         super(type);
     }
@@ -29,10 +34,9 @@ public class LolArray extends LolObject {
         throw new LolRtNoSuchKeyException(index);
     }
 
-    public LolObject put(LolObject index, LolObject value) {
+    public void put(LolObject index, LolObject value) {
         String strInd = index.toLolString().strVal;
         //do we put here usual logical things, like
         arr.put(strInd, value);
-        return value;
     }
 }

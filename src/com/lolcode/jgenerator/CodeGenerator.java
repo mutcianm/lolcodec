@@ -214,7 +214,8 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeAssignStmt assignStmt) throws BaseAstException {
-
+        assignStmt.getRhs().accept(this);
+        mv.visitVarInsn(Opcodes.ASTORE,localVars.get(assignStmt.getLhs().getName()));
         return null;
     }
 
@@ -225,7 +226,13 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException {
+        if (varDeclStmt.getInitialValue() == null) {
+            mv.visitTypeInsn(Opcodes.NEW, Class.LOLOBJECT);
+            mv.visitInsn(Opcodes.DUP);
+            mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLOBJECT, "<init>", "()V");
+        } else {
         varDeclStmt.getInitialValue().accept(this);
+        }
         localVars.put(varDeclStmt.getVar().getName(),localVars.size()+1);
         mv.visitVarInsn(Opcodes.ASTORE,localVars.size());
         return null;
@@ -233,7 +240,11 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeArrayDeclStmt arrayDeclStmt) throws BaseAstException {
-
+        mv.visitTypeInsn(Opcodes.NEW,Class.LOLARRAY);
+        mv.visitInsn(Opcodes.DUP);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL,Class.LOLARRAY,"<init>","()V");
+        localVars.put(arrayDeclStmt.getArray().getName(),localVars.size()+1);
+        mv.visitVarInsn(Opcodes.ASTORE,localVars.size());
         return null;
     }
 
@@ -254,7 +265,11 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeGimmehStmt gimmehStmt) throws BaseAstException {
-
+        //put on stack result of STDLIB.read
+        mv.visitVarInsn(Opcodes.ALOAD, 0);
+        mv.visitFieldInsn(Opcodes.GETFIELD,"com/lolcode/"+fileName,"STDLIB",Type.LOLSTDLIB);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLSTDLIB,"read","()"+Type.LOLOBJECT);
+        mv.visitVarInsn(Opcodes.ASTORE,localVars.get(gimmehStmt.getVariable().getName()));
         return null;
     }
 
@@ -384,11 +399,26 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeArrayPutStmt arrayPutExpr) throws BaseAstException {
+        //put array
+        mv.visitVarInsn(Opcodes.ALOAD,localVars.get(arrayPutExpr.getArray().getName()));
+        //put value
+        arrayPutExpr.getValue().accept(this);
+        //put key
+        arrayPutExpr.getKey().accept(this);
+
+        //invoke
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLARRAY,"put","("+Type.LOLOBJECT+Type.LOLOBJECT+")V");
         return null;
     }
 
     @Override
     public Object visit(TreeArrayGetExpr arrayGetExpr) throws BaseAstException {
+        //put array
+        mv.visitVarInsn(Opcodes.ALOAD,localVars.get(arrayGetExpr.getArray().getName()));
+        //put key
+        arrayGetExpr.getKey().accept(this);
+        //invoke
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLARRAY,"get","("+Type.LOLOBJECT+")"+Type.LOLOBJECT);
         return null;
     }
 
