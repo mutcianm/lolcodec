@@ -51,6 +51,7 @@ public class CodeGenerator implements BaseASTVisitor {
     private MethodVisitor mv;
     private ClassWriter cw;
     private String fileName;
+    private HashMap<String,Integer> localVars;
 
     //CONSTRUCTOR
     public CodeGenerator() {
@@ -80,6 +81,8 @@ public class CodeGenerator implements BaseASTVisitor {
         String signature = signatureBuilder.toString();
 
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"_lol_"+func.getName(),signature,null,null);
+        //clear local vars numbering
+        localVars = new HashMap<>();
         //parameters are in local?
 
         //go into body
@@ -178,6 +181,7 @@ public class CodeGenerator implements BaseASTVisitor {
 
         //create "mainbody"
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"mainbody","()V",null,null);
+        localVars = new HashMap<>();
         for (TreeNode node : module.getBody()) {
             node.accept(this);
         }
@@ -210,6 +214,7 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeAssignStmt assignStmt) throws BaseAstException {
+
         return null;
     }
 
@@ -220,7 +225,9 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeVarDeclStmt varDeclStmt) throws BaseAstException {
-        
+        varDeclStmt.getInitialValue().accept(this);
+        localVars.put(varDeclStmt.getVar().getName(),localVars.size()+1);
+        mv.visitVarInsn(Opcodes.ASTORE,localVars.size());
         return null;
     }
 
@@ -295,10 +302,8 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeVariable variable) throws BaseAstException {
-        //put variable on stack
-        mv.visitTypeInsn(Opcodes.NEW, Class.LOLOBJECT);
-        mv.visitInsn(Opcodes.NEW);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLOBJECT, "<init>", "()"+Class.LOLOBJECT);
+        //put variable on stack from local
+        mv.visitVarInsn(Opcodes.ALOAD,localVars.get(variable.getName()));
         return null;
     }
 
@@ -337,26 +342,43 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeSumExpr sumExpr) throws BaseAstException {
+        //put left on stack, then put right on stack, then left.add
+        sumExpr.getLhs().accept(this);
+        sumExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"add","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
+
         return null;
     }
 
     @Override
     public Object visit(TreeSubExpr subExpr) throws BaseAstException {
+        subExpr.getLhs().accept(this);
+        subExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"sub","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeMulExpr mulExpr) throws BaseAstException {
+        mulExpr.getLhs().accept(this);
+        mulExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"mul","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeDivExpr divExpr) throws BaseAstException {
+        divExpr.getLhs().accept(this);
+        divExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"div","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeModExpr modExpr) throws BaseAstException {
+        modExpr.getLhs().accept(this);
+        modExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"sub","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
@@ -372,41 +394,64 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeMaxExpr maxExpr) throws BaseAstException {
+        maxExpr.getLhs().accept(this);
+        maxExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"max","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeMinExpr minExpr) throws BaseAstException {
+        minExpr.getLhs().accept(this);
+        minExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"min","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeAndExpr andExpr) throws BaseAstException {
+        andExpr.getLhs().accept(this);
+        andExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"and","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeOrExpr orExpr) throws BaseAstException {
+        orExpr.getLhs().accept(this);
+        orExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"or","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeXorExpr xorExpr) throws BaseAstException {
+        xorExpr.getLhs().accept(this);
+        xorExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"xor","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeNotExpr notExpr) throws BaseAstException {
+        notExpr.getExpr().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"not","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeEqualExpr equalExpr) throws BaseAstException {
+        equalExpr.getLhs().accept(this);
+        equalExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"eq","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 
     @Override
     public Object visit(TreeNequalExpr nequalExpr) throws BaseAstException {
+        nequalExpr.getLhs().accept(this);
+        nequalExpr.getRhs().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"neq","("+Type.LOLOBJECT+")" + Type.LOLOBJECT);
         return null;
     }
 }
