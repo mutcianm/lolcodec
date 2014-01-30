@@ -72,8 +72,10 @@ public class CodeGenerator implements BaseASTVisitor {
     @Override
     public Object visit(TreeFunction func) throws BaseAstException {
         //get signature
+        localVars = new HashMap<>();
         StringBuilder signatureBuilder = new StringBuilder("(");
         for (TreeFunctionParameter param : func.getParams()) {
+            localVars.put(param.getName(),localVars.size()+1);
             //signature.append(param.getType())
             signatureBuilder.append(Type.LOLOBJECT);
         }
@@ -82,8 +84,6 @@ public class CodeGenerator implements BaseASTVisitor {
 
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"_lol_"+func.getName(),signature,null,null);
         //clear local vars numbering
-        localVars = new HashMap<>();
-        //parameters are in local?
 
         //go into body
         for (TreeNode node : func.getBody()){
@@ -199,6 +199,10 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeFunctionParameter param) throws BaseAstException {
+        System.out.println("PARAM");
+        //put
+        mv.visitVarInsn(Opcodes.ALOAD,localVars.get(param.getName()));
+        //create local variable with name?
         return null;
     }
 
@@ -303,7 +307,10 @@ public class CodeGenerator implements BaseASTVisitor {
     @Override
     public Object visit(TreeBreakStmt breakStmt) throws BaseAstException {
         System.out.println("BRK");
-        mv.visitInsn(Opcodes.RETURN);
+        mv.visitTypeInsn(Opcodes.NEW,Class.LOLOBJECT);
+        mv.visitInsn(Opcodes.DUP);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL,Class.LOLOBJECT,"<init>","()V");
+        mv.visitInsn(Opcodes.ARETURN);
         return null;
     }
 
