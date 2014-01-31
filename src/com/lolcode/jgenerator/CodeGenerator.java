@@ -2,17 +2,16 @@ package com.lolcode.jgenerator;
 
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
+import com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL;
 import com.sun.org.apache.xpath.internal.compiler.OpCodes;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 import org.objectweb.asm.util.CheckClassAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CodeGenerator implements BaseASTVisitor {
@@ -199,7 +198,7 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeFunctionParameter param) throws BaseAstException {
-        System.out.println("PARAM");
+        //System.out.println("PARAM");
         //put
         mv.visitVarInsn(Opcodes.ALOAD,localVars.get(param.getName()));
         //create local variable with name?
@@ -208,6 +207,31 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeIfStmt ifStmt) throws BaseAstException {
+        Label elseBlock = new Label();
+        boolean elseIf = true;
+        if (ifStmt.endLabel == null) {
+            elseIf = false;
+            ifStmt.endLabel = new Label();
+        }
+        ifStmt.getCondition().accept(this);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, Class.LOLOBJECT, "toInt", "()I");
+        mv.visitJumpInsn(Opcodes.IFEQ,elseBlock);
+        for (TreeNode node : ifStmt.getTrueBranch()) {
+            node.accept(this);
+        }
+        mv.visitJumpInsn(Opcodes.GOTO,ifStmt.endLabel);
+        mv.visitLabel(elseBlock);
+        for (TreeIfStmt node : ifStmt.getElseIfs()) {
+            node.endLabel = ifStmt.endLabel;
+            node.accept(this);
+        }
+
+        for (TreeNode node : ifStmt.getFalseBranch()) {
+            node.accept(this);
+        }
+        if (!elseIf) {
+            mv.visitLabel(ifStmt.endLabel);
+        }
         return null;
     }
 
@@ -306,10 +330,10 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeBreakStmt breakStmt) throws BaseAstException {
-        System.out.println("BRK");
+        //System.out.println("BRK");
         mv.visitTypeInsn(Opcodes.NEW,Class.LOLOBJECT);
         mv.visitInsn(Opcodes.DUP);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL,Class.LOLOBJECT,"<init>","()V");
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLOBJECT, "<init>", "()V");
         mv.visitInsn(Opcodes.ARETURN);
         return null;
     }

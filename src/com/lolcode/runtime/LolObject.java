@@ -19,6 +19,10 @@ public class LolObject {
         return intVal != 0;
     }
 
+    public int toInt() {
+        return this.toLolBool().toInt();
+    }
+
     public LolObject get(LolObject key) {
         throw new LolRuntimeException("get() called on non-array type: " + type);
     }

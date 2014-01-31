@@ -13,4 +13,10 @@ public class LolBool extends LolObject {
         type = LolType.BOOL;
         intVal = value ? 1 : 0;
     }
+
+    @Override
+    public int toInt() {
+        return intVal;
+    }
+
 }

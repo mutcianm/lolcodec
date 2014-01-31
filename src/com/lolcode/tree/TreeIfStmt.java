@@ -1,6 +1,7 @@
 package com.lolcode.tree;
 
 import com.lolcode.tree.exception.BaseAstException;
+import org.objectweb.asm.Label;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ public class TreeIfStmt extends TreeStatement {
     private final ArrayList<TreeIfStmt> elseIfs;
     private final ArrayList<TreeStatement> trueBranch;
     private final ArrayList<TreeStatement> falseBranch;
+    public Label endLabel;
+
 
     public TreeIfStmt() {
         condition = null;
