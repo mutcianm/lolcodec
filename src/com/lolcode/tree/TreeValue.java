@@ -10,7 +10,7 @@ package com.lolcode.tree;
 /**
  * Defines lolcode value handling objects.
  */
-public abstract class TreeValue extends TreeExpression implements TreeTypedValue {
+public abstract class TreeValue extends TreeExpression {
 
     private TreeValue value; //
     private TYPE type;

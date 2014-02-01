@@ -126,7 +126,7 @@ public class TypeGenerator implements BaseASTVisitor<TYPE> {
 
     @Override
     public TYPE visit(TreeFunctionParameter param) {
-        return null;
+        return param.getType();
     }
 
     @Override
