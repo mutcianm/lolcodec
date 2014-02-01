@@ -8,7 +8,7 @@ public class LolStdLib {
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     protected void putStr(String str) {
-        System.out.println(str);
+        System.out.print(str);
     }
 
     protected String readStr() {
