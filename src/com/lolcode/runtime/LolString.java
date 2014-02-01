@@ -7,6 +7,8 @@ public class LolString extends LolObject {
 
     @Override
     public LolObject get(LolObject key) {
+        if (key.type == LolType.STRING && key.strVal.equals("length"))
+            return new LolInt(strVal.length());
         if (key.type != LolType.INT) {
             throw new LolRuntimeException("String index must be an integer");
         }
