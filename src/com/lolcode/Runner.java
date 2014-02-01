@@ -76,6 +76,8 @@ public class Runner {
                     packJarFile();
             } catch (IOException | BaseAstException e) {
                 log.severe(e.getMessage());
+            } catch (CompilerException e) {
+                log.severe("Failed co compile " + unit + " due to errors");
             }
         }
     }
@@ -114,7 +116,7 @@ public class Runner {
         }
     }
 
-    private byte[] compileUnit(String filename) throws IOException, BaseAstException {
+    private byte[] compileUnit(String filename) throws IOException, BaseAstException, CompilerException {
         lolcodeLexer lexer = new BailLolcodeLexer(new ANTLRFileStream(filename)); //use BailLexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         lolcodeParser parser = new lolcodeParser(tokens);
@@ -128,11 +130,14 @@ public class Runner {
         binder.visit(ast);
         TypeGenerator infer = new TypeGenerator();
         infer.visit(ast);
+        if (!ErrorHandler.clean)
+            throw new CompilerException();
         CodeGenerator gen = new CodeGenerator(settings);
         gen.visit(ast);
         return gen.getCompiledBytecode();
     }
 
+    @Deprecated
     public void test() {
         try {
             CharStream cs = new ANTLRFileStream(filename);
