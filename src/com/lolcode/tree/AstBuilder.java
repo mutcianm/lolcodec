@@ -222,6 +222,13 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         return new CasePair(constant, lst);
     }
 
+    private String pathToName(String path) {
+        int pos = path.lastIndexOf('/');
+        if (pos == -1)
+            pos = 0;
+        return path.substring(pos).replace(".lol", "").replace(".", "_");
+    }
+
     @Override
     public TreeModule visitFile(lolcodeParser.FileContext ctx) {
         if (root != null) {
@@ -229,7 +236,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         }
         TreeModule module = new TreeModule();
         module.setPos(new TreeNode.position(ctx.start.getLine(), ctx.start.getCharPositionInLine()));
-        module.setModuleName(filename);
+        module.setModuleName(pathToName(filename));
         if (!ctx.functionDecl().isEmpty()) {
             for (lolcodeParser.FunctionDeclContext fDecl : ctx.functionDecl()) {
                 module.addFunction((TreeFunction) visit(fDecl));

@@ -4,13 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         ArgParser parser = new ArgParser();
-        if (parser.parse(args) == 0) {
-            for (String filename : parser.inputFiles) {
-                Runner runner = new Runner();
-                runner.setOption(parser.disableWarnings);
-                runner.setInputFile(filename);
-                runner.test();
-            }
-        }
+        parser.parse(args);
+        Runner runner = new Runner(parser.settings);
+        runner.run();
     }
 }
