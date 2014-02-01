@@ -11,11 +11,26 @@ public class BaseCompilerSettings implements CompilerSettings {
     private List<String> inputFiles = new ArrayList<>();
     private String jarMainClass;
     private String outJarFile;
+    private String runtimeJar = "runtime.jar";
+    private boolean deleteClassFiles = false;
+
+    private String pathToUnitName(String path) {
+        int pos = path.lastIndexOf('/');
+        if (pos == -1)
+            pos = 0;
+        return path.substring(pos).replace(".lol", "").replace(".", "_");
+    }
 
     @Override
-    public void verify() {
-        if (createJar && jarMainClass == null)
-            throw new RuntimeException("Entrypoint class not specified for jar file");
+    public void verify() throws ConfigurationException {
+        if (inputFiles.size() == 0)
+            throw new ConfigurationException("No input files specified");
+        if (createJar && (inputFiles.size() > 1) && (jarMainClass == null))
+            throw new ConfigurationException("Unable to set main class for jar file when compiling multiple files.\nSet main class with \'-e\' switch");
+        if (!runtimeJar.endsWith(".jar"))
+            throw new ConfigurationException("Runtime library must be jar file");
+        if (createJar && (outJarFile == null))
+            outJarFile = pathToUnitName(inputFiles.get(0)) + ".jar";
     }
 
     @Override
@@ -41,6 +56,26 @@ public class BaseCompilerSettings implements CompilerSettings {
         if (!this.outputClassPath.endsWith("/")) {
             this.outputClassPath += '/';
         }
+    }
+
+    @Override
+    public boolean isDeleteClassFiles() {
+        return deleteClassFiles;
+    }
+
+    @Override
+    public void setDeleteClassFiles(boolean deleteClassFiles) {
+        this.deleteClassFiles = deleteClassFiles;
+    }
+
+    @Override
+    public String getRuntimeJar() {
+        return runtimeJar;
+    }
+
+    @Override
+    public void setRuntimeJar(String runtimeJar) {
+        this.runtimeJar = runtimeJar;
     }
 
     @Override

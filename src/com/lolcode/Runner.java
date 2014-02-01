@@ -30,12 +30,17 @@ public class Runner {
     private static Logger log = Logger.getLogger(AstBuilder.class.getName());
     private String filename = "";
     private CompilerSettings settings;
-    private String runtimeLib = "runtime.jar";
 
     private ArrayList<File> classFiles = new ArrayList<>();
 
     public Runner(CompilerSettings settings) {
         this.settings = settings;
+        try {
+            settings.verify();
+        } catch (ConfigurationException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
         ErrorHandler.disableWarnings = settings.isDisableWarnings();
     }
 
@@ -58,7 +63,7 @@ public class Runner {
         filename = file;
     }
 
-    private String pathToName(String path) {
+    private String pathToUnitName(String path) {
         int pos = path.lastIndexOf('/');
         if (pos == -1)
             pos = 0;
@@ -69,7 +74,7 @@ public class Runner {
         new File(settings.getOutputDir() + settings.getOutputClassPath()).mkdirs();
         for (String unit : settings.getInputFiles()) {
             try {
-                String unitName = pathToName(unit);
+                String unitName = pathToUnitName(unit);
                 byte[] result = compileUnit(unit);
                 writeClassFile(result, unitName);
                 if (settings.isCreateJar())
@@ -93,16 +98,22 @@ public class Runner {
 
 
     private void packJarFile() throws IOException {
-        if (new File(runtimeLib).exists()) {
+        if (new File(settings.getRuntimeJar()).exists()) {
+            String mainClass;
+            if (classFiles.size() == 1) { // automatically set jar main class if single file is compiled
+                mainClass = settings.getOutputClassPath() + pathToUnitName(classFiles.get(0).getName().replace(".class", ""));
+            } else {
+                mainClass = settings.getJarMainClass();
+            }
             //copy runtime jar as a template
-            FileChannel source = new FileInputStream(runtimeLib).getChannel();
+            FileChannel source = new FileInputStream(settings.getRuntimeJar()).getChannel();
             FileChannel destination = new FileOutputStream(settings.getOutputDir() + settings.getOutputJarFile()).getChannel();
             destination.transferFrom(source, 0, source.size());
             ArrayList<String> args = new ArrayList<>();
             args.add("jar");
             args.add("ufe");
             args.add(settings.getOutputJarFile());
-            args.add(settings.getJarMainClass());
+            args.add(mainClass);
             for (File f : classFiles) {
                 args.add(settings.getOutputClassPath() + f.getName());
             }
@@ -110,9 +121,18 @@ public class Runner {
             builder.directory(new File(settings.getOutputDir()).getAbsoluteFile());
             builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             builder.redirectError(ProcessBuilder.Redirect.INHERIT);
-            builder.start();
+            Process p = builder.start();
+            try {
+                p.waitFor();
+            } catch (InterruptedException e) {
+                log.severe(e.getMessage());
+            }
+            if (settings.isDeleteClassFiles()) {
+                for (File f: classFiles)
+                    f.delete();
+            }
         } else {
-            log.severe("Runtime library " + runtimeLib + " not found, unable to pack jar file!");
+            log.severe("Runtime library " + settings.getRuntimeJar() + " not found, unable to pack jar file!");
         }
     }
 

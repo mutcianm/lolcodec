@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CompilerSettings {
 
-    void verify();
+    void verify() throws ConfigurationException;
 
     boolean isDisableWarnings();
 
@@ -13,6 +13,14 @@ public interface CompilerSettings {
     String getOutputClassPath();
 
     void setOutputClassPath(String outputClassPath);
+
+    boolean isDeleteClassFiles();
+
+    void setDeleteClassFiles(boolean deleteClassFiles);
+
+    String getRuntimeJar();
+
+    void setRuntimeJar(String runtimeJar);
 
     String getOutputDir();
 
