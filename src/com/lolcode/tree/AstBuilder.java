@@ -49,7 +49,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
             constant.fromString(ctx.STRING().toString().replaceAll("\"", "").replace(":)", "\n")
                     .replace(":>", "\t")
                     .replace(":o", "\007")
-                    .replace(":\"", "\"")
+                    .replace(":\'", "\"")
                     .replace("::", ":"));
         } else {
             log.warning("All types for constant failed to parse");
