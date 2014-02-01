@@ -28,8 +28,8 @@ public class LolStdLibTest {
 
     @Test
     public void testRead() throws Exception {
-        testReadAssert("true", new LolBool(true));
-        testReadAssert("false", new LolBool(false));
+        testReadAssert("WIN", new LolBool(true));
+        testReadAssert("FAIL", new LolBool(false));
         testReadAssert("123456", new LolInt(123456));
         testReadAssert("123.456", new LolDouble(123.456));
         testReadAssert("string", new LolString("string"));

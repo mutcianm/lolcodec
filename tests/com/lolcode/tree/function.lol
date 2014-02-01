@@ -1,7 +1,7 @@
 BTW no arguments
 HOW DUZ I func1
     VISIBLE "func1"
-    GTFO
+    FOUND YR -1000
 IF U SAY SO
 
 BTW one argument

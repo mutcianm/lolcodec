@@ -1,5 +1,6 @@
 HAI
     I HAS A VAR1
+    GIMMEH VAR1
     VAR1, WTF?
         OMG "br1"
             VISIBLE "BR1"
