@@ -90,17 +90,8 @@ public class CodeGenerator implements BaseASTVisitor {
         //clear local vars numbering
 
         //go into body
-        boolean topLevelReturn = false;
         for (TreeNode node : func.getBody()){
             node.accept(this);
-
-            if (node.getClass().equals(TreeReturnStmt.class) || node.getClass().equals(TreeBreakStmt.class)) {
-                topLevelReturn = true;
-            }
-        }
-
-        if (!topLevelReturn) {
-            visit(new TreeBreakStmt());
         }
 
         mv.visitMaxs(0,0);
