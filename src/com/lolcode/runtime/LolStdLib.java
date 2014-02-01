@@ -19,9 +19,9 @@ public class LolStdLib {
 
     public LolObject read() {
         String str = readStr();
-        if (str.equals("true")) {
+        if (str.equals("WIN")) {
             return new LolBool(true);
-        } else if (str.equals("false")) {
+        } else if (str.equals("FAIL")) {
             return new LolBool(false);
         }
         try {

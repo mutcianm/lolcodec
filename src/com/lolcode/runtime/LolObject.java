@@ -296,4 +296,58 @@ public class LolObject {
     public LolObject neq(LolObject rhs) {
         return this.eq(rhs).not();
     }
+
+    public LolObject max(LolObject rhs) {
+//        if (rhs.type != this.type)
+//            throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
+        switch (type) {
+            case INT:
+                if (rhs.type == LolType.INT)
+                    return new LolInt(Math.max(this.intVal,rhs.intVal));
+                else if (rhs.type == LolType.DOUBLE)
+                    return new LolDouble(Math.max(this.intVal,rhs.doubleVal));
+                else
+                    throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
+            case STRING:
+                throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
+            case DOUBLE:
+                if (rhs.type == LolType.INT)
+                    return new LolDouble(Math.max(this.doubleVal,rhs.intVal));
+                else if (rhs.type == LolType.DOUBLE)
+                    return new LolDouble(Math.max(this.doubleVal,rhs.doubleVal));
+                else
+                    throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
+            case BOOL:
+            case UNDEFINED:
+            default:
+                throw new LolRtUnsupportedOpException("max", type);
+        }
+    }
+
+    public LolObject min(LolObject rhs) {
+//        if (rhs.type != this.type)
+//            throw new LolRtBinOpWrongTypeException("add", this.type, rhs.type);
+        switch (type) {
+            case INT:
+                if (rhs.type == LolType.INT)
+                    return new LolInt(Math.min(this.intVal,rhs.intVal));
+                else if (rhs.type == LolType.DOUBLE)
+                    return new LolDouble(Math.min(this.intVal,rhs.doubleVal));
+                else
+                    throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
+            case STRING:
+                throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
+            case DOUBLE:
+                if (rhs.type == LolType.INT)
+                    return new LolDouble(Math.min(this.doubleVal,rhs.intVal));
+                else if (rhs.type == LolType.DOUBLE)
+                    return new LolDouble(Math.min(this.doubleVal,rhs.doubleVal));
+                else
+                    throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
+            case BOOL:
+            case UNDEFINED:
+            default:
+                throw new LolRtUnsupportedOpException("min", type);
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class TreeLoopStmt extends TreeStatement {
 
     public static enum loopType {TIL, WHILE, EMPTY}
 
-    public static enum opType {UPPUN, NERFIN, EMPTY}
+    public static enum opType {UPPIN, NERFIN, EMPTY}
 
     private loopType lType;
     private opType oType;

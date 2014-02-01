@@ -2,8 +2,6 @@ package com.lolcode.jgenerator;
 
 import com.lolcode.tree.*;
 import com.lolcode.tree.exception.BaseAstException;
-import com.sun.org.apache.bcel.internal.generic.INVOKEVIRTUAL;
-import com.sun.org.apache.xpath.internal.compiler.OpCodes;
 import org.objectweb.asm.*;
 import org.objectweb.asm.util.CheckClassAdapter;
 
@@ -11,8 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class CodeGenerator implements BaseASTVisitor {
     //CONST
@@ -51,6 +48,9 @@ public class CodeGenerator implements BaseASTVisitor {
     private ClassWriter cw;
     private String fileName;
     private HashMap<String,Integer> localVars;
+    private enum Context {FUNCTION, LOOP, CASE, NONE};
+    private Context ctx = Context.NONE;
+    private Stack<Label> labels = new Stack<>();
 
     //CONSTRUCTOR
     public CodeGenerator() {
@@ -70,6 +70,8 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeFunction func) throws BaseAstException {
+        Context oldCtx = ctx;
+        ctx = Context.FUNCTION;
         //get signature
         localVars = new HashMap<>();
         StringBuilder signatureBuilder = new StringBuilder("(");
@@ -91,6 +93,7 @@ public class CodeGenerator implements BaseASTVisitor {
 
         mv.visitMaxs(0,0);
         mv.visitEnd();
+        ctx = oldCtx;
         return null;
     }
 
@@ -116,21 +119,6 @@ public class CodeGenerator implements BaseASTVisitor {
         mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(0, 0);
         mv.visitEnd();
-
-        //some testing
-        mv = cw.visitMethod(Opcodes.ACC_PUBLIC,"readAndPrint","()V",null,null);
-        mv.visitVarInsn(Opcodes.ALOAD,0);
-        mv.visitFieldInsn(Opcodes.GETFIELD,"com/lolcode/"+fileName,"STDLIB",Type.LOLSTDLIB);
-        mv.visitInsn(Opcodes.DUP);
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLSTDLIB,"read","()"+Type.LOLOBJECT);
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLSTDLIB,"print","("+Type.LOLOBJECT+")V");
-
-        //try readline + print
-        mv.visitInsn(Opcodes.RETURN);
-        mv.visitMaxs(0, 0);
-        mv.visitEnd();
-
-
 
         //visit functions?
         for (TreeFunction func : module.getFunctions()) {
@@ -173,7 +161,6 @@ public class CodeGenerator implements BaseASTVisitor {
         mv.visitInsn(Opcodes.DUP);
         mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/lolcode/" + fileName, "<init>", "()V");
         mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,"com/lolcode/"+fileName,"mainbody","()V");
-
         mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(0, 0);
         mv.visitEnd();
@@ -185,12 +172,12 @@ public class CodeGenerator implements BaseASTVisitor {
             node.accept(this);
         }
         mv.visitInsn(Opcodes.RETURN);
-        mv.visitMaxs(0,0);
-        mv.visitEnd();
-
+        mv.visitMaxs(0, 0);
+        mv.visitEnd(); 
         cw.visitEnd();
 
         PrintWriter pw = new PrintWriter(System.out);
+        System.out.println(cw.toString());
         CheckClassAdapter.verify(new ClassReader(cw.toByteArray()), true, pw);
         writeFile(cw, "generated/com/lolcode/" + fileName);
         return null;
@@ -237,6 +224,56 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeLoopStmt loopStmt) throws BaseAstException {
+        Context oldCtx = ctx;
+        ctx = Context.LOOP;
+
+        Label loopStart = new Label();
+        Label loopEnd = new Label();
+        labels.push(loopEnd);
+        mv.visitLabel(loopStart);
+        for (TreeNode node : loopStmt.getBody()) {
+            node.accept(this);
+        }
+        switch (loopStmt.getoType()) {
+            case UPPIN:
+                mv.visitTypeInsn(Opcodes.NEW,Class.LOLINT);
+                mv.visitInsn(Opcodes.DUP);
+                mv.visitLdcInsn(1);
+                mv.visitMethodInsn(Opcodes.INVOKESPECIAL,Class.LOLINT,"<init>","(I)V");
+                loopStmt.getVariable().accept(this);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"add","("+Type.LOLOBJECT+")"+Type.LOLOBJECT);
+                mv.visitVarInsn(Opcodes.ASTORE,localVars.get(loopStmt.getVariable().getName()));
+                break;
+            case NERFIN:
+                mv.visitTypeInsn(Opcodes.NEW,Class.LOLINT);
+                mv.visitInsn(Opcodes.DUP);
+                mv.visitLdcInsn(-1);
+                mv.visitMethodInsn(Opcodes.INVOKESPECIAL,Class.LOLINT,"<init>","(I)V");
+                loopStmt.getVariable().accept(this);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"add","("+Type.LOLOBJECT+")"+Type.LOLOBJECT);
+                mv.visitVarInsn(Opcodes.ASTORE,localVars.get(loopStmt.getVariable().getName()));
+                break;
+            case EMPTY:
+                break;
+        }
+        switch (loopStmt.getlType()) {
+            case TIL:
+                loopStmt.getExitCondition().accept(this);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, Class.LOLOBJECT,"toInt","()I");
+                mv.visitJumpInsn(Opcodes.IFNE,loopEnd);
+                break;
+            case WHILE:
+                loopStmt.getExitCondition().accept(this);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, Class.LOLOBJECT,"toInt","()I");
+                mv.visitJumpInsn(Opcodes.IFEQ,loopEnd);
+                break;
+            case EMPTY:
+                break;
+        }
+        mv.visitJumpInsn(Opcodes.GOTO,loopStart);
+        mv.visitLabel(loopEnd);
+        labels.pop();
+        ctx = oldCtx;
         return null;
     }
 
@@ -249,6 +286,59 @@ public class CodeGenerator implements BaseASTVisitor {
 
     @Override
     public Object visit(TreeCaseStmt caseStmt) throws BaseAstException {
+        Context oldCtx = ctx;
+        ctx = Context.CASE;
+        Label caseEnd = new Label();
+        labels.push(caseEnd);
+        Label nextCase, nextCaseAfterCheck;
+        boolean first = true;
+        nextCase = new Label();
+        nextCaseAfterCheck = new Label();
+
+        //visit 1 statement, to LolObject.EQ and cast it to bool
+
+        for (Map.Entry<TreeConstant, List<TreeStatement>> entry : caseStmt.getBody().entrySet()) {
+
+
+
+            //put case var
+            caseStmt.getVal().accept(this);
+
+            //put constant
+            entry.getKey().accept(this);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"eq","("+Type.LOLOBJECT+")"+Type.LOLOBJECT);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLOBJECT,"toInt","()I");
+            mv.visitJumpInsn(Opcodes.IFEQ,nextCase);
+            if (!first) {
+                mv.visitLabel(nextCaseAfterCheck);
+            }
+            //gtfo statement
+            for (TreeNode node : entry.getValue()) {
+                node.accept(this);
+            }
+
+
+            if (!first) {
+                nextCaseAfterCheck = new Label();
+            } else {
+                first = false;
+            }
+            mv.visitJumpInsn(Opcodes.GOTO,nextCaseAfterCheck);
+
+
+
+            mv.visitLabel(nextCase);
+            nextCase = new Label();
+
+        }
+
+        //defaultbranch
+        for (TreeNode node : caseStmt.getDefaultBranch()) {
+            node.accept(this);
+        }
+        mv.visitLabel(caseEnd);
+        labels.pop();
+        ctx = oldCtx;
         return null;
     }
 
@@ -331,10 +421,19 @@ public class CodeGenerator implements BaseASTVisitor {
     @Override
     public Object visit(TreeBreakStmt breakStmt) throws BaseAstException {
         //System.out.println("BRK");
-        mv.visitTypeInsn(Opcodes.NEW,Class.LOLOBJECT);
-        mv.visitInsn(Opcodes.DUP);
-        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLOBJECT, "<init>", "()V");
-        mv.visitInsn(Opcodes.ARETURN);
+        switch (ctx) {
+            case FUNCTION:
+                mv.visitTypeInsn(Opcodes.NEW,Class.LOLOBJECT);
+                mv.visitInsn(Opcodes.DUP);
+                mv.visitMethodInsn(Opcodes.INVOKESPECIAL, Class.LOLOBJECT, "<init>", "()V");
+                mv.visitInsn(Opcodes.ARETURN);
+                break;
+            case LOOP:
+            case CASE:
+                mv.visitJumpInsn(Opcodes.GOTO,labels.peek());
+                break;
+        }
+
         return null;
     }
 

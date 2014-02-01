@@ -2,10 +2,7 @@ package com.lolcode.tree;
 
 import com.lolcode.tree.exception.BaseAstException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.q
@@ -28,12 +25,12 @@ import java.util.Map;
  */
 public class TreeCaseStmt extends TreeStatement {
     private TreeExpression val;
-    private final HashMap<TreeConstant, List<TreeStatement>> body;
+    private final LinkedHashMap<TreeConstant, List<TreeStatement>> body;
     private final List<TreeStatement> defaultBranch;
 
     public TreeCaseStmt() {
         val = null;
-        body = new HashMap<>();
+        body = new LinkedHashMap<>();
         defaultBranch = new ArrayList<>();
     }
 

@@ -296,7 +296,7 @@ public class AstBuilder extends lolcodeBaseVisitor<TreeNode> {
         loopStmt.setLabel(ctx.ID(0).toString());
         if (ctx.expr() != null) {         //not an infinite loop
             if (ctx.UPPIN() != null) {
-                loopStmt.setoType(TreeLoopStmt.opType.UPPUN);
+                loopStmt.setoType(TreeLoopStmt.opType.UPPIN);
             } else if (ctx.NERFIN() != null) {
                 loopStmt.setoType(TreeLoopStmt.opType.NERFIN);
             }
