@@ -1,7 +1,5 @@
 package com.lolcode;
 
-import java.util.ArrayList;
-
 /**
  * Created with IntelliJ IDEA.
  * User: miha
@@ -9,16 +7,18 @@ import java.util.ArrayList;
  * Time: 8:01 PM
  */
 public class ArgParser {
-    public ArrayList<String> inputFiles;
-    public boolean disableWarnings;
+    public CompilerSettings settings = new BaseCompilerSettings();
     private static final String help = "Usage:\n" +
-            "lolc.jar [options] <list of input files ...>\n" +
+            "lolcodec.jar [options] <list of input files ...>\n" +
             "OPTIONS:\n" +
-            "\t-h, --help\t\t\t\t\tShow this help\n" +
-            "\t-Woff, --disable-warnings\tDisable all warnings\n";
+            "\t-h, --help\t\t\tShow this help\n" +
+            "\t-Woff, --disable-warnings\tDisable all warnings\n" +
+            "\t-j, --jar <file>\t\tPack result in a jar file\n" +
+            "\t-o, --output-dir <dir>\t\tSet output directory\n" +
+            "\t-c, --classpath <cp>\t\tSet classpath for produced classes\n" +
+            "\t-e, --main-class <class>\tSet jar main class\n";
 
     public ArgParser() {
-        inputFiles = new ArrayList<>();
     }
 
     public int parse(String[] args) {
@@ -26,7 +26,8 @@ public class ArgParser {
             System.out.print(help);
             return 1;
         }
-        for (String str : args) {
+        for (int i = 0; i < args.length; i++) {
+            String str = args[i];
             switch (str) {
                 case "--help":
                 case "-h":
@@ -34,10 +35,31 @@ public class ArgParser {
                     return 1;
                 case "-Woff":
                 case "--disable-warnings":
-                    disableWarnings = true;
+                    settings.setDisableWarnings(true);
+                    break;
+                case "-j":
+                case "--jar":
+                    settings.setCreateJar(true);
+                    settings.setOutputJarFile(args[i + 1]);
+                    ++i;
+                    break;
+                case "-o":
+                case "--output-dir":
+                    settings.setOutputDir(args[i + 1]);
+                    ++i;
+                    break;
+                case "-c":
+                case "--classpath":
+                    settings.setOutputClassPath(args[i + 1]);
+                    ++i;
+                    break;
+                case "-e":
+                case "--main-class":
+                    settings.setJarMainClass(args[i + 1]);
+                    ++i;
                     break;
                 default:
-                    inputFiles.add(str);
+                    settings.addInputFile(str);
             }
         }
         return 0;
