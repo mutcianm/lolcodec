@@ -318,18 +318,18 @@ public class LolObject {
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
-                    return new LolInt(Math.max(this.intVal,rhs.intVal));
+                    return new LolInt(Math.max(this.intVal, rhs.intVal));
                 else if (rhs.type == LolType.DOUBLE)
-                    return new LolDouble(Math.max(this.intVal,rhs.doubleVal));
+                    return new LolDouble(Math.max(this.intVal, rhs.doubleVal));
                 else
                     throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
             case STRING:
                 throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
-                    return new LolDouble(Math.max(this.doubleVal,rhs.intVal));
+                    return new LolDouble(Math.max(this.doubleVal, rhs.intVal));
                 else if (rhs.type == LolType.DOUBLE)
-                    return new LolDouble(Math.max(this.doubleVal,rhs.doubleVal));
+                    return new LolDouble(Math.max(this.doubleVal, rhs.doubleVal));
                 else
                     throw new LolRtBinOpWrongTypeException("max", this.type, rhs.type);
             case BOOL:
@@ -345,18 +345,18 @@ public class LolObject {
         switch (type) {
             case INT:
                 if (rhs.type == LolType.INT)
-                    return new LolInt(Math.min(this.intVal,rhs.intVal));
+                    return new LolInt(Math.min(this.intVal, rhs.intVal));
                 else if (rhs.type == LolType.DOUBLE)
-                    return new LolDouble(Math.min(this.intVal,rhs.doubleVal));
+                    return new LolDouble(Math.min(this.intVal, rhs.doubleVal));
                 else
                     throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
             case STRING:
                 throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
             case DOUBLE:
                 if (rhs.type == LolType.INT)
-                    return new LolDouble(Math.min(this.doubleVal,rhs.intVal));
+                    return new LolDouble(Math.min(this.doubleVal, rhs.intVal));
                 else if (rhs.type == LolType.DOUBLE)
-                    return new LolDouble(Math.min(this.doubleVal,rhs.doubleVal));
+                    return new LolDouble(Math.min(this.doubleVal, rhs.doubleVal));
                 else
                     throw new LolRtBinOpWrongTypeException("min", this.type, rhs.type);
             case BOOL:

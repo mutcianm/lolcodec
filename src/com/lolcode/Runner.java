@@ -30,7 +30,7 @@ public class Runner {
     private static Logger log = Logger.getLogger(AstBuilder.class.getName());
     private String filename = "";
     private CompilerSettings settings;
-    private String runtimeLib = "runtime.jar";
+    private String runtimeLib = "com.lolcode.runtime.jar";
 
     private ArrayList<File> classFiles = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class Runner {
 
     private void packJarFile() throws IOException {
         if (new File(runtimeLib).exists()) {
-            //copy runtime jar as a template
+            //copy com.lolcode.runtime jar as a template
             FileChannel source = new FileInputStream(runtimeLib).getChannel();
             FileChannel destination = new FileOutputStream(settings.getOutputDir() + settings.getOutputJarFile()).getChannel();
             destination.transferFrom(source, 0, source.size());

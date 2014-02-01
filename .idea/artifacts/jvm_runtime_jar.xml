@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jvm-runtime:jar">
+    <output-path>$PROJECT_DIR$/</output-path>
+    <root id="archive" name="runtime.jar">
+      <element id="module-output" name="jvm-runtime" />
+    </root>
+  </artifact>
+</component>
