@@ -276,6 +276,21 @@ public class LolObject {
         }
     }
 
+    public LolObject xor(LolObject rhs) {
+        if (rhs.type != this.type)
+            throw new LolRtBinOpWrongTypeException("or", this.type, rhs.type);
+        switch (type) {
+            case BOOL:
+                return new LolBool(this.toBool() ^ rhs.toBool());
+            case INT:
+            case DOUBLE:
+            case STRING:
+            case UNDEFINED:
+            default:
+                throw new LolRtUnsupportedOpException("xor", type);
+        }
+    }
+
     public LolObject not() {
         switch (type) {
             case BOOL:

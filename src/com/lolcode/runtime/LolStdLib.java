@@ -1,16 +1,23 @@
 package com.lolcode.runtime;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class LolStdLib {
-    private Scanner scanner = new Scanner(System.in);
+    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     protected void putStr(String str) {
         System.out.println(str);
     }
 
     protected String readStr() {
-        return scanner.nextLine();
+        try {
+            return br.readLine();
+        } catch (IOException e) {
+            putStr(e.getMessage());
+        }
+        return "";
     }
 
     public void print(LolObject lolObject) {
