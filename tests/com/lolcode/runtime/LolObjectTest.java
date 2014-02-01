@@ -25,7 +25,7 @@ public class LolObjectTest {
     public void testPut() throws Exception {
         LolObject o = new LolObject();
         try {
-            o.put(o);
+            o.put(o, o);
             Assert.fail("LolRuntimeException not thrown");
         } catch (LolRuntimeException e) {
         }

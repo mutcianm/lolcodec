@@ -27,7 +27,7 @@ public class LolObject {
         throw new LolRuntimeException("get() called on non-array type: " + type);
     }
 
-    public LolObject put(LolObject key) {
+    public void put(LolObject index, LolObject value) {
         throw new LolRuntimeException("get() called on non-array type: " + type);
     }
 

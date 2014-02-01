@@ -9,7 +9,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 public class CodeGenerator implements BaseASTVisitor {
     //CONST
@@ -157,7 +160,7 @@ public class CodeGenerator implements BaseASTVisitor {
 
         //static main -> calls mainbody
         mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,"main","([Ljava/lang/String;)V",null, null);
-        mv.visitTypeInsn(Opcodes.NEW,"com/lolcode/"+fileName);
+        mv.visitTypeInsn(Opcodes.NEW, "com/lolcode/" + fileName);
         mv.visitInsn(Opcodes.DUP);
         mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/lolcode/" + fileName, "<init>", "()V");
         mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,"com/lolcode/"+fileName,"mainbody","()V");
@@ -537,7 +540,7 @@ public class CodeGenerator implements BaseASTVisitor {
         arrayPutExpr.getKey().accept(this);
 
         //invoke
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLARRAY,"put","("+Type.LOLOBJECT+Type.LOLOBJECT+")V");
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, Class.LOLOBJECT, "put", "(" + Type.LOLOBJECT + Type.LOLOBJECT + ")V");
         return null;
     }
 
@@ -548,7 +551,7 @@ public class CodeGenerator implements BaseASTVisitor {
         //put key
         arrayGetExpr.getKey().accept(this);
         //invoke
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,Class.LOLARRAY,"get","("+Type.LOLOBJECT+")"+Type.LOLOBJECT);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, Class.LOLOBJECT, "get", "(" + Type.LOLOBJECT + ")" + Type.LOLOBJECT);
         return null;
     }
 
